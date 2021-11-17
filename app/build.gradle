@@ -15,6 +15,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        kapt {
+            arguments {
+                arg("room.schemaLocation", "$projectDir/schemas")
+            }
+        }
     }
 
     buildTypes {
@@ -39,6 +45,10 @@ android {
     }
 }
 
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
 dependencies {
     apply from: '../dependencies.gradle'
 
@@ -48,7 +58,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    implementation "com.google.android.material:material:$matarialVersion"
+    implementation "com.google.android.material:material:$materialVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
     implementation "com.squareup.picasso:picasso:$picassoVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
@@ -59,6 +69,7 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
 
     androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
 }

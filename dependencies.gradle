@@ -11,7 +11,8 @@ ext {
 
     kotlinVersion = '1.6.0'
 
-    matarialVersion = '1.4.0'
+    materialVersion = '1.4.0'
+    mockitoVersion = '4.0.0'
 
     navigationVersion = '2.3.5'
 
