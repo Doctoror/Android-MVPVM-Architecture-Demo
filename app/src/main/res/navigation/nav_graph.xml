@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/emptyGroupsFragment">
+    app:startDestination="@id/groupsFragment">
 
     <fragment
-        android:id="@+id/emptyGroupsFragment"
-        android:name="com.doctoror.splittor.presentation.groups.EmptyGroupsFragment"
+        android:id="@+id/groupsFragment"
+        android:name="com.doctoror.splittor.presentation.groups.GroupsFragment"
         android:label="@string/groups"
-        tools:layout="@layout/fragment_groups_empty" />
+        tools:layout="@layout/fragment_groups" />
 
 </navigation>

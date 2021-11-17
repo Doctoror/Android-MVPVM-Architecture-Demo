@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.groups.GroupsFragment">
+
+    <ViewAnimator
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        app:displayedChildId="@{model.displayedChildId}">
+
+        <ProgressBar
+            android:id="@android:id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <include
+            android:id="@+id/fragmentGroupsEmpty"
+            layout="@layout/fragment_groups_empty" />
+
+        <include
+            android:id="@+id/fragmentGroupsContent"
+            layout="@layout/fragment_groups_data" />
+
+    </ViewAnimator>
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.doctoror.splittor.presentation.groups.GroupsViewModel" />
+    </data>
+
+</layout>

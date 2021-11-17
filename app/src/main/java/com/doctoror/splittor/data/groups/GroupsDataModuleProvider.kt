@@ -2,6 +2,7 @@ package com.doctoror.splittor.data.groups
 
 import androidx.room.Room
 import com.doctoror.splittor.data.MainDatabase
+import com.doctoror.splittor.domain.groups.GroupsRepository
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -14,5 +15,13 @@ fun provideGroupsDataModule() = module {
                 MainDatabase::class.java, "Main.db"
             )
             .build()
+    }
+
+    single<GroupsRepository> {
+        GroupsRepositoryImpl(
+            groupsDataSource = LocalGroupsDataSource(
+                groupsDao = get<MainDatabase>().groupsDao()
+            )
+        )
     }
 }
