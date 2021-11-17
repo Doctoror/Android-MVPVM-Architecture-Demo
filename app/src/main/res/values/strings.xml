@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Splittor</string>
+
+    <string name="create_group">Create group</string>
+
+    <string name="groups">Groups</string>
+    <string name="group_details">Group details</string>
+
+    <string name="no_groups_yet">No groups yet.\nAdd a new one!</string>
+
+</resources>

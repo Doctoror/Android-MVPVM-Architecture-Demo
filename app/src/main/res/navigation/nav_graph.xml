@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/emptyGroupsFragment">
+
+    <fragment
+        android:id="@+id/emptyGroupsFragment"
+        android:name="com.doctoror.splittor.presentation.groups.EmptyGroupsFragment"
+        android:label="@string/groups"
+        tools:layout="@layout/fragment_groups_empty" />
+
+</navigation>
