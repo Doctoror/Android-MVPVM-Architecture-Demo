@@ -8,6 +8,24 @@
         android:id="@+id/groupsFragment"
         android:name="com.doctoror.splittor.presentation.groups.GroupsFragment"
         android:label="@string/groups"
-        tools:layout="@layout/fragment_groups" />
+        tools:layout="@layout/fragment_groups">
+
+        <action
+            android:id="@+id/actionGroupsToAddGroup"
+            app:destination="@id/addGroupFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/addGroupFragment"
+        android:name="com.doctoror.splittor.presentation.addgroup.AddGroupFragment"
+        android:label="@string/create_group"
+        tools:layout="@layout/fragment_group_add">
+
+        <action
+            android:id="@+id/actionAddGroupToGroups"
+            app:popUpTo="@id/groupsFragment" />
+
+    </fragment>
 
 </navigation>

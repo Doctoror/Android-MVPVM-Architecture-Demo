@@ -1,12 +1,19 @@
 package com.doctoror.splittor.data.groups
 
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
+import androidx.room.*
+import com.doctoror.splittor.domain.groups.GroupMember
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface GroupsDao {
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGroup(group: GroupEntity): Single<Long>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertGroupMembers(members: List<GroupMemberEntity>): Completable
 
     @Transaction
     @Query("SELECT * FROM $GROUP_TABLE_NAME")
