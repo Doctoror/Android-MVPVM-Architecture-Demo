@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "52614e579958fc37bb92a71aaa19ae6e",
+    "identityHash": "097bf9c1971a0d7260a94f4b795f1d37",
     "entities": [
       {
         "tableName": "groups",
@@ -38,7 +38,7 @@
       },
       {
         "tableName": "groupMembers",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupMemberContactId` INTEGER NOT NULL, `groupMemberGroupId` INTEGER NOT NULL, `groupMemberPaid` INTEGER NOT NULL, PRIMARY KEY(`groupMemberContactId`, `groupMemberGroupId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupMemberContactId` INTEGER NOT NULL, `groupMemberGroupId` INTEGER NOT NULL, `groupMemberPaid` INTEGER NOT NULL, `groupMemberTitle` TEXT NOT NULL, PRIMARY KEY(`groupMemberContactId`, `groupMemberGroupId`))",
         "fields": [
           {
             "fieldPath": "groupMemberContactId",
@@ -57,6 +57,12 @@
             "columnName": "groupMemberPaid",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "groupMemberTitle",
+            "columnName": "groupMemberTitle",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -73,7 +79,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '52614e579958fc37bb92a71aaa19ae6e')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '097bf9c1971a0d7260a94f4b795f1d37')"
     ]
   }
 }

@@ -17,7 +17,8 @@ const val GROUP_MEMBER_COLUMN_NAME_GROUP_ID = "groupMemberGroupId"
 data class GroupMemberEntity(
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_CONTACT_ID) val groupMemberContactId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_GROUP_ID) val groupMemberGroupId: Long,
-    @ColumnInfo(name = "groupMemberPaid") val groupMemberPaid: Boolean
+    @ColumnInfo(name = "groupMemberPaid") val groupMemberPaid: Boolean,
+    @ColumnInfo(name = "groupMemberTitle") val groupMemberTitle: String
 ) : GroupMember {
 
     @Ignore
@@ -25,4 +26,7 @@ data class GroupMemberEntity(
 
     @Ignore
     override val paid = groupMemberPaid
+
+    @Ignore
+    override val title = groupMemberTitle
 }
