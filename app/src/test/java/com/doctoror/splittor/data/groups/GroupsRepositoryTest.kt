@@ -12,18 +12,18 @@ class GroupsRepositoryTest {
     private val underTest = GroupsRepositoryImpl(groupsDataSource)
 
     @Test
-    fun observeGroupsWithMembersSignalsErrorWhenDataSourceSignalsError() {
+    fun observeSignalsErrorWhenDataSourceSignalsError() {
         val error: Throwable = mock()
-        whenever(groupsDataSource.observeGroups()).thenReturn(Observable.error(error))
+        whenever(groupsDataSource.observe()).thenReturn(Observable.error(error))
 
-        underTest.observeGroups().test().assertError(error)
+        underTest.observe().test().assertError(error)
     }
 
     @Test
-    fun observeGroupsWithMembersSignalsDataFromDataSource() {
+    fun observeSignalsDataFromDataSource() {
         val data = listOf<GroupWithMembers>(mock())
-        whenever(groupsDataSource.observeGroups()).thenReturn(Observable.just(data))
+        whenever(groupsDataSource.observe()).thenReturn(Observable.just(data))
 
-        underTest.observeGroups().test().assertValue(data)
+        underTest.observe().test().assertValue(data)
     }
 }

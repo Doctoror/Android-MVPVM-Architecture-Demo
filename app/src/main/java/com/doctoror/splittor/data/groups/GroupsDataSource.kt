@@ -5,5 +5,5 @@ import io.reactivex.rxjava3.core.Observable
 
 interface GroupsDataSource {
 
-    fun observeGroups(): Observable<List<Group>>
+    fun observe(): Observable<List<Group>>
 }

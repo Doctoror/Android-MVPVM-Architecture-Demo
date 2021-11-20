@@ -16,7 +16,7 @@ class LocalGroupsDataSourceTest {
         val error: Throwable = mock()
         whenever(groupsDao.observeGroupsWithMembers()).thenReturn(Observable.error(error))
 
-        underTest.observeGroups().test().assertError(error)
+        underTest.observe().test().assertError(error)
     }
 
     @Test
@@ -24,6 +24,6 @@ class LocalGroupsDataSourceTest {
         val data = listOf<GroupWithMembers>(mock())
         whenever(groupsDao.observeGroupsWithMembers()).thenReturn(Observable.just(data))
 
-        underTest.observeGroups().test().assertValue(data)
+        underTest.observe().test().assertValue(data)
     }
 }

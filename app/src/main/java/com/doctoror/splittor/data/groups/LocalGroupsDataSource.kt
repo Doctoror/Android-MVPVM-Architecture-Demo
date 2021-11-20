@@ -5,7 +5,7 @@ import io.reactivex.rxjava3.core.Observable
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
-    override fun observeGroups(): Observable<List<Group>> = groupsDao
+    override fun observe(): Observable<List<Group>> = groupsDao
         .observeGroupsWithMembers()
         .map { it as List<Group> }
 }

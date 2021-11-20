@@ -6,5 +6,5 @@ import io.reactivex.rxjava3.core.Observable
 
 class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
 
-    override fun observeGroups(): Observable<List<Group>> = groupsDataSource.observeGroups()
+    override fun observe(): Observable<List<Group>> = groupsDataSource.observe()
 }

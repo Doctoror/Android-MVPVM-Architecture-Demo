@@ -1,6 +1,6 @@
 package com.doctoror.splittor.presentation.groups
 
-import com.doctoror.splittor.domain.groups.GetGroupsUseCase
+import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.domain.groups.Group
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -11,11 +11,11 @@ import org.mockito.kotlin.whenever
 
 class GroupsPresenterTest {
 
-    private val getGroupsUseCase: GetGroupsUseCase = mock()
+    private val observeGroupsUseCase: ObserveGroupsUseCase = mock()
     private val viewModelUpdater: GroupsViewModelUpdater = mock()
 
     private val underTest = GroupsPresenter(
-        getGroupsUseCase,
+        observeGroupsUseCase,
         Schedulers.trampoline(),
         Schedulers.trampoline(),
         viewModelUpdater
@@ -24,7 +24,7 @@ class GroupsPresenterTest {
     @Test
     fun updatesViewModelWithGroups() {
         val groups = listOf<Group>(mock())
-        whenever(getGroupsUseCase.observeGroups()).thenReturn(Observable.just(groups))
+        whenever(observeGroupsUseCase.observe()).thenReturn(Observable.just(groups))
 
         underTest.onCreate()
 

@@ -4,5 +4,5 @@ import io.reactivex.rxjava3.core.Observable
 
 interface GroupsRepository {
 
-    fun observeGroups(): Observable<List<Group>>
+    fun observe(): Observable<List<Group>>
 }
