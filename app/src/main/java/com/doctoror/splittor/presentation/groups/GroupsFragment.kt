@@ -33,4 +33,9 @@ class GroupsFragment : Fragment() {
         binding!!.model = viewModel
         return binding!!.root
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(presenter)
+    }
 }
