@@ -4,33 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".presentation.groups.GroupsFragment">
 
-    <ViewAnimator
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        app:displayedChildId="@{model.displayedChildId}">
-
-        <ProgressBar
-            android:id="@android:id/progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-
-        <include
-            android:id="@+id/fragmentGroupsEmpty"
-            layout="@layout/fragment_groups_empty" />
-
-        <include
-            android:id="@+id/fragmentGroupsContent"
-            layout="@layout/fragment_groups_data" />
-
-    </ViewAnimator>
-
     <data>
 
         <variable
             name="model"
             type="com.doctoror.splittor.presentation.groups.GroupsViewModel" />
     </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ViewAnimator
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            app:displayedChildId="@{model.displayedChildId}">
+
+            <ProgressBar
+                android:id="@android:id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <include
+                android:id="@+id/fragmentGroupsEmpty"
+                layout="@layout/fragment_groups_empty" />
+
+            <include
+                android:id="@+id/fragmentGroupsContent"
+                layout="@layout/fragment_groups_data" />
+
+        </ViewAnimator>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/create_group"
+            android:src="@drawable/ic_baseline_add_24" />
+
+    </FrameLayout>
 
 </layout>
