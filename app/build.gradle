@@ -78,6 +78,4 @@ dependencies {
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
-
-    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
 }
