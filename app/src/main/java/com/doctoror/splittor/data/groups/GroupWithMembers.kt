@@ -16,10 +16,16 @@ data class GroupWithMembers(
 ) : Group {
 
     @Ignore
-    override val id = group.groupId
+    override val allMembersPaid = members.all { it.paid }
 
     @Ignore
     override val amount = group.groupAmount
+
+    @Ignore
+    override val id = group.groupId
+
+    @Ignore
+    override val insertedAt = group.insertedAt
 
     @Ignore
     override val title = group.groupTitle

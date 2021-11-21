@@ -21,7 +21,7 @@ class GroupItemViewModelMapper(
             group.members.size,
             group.members.size
         ),
-        title = formatTitle(group.title, group.members.none { !it.paid })
+        title = formatTitle(group.title, group.allMembersPaid)
     )
 
     private fun formatTitle(name: CharSequence, allMembersPaid: Boolean): CharSequence =

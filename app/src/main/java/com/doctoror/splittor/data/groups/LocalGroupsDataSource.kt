@@ -37,6 +37,11 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
     override fun observe(): Observable<List<Group>> = groupsDao
         .observeGroupsWithMembers()
         .map { it as List<Group> }
+        .map { groups ->
+            groups.sortedWith(
+                compareBy<Group> { it.allMembersPaid }.thenByDescending { it.insertedAt }
+            )
+        }
 
     override fun observe(id: Long): Observable<Group> = groupsDao
         .observeGroupWithMembers(id)
