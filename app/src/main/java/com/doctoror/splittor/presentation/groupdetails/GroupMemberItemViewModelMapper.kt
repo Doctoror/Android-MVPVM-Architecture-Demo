@@ -9,7 +9,7 @@ class GroupMemberItemViewModelMapper {
 
     fun map(amountPerMember: CharSequence, groupMember: GroupMember) = GroupMemberItemViewModel(
         amount = amountPerMember,
-        id = groupMember.contactId,
+        id = groupMember.id,
         name = formatName(groupMember.title, groupMember.paid),
         paid = groupMember.paid
     )

@@ -30,7 +30,7 @@ class ContactDetailsResolverImpl(
                     it.getColumnIndex(ContactsContract.CommonDataKinds.Contactables.DISPLAY_NAME)
 
                 if (idColumnIndex == -1 || nameColumnIndex == -1) {
-                    Log.w(tag, "No CONTACT_ID or DISPLAY_NAME column for Uri: $uri")
+                    Log.w(tag, "No _ID or DISPLAY_NAME column for Uri: $uri")
                     return Optional.empty()
                 }
 

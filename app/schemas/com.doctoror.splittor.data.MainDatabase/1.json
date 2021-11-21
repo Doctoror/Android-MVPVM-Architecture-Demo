@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8900e9fd5a84713ace8b430ce46d9d59",
+    "identityHash": "676cb3d56999a60aa9be6bd676840194",
     "entities": [
       {
         "tableName": "groups",
@@ -38,11 +38,11 @@
       },
       {
         "tableName": "groupMembers",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupMemberContactId` INTEGER NOT NULL, `groupMemberGroupId` INTEGER NOT NULL, `groupMemberPaid` INTEGER NOT NULL, `groupMemberTitle` TEXT NOT NULL, PRIMARY KEY(`groupMemberContactId`, `groupMemberGroupId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupMemberId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `groupMemberGroupId` INTEGER NOT NULL, `groupMemberPaid` INTEGER NOT NULL, `groupMemberTitle` TEXT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "groupMemberContactId",
-            "columnName": "groupMemberContactId",
+            "fieldPath": "groupMemberId",
+            "columnName": "groupMemberId",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -67,10 +67,9 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "groupMemberContactId",
-            "groupMemberGroupId"
+            "groupMemberId"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
@@ -79,7 +78,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8900e9fd5a84713ace8b430ce46d9d59')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '676cb3d56999a60aa9be6bd676840194')"
     ]
   }
 }

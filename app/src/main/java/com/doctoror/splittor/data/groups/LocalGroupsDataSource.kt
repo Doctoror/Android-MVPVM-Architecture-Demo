@@ -24,7 +24,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                 contacts
                     .map {
                         GroupMemberEntity(
-                            groupMemberContactId = it.id,
+                            groupMemberId = 0,
                             groupMemberGroupId = groupId,
                             groupMemberPaid = false,
                             groupMemberTitle = it.name
