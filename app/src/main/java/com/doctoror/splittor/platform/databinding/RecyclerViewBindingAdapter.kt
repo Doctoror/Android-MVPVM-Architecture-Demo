@@ -1,7 +1,8 @@
-package com.doctoror.splittor.platform.recyclerview
+package com.doctoror.splittor.platform.databinding
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 
 object RecyclerViewBindingAdapter {
 
