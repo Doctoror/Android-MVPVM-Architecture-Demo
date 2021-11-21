@@ -5,6 +5,7 @@ import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
 
@@ -12,7 +13,7 @@ class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : Gro
         contacts: List<ContactDetails>,
         amount: String,
         title: String
-    ): Completable = groupsDataSource.insert(contacts, amount, title)
+    ): Single<Long> = groupsDataSource.insert(contacts, amount, title)
 
     override fun observe(): Observable<List<Group>> = groupsDataSource.observe()
 

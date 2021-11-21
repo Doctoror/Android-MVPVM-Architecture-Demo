@@ -18,8 +18,8 @@ class AddGroupPresenter(
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) : BasePresenter() {
 
-    private val groupInsertedEventsSubject = PublishSubject.create<Unit>()
-    val groupInsertedEvents: Observable<Unit> = groupInsertedEventsSubject
+    private val groupInsertedEventsSubject = PublishSubject.create<Long>()
+    val groupInsertedEvents: Observable<Long> = groupInsertedEventsSubject
 
     override fun onCreate() {
         contactPickedEvents
@@ -39,7 +39,7 @@ class AddGroupPresenter(
         insertGroupUseCase
             .insert()
             .observeOn(schedulerMainThread)
-            .subscribe { groupInsertedEventsSubject.onNext(Unit) }
+            .subscribe(groupInsertedEventsSubject::onNext)
             .disposeOnDestroy()
     }
 }

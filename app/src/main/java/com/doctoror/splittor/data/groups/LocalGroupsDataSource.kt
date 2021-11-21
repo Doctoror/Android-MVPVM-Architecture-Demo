@@ -4,6 +4,7 @@ import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Single
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
@@ -11,7 +12,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
         contacts: List<ContactDetails>,
         amount: String,
         title: String
-    ): Completable = groupsDao
+    ): Single<Long> = groupsDao
         .insertGroup(
             GroupEntity(
                 groupId = 0,
@@ -20,18 +21,20 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                 insertedAt = System.currentTimeMillis()
             )
         )
-        .flatMapCompletable { groupId ->
-            groupsDao.insertGroupMembers(
-                contacts
-                    .map {
-                        GroupMemberEntity(
-                            groupMemberId = 0,
-                            groupMemberGroupId = groupId,
-                            groupMemberPaid = false,
-                            groupMemberName = it.name
-                        )
-                    }
-            )
+        .flatMap { groupId ->
+            groupsDao
+                .insertGroupMembers(
+                    contacts
+                        .map {
+                            GroupMemberEntity(
+                                groupMemberId = 0,
+                                groupMemberGroupId = groupId,
+                                groupMemberPaid = false,
+                                groupMemberName = it.name
+                            )
+                        }
+                )
+                .toSingleDefault(groupId)
         }
 
     override fun observe(): Observable<List<Group>> = groupsDao

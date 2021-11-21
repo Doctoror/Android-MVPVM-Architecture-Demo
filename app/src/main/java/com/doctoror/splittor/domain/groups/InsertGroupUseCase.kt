@@ -16,7 +16,7 @@ class InsertGroupUseCase(
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) {
 
-    fun insert(): Maybe<Boolean> = Single
+    fun insert(): Maybe<Long> = Single
         .fromCallable { inputFieldsValidator.validate() }
         .subscribeOn(schedulerMainThread)
         .doOnSuccess {
@@ -33,6 +33,5 @@ class InsertGroupUseCase(
                     amount = inputFieldsMonitor.amount!!.toString(),
                     title = inputFieldsMonitor.title!!.toString()
                 )
-                .andThen(Single.just(true))
         }
 }

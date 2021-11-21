@@ -47,7 +47,8 @@ class AddGroupFragment : BaseFragment() {
         presenter
             .groupInsertedEvents
             .subscribe {
-                findNavController().navigate(AddGroupFragmentDirections.actionAddGroupToGroups())
+                findNavController()
+                    .navigate(AddGroupFragmentDirections.actionAddGroupToGroupDetails(groupId = it))
             }
             .disposeOnDestroy()
 

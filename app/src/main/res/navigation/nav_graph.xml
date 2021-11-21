@@ -27,7 +27,8 @@
         tools:layout="@layout/fragment_group_add">
 
         <action
-            android:id="@+id/actionAddGroupToGroups"
+            android:id="@+id/actionAddGroupToGroupDetails"
+            app:destination="@id/groupDetailsFragment"
             app:popUpTo="@id/groupsFragment" />
 
     </fragment>
