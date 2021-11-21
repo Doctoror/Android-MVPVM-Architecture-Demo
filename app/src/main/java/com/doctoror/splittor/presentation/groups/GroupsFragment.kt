@@ -4,17 +4,25 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
 import com.doctoror.splittor.databinding.FragmentGroupsBinding
 import com.doctoror.splittor.databinding.ItemGroupBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
+import com.doctoror.splittor.presentation.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class GroupsFragment : Fragment() {
+class GroupsFragment : BaseFragment() {
+
+    private val adapter by lazy {
+        BindingRecyclerAdapter<ItemGroupBinding, GroupItemViewModel>(
+            layoutId = R.layout.item_group,
+            layoutInflater = layoutInflater,
+            modelId = BR.model,
+        )
+    }
 
     private var binding: FragmentGroupsBinding? = null
 
@@ -26,6 +34,16 @@ class GroupsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        adapter
+            .itemClickEvents
+            .subscribe {
+                findNavController().navigate(
+                    GroupsFragmentDirections.actionGroupsToGroupDetails(it.model.id)
+                )
+            }
+            .disposeOnDestroy()
+
         lifecycle.addObserver(presenter)
     }
 
@@ -48,18 +66,13 @@ class GroupsFragment : Fragment() {
             navigateToAddGroup()
         }
 
-        requireBinding().fragmentGroupsContent.recycler.adapter =
-            BindingRecyclerAdapter<ItemGroupBinding>(
-                layoutId = R.layout.item_group,
-                layoutInflater = layoutInflater,
-                modelId = BR.model,
-            )
+        requireBinding().fragmentGroupsContent.recycler.adapter = adapter
 
         requireBinding().model = viewModel
     }
 
     private fun navigateToAddGroup() {
-        findNavController().navigate(R.id.actionGroupsToAddGroup)
+        findNavController().navigate(GroupsFragmentDirections.actionGroupsToAddGroup())
     }
 
     override fun onDestroyView() {

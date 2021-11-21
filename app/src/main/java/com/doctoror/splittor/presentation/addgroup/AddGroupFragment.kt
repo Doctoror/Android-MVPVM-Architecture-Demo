@@ -8,19 +8,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
 import androidx.databinding.Observable
 import androidx.databinding.ObservableInt
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
 import com.doctoror.splittor.databinding.FragmentGroupAddBinding
 import com.doctoror.splittor.databinding.ItemContactBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
-import io.reactivex.rxjava3.disposables.CompositeDisposable
+import com.doctoror.splittor.presentation.base.BaseFragment
 import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class AddGroupFragment : Fragment() {
+class AddGroupFragment : BaseFragment() {
 
     private val contactPickedEvents = PublishSubject.create<Uri>()
 
@@ -32,8 +31,6 @@ class AddGroupFragment : Fragment() {
     )
 
     private var binding: FragmentGroupAddBinding? = null
-
-    private val disposables = CompositeDisposable()
 
     private val inputFieldsMonitor: AddGroupInputFieldsMonitor by viewModel()
 
@@ -47,11 +44,12 @@ class AddGroupFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
 
-        disposables.add(
-            presenter
-                .groupInsertedEvents
-                .subscribe { findNavController().navigate(R.id.actionAddGroupToGroups) }
-        )
+        presenter
+            .groupInsertedEvents
+            .subscribe {
+                findNavController().navigate(AddGroupFragmentDirections.actionAddGroupToGroups())
+            }
+            .disposeOnDestroy()
 
         lifecycle.addObserver(presenter)
     }
@@ -77,11 +75,13 @@ class AddGroupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireBinding().recycler.adapter = BindingRecyclerAdapter<ItemContactBinding>(
-            layoutId = R.layout.item_contact,
-            layoutInflater = layoutInflater,
-            modelId = BR.model,
-        )
+        requireBinding().recycler.adapter =
+            BindingRecyclerAdapter<ItemContactBinding, ContactDetailsViewModel>(
+                layoutId = R.layout.item_contact,
+                layoutInflater = layoutInflater,
+                modelId = BR.model,
+            )
+
         requireBinding().addContact.setOnClickListener { activityResultLauncherPickContact.launch() }
         requireBinding().model = viewModel
         requireBinding().monitor = inputFieldsMonitor
@@ -104,7 +104,6 @@ class AddGroupFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        disposables.clear()
         lifecycle.removeObserver(presenter)
     }
 

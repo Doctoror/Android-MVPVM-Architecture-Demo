@@ -18,4 +18,8 @@ interface GroupsDao {
     @Transaction
     @Query("SELECT * FROM $GROUP_TABLE_NAME")
     fun observeGroupsWithMembers(): Observable<List<GroupWithMembers>>
+
+    @Transaction
+    @Query("SELECT * FROM $GROUP_TABLE_NAME WHERE $GROUP_COLUMN_NAME_ID = :id")
+    fun observeGroupWithMembers(id: Long): Observable<GroupWithMembers>
 }

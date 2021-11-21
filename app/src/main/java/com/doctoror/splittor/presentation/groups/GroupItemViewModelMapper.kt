@@ -12,6 +12,7 @@ class GroupItemViewModelMapper(
 
     fun map(group: Group) = GroupItemViewModel(
         amount = amountFormatter.format(group.amount),
+        id = group.id,
         members = resources.getQuantityString(
             R.plurals.d_members,
             group.members.size,

@@ -10,4 +10,6 @@ interface GroupsDataSource {
     fun insert(contacts: List<ContactDetails>, amount: String, title: String): Completable
 
     fun observe(): Observable<List<Group>>
+
+    fun observe(id: Long): Observable<Group>
 }

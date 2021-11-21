@@ -7,30 +7,37 @@ import io.reactivex.rxjava3.core.Observable
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
-    override fun insert(contacts: List<ContactDetails>, amount: String, title: String): Completable =
-        groupsDao
-            .insertGroup(
-                GroupEntity(
-                    groupId = 0,
-                    groupAmount = amount,
-                    groupTitle = title
-                )
+    override fun insert(
+        contacts: List<ContactDetails>,
+        amount: String,
+        title: String
+    ): Completable = groupsDao
+        .insertGroup(
+            GroupEntity(
+                groupId = 0,
+                groupAmount = amount,
+                groupTitle = title
             )
-            .flatMapCompletable { groupId ->
-                groupsDao.insertGroupMembers(
-                    contacts
-                        .map {
-                            GroupMemberEntity(
-                                groupMemberContactId = it.id,
-                                groupMemberGroupId = groupId,
-                                groupMemberPaid = false,
-                                groupMemberTitle = it.name
-                            )
-                        }
-                )
-            }
+        )
+        .flatMapCompletable { groupId ->
+            groupsDao.insertGroupMembers(
+                contacts
+                    .map {
+                        GroupMemberEntity(
+                            groupMemberContactId = it.id,
+                            groupMemberGroupId = groupId,
+                            groupMemberPaid = false,
+                            groupMemberTitle = it.name
+                        )
+                    }
+            )
+        }
 
     override fun observe(): Observable<List<Group>> = groupsDao
         .observeGroupsWithMembers()
         .map { it as List<Group> }
+
+    override fun observe(id: Long): Observable<Group> = groupsDao
+        .observeGroupWithMembers(id)
+        .map { it as Group }
 }

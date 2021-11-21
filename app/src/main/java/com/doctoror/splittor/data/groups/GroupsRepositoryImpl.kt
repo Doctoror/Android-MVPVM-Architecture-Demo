@@ -12,4 +12,6 @@ class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : Gro
         groupsDataSource.insert(contacts, amount, title)
 
     override fun observe(): Observable<List<Group>> = groupsDataSource.observe()
+
+    override fun observe(id: Long): Observable<Group> = groupsDataSource.observe(id)
 }

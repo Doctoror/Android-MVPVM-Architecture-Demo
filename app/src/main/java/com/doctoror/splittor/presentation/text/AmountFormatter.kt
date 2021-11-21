@@ -7,8 +7,10 @@ import java.util.*
 
 class AmountFormatter(private val locale: Locale) {
 
-    fun format(amount: String): CharSequence = NumberFormat
+    fun format(amount: String): CharSequence = format(BigDecimal(amount))
+
+    fun format(amount: BigDecimal): CharSequence = NumberFormat
         .getCurrencyInstance(locale)
         .apply { currency = Currency.getInstance("USD") } // TODO should not hardcode
-        .format(BigDecimal(amount))
+        .format(amount)
 }
