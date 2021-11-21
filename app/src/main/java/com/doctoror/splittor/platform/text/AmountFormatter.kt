@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.text
+package com.doctoror.splittor.platform.text
 
 import android.icu.text.NumberFormat
 import android.icu.util.Currency

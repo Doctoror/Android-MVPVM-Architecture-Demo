@@ -1,7 +1,7 @@
 package com.doctoror.splittor.presentation.groupdetails
 
 import com.doctoror.splittor.domain.groups.Group
-import com.doctoror.splittor.presentation.text.AmountFormatter
+import com.doctoror.splittor.platform.text.AmountFormatter
 import java.math.BigDecimal
 
 class GroupDetailsViewModelUpdater(

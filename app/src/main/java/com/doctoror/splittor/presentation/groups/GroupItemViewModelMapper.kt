@@ -6,7 +6,7 @@ import android.text.SpannableString
 import android.text.style.StrikethroughSpan
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
-import com.doctoror.splittor.presentation.text.AmountFormatter
+import com.doctoror.splittor.platform.text.AmountFormatter
 
 class GroupItemViewModelMapper(
     private val amountFormatter: AmountFormatter,

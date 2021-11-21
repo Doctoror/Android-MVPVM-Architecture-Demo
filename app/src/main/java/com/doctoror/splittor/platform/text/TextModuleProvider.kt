@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.text
+package com.doctoror.splittor.platform.text
 
 import org.koin.dsl.module
 import java.util.*
