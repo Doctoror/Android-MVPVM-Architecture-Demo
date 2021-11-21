@@ -9,6 +9,7 @@ const val GROUP_MEMBER_TABLE_NAME = "groupMembers"
 
 const val GROUP_MEMBER_COLUMN_NAME_CONTACT_ID = "groupMemberContactId"
 const val GROUP_MEMBER_COLUMN_NAME_GROUP_ID = "groupMemberGroupId"
+const val GROUP_MEMBER_COLUMN_PAID = "groupMemberPaid"
 
 @Entity(
     primaryKeys = [GROUP_MEMBER_COLUMN_NAME_CONTACT_ID, GROUP_MEMBER_COLUMN_NAME_GROUP_ID],
@@ -17,7 +18,7 @@ const val GROUP_MEMBER_COLUMN_NAME_GROUP_ID = "groupMemberGroupId"
 data class GroupMemberEntity(
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_CONTACT_ID) val groupMemberContactId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_GROUP_ID) val groupMemberGroupId: Long,
-    @ColumnInfo(name = "groupMemberPaid") val groupMemberPaid: Boolean,
+    @ColumnInfo(name = GROUP_MEMBER_COLUMN_PAID) val groupMemberPaid: Boolean,
     @ColumnInfo(name = "groupMemberTitle") val groupMemberTitle: String
 ) : GroupMember {
 

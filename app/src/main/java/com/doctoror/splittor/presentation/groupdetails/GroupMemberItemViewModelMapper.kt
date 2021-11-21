@@ -9,15 +9,15 @@ class GroupMemberItemViewModelMapper {
 
     fun map(amountPerMember: CharSequence, groupMember: GroupMember) = GroupMemberItemViewModel(
         amount = amountPerMember,
+        id = groupMember.contactId,
         name = formatName(groupMember.title, groupMember.paid),
         paid = groupMember.paid
     )
 
-    private fun formatName(name: CharSequence, paid: Boolean) = if (paid) {
-        SpannableString(name).apply {
-            setSpan(StrikethroughSpan(), 0, name.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+    private fun formatName(name: CharSequence, paid: Boolean): CharSequence = SpannableString(name)
+        .apply {
+            if (paid) {
+                setSpan(StrikethroughSpan(), 0, name.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            }
         }
-    } else {
-        name
-    }
 }

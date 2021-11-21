@@ -40,4 +40,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
     override fun observe(id: Long): Observable<Group> = groupsDao
         .observeGroupWithMembers(id)
         .map { it as Group }
+
+    override fun updateMemberPaidStatus(memberId: Long, paid: Boolean): Completable = groupsDao
+        .updateMemberPaidStatus(memberId, paid)
 }

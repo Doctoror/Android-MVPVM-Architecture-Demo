@@ -11,4 +11,6 @@ interface GroupsRepository {
     fun observe(): Observable<List<Group>>
 
     fun observe(id: Long): Observable<Group>
+
+    fun updateMemberPaidStatus(memberId: Long, paid: Boolean): Completable
 }

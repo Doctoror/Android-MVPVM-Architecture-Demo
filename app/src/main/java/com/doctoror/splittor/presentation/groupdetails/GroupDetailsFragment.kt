@@ -18,6 +18,14 @@ class GroupDetailsFragment : BaseFragment() {
 
     private val args: GroupDetailsFragmentArgs by navArgs()
 
+    private val adapter by lazy {
+        BindingRecyclerAdapter<ItemGroupMemberBinding, GroupMemberItemViewModel>(
+            layoutId = R.layout.item_group_member,
+            layoutInflater = layoutInflater,
+            modelId = BR.model,
+        )
+    }
+
     private var binding: FragmentGroupDetailsBinding? = null
 
     private val viewModel: GroupDetailsViewModel by viewModel()
@@ -28,6 +36,12 @@ class GroupDetailsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        adapter
+            .itemClickEvents
+            .subscribe { presenter.updateMemberPaidStatus(it.model.id, !it.model.paid) }
+            .disposeOnDestroy()
+
         lifecycle.addObserver(presenter)
     }
 
@@ -42,13 +56,7 @@ class GroupDetailsFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireBinding().recycler.adapter =
-            BindingRecyclerAdapter<ItemGroupMemberBinding, GroupMemberItemViewModel>(
-                layoutId = R.layout.item_group_member,
-                layoutInflater = layoutInflater,
-                modelId = BR.model,
-            )
-
+        requireBinding().recycler.adapter = adapter
         requireBinding().model = viewModel
     }
 
