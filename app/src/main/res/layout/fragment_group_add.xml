@@ -54,6 +54,7 @@
                 android:paddingEnd="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
@@ -73,6 +74,7 @@
 
                 <!-- TODO The prefix should not be hardcoded -->
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"

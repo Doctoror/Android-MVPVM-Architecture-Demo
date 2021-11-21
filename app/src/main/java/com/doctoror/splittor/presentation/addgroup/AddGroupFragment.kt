@@ -16,6 +16,7 @@ import com.doctoror.splittor.databinding.ItemContactBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 import com.doctoror.splittor.presentation.base.BaseFragment
 import io.reactivex.rxjava3.subjects.PublishSubject
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -41,9 +42,17 @@ class AddGroupFragment : BaseFragment() {
 
     private val viewModel: AddGroupViewModel by viewModel()
 
+    private val viewModelUpdater: AddGroupViewModelUpdater by inject {
+        parametersOf(viewModel)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        if (savedInstanceState != null) {
+            inputFieldsMonitor.onRestoreInstanceState(savedInstanceState)
+            inputFieldsMonitor.contacts.forEach(viewModelUpdater::addContact)
+        }
 
         presenter
             .groupInsertedEvents
@@ -87,6 +96,11 @@ class AddGroupFragment : BaseFragment() {
         requireBinding().addContact.setOnClickListener { activityResultLauncherPickContact.launch() }
         requireBinding().model = viewModel
         requireBinding().monitor = inputFieldsMonitor
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        inputFieldsMonitor.onSaveInstanceState(outState)
     }
 
     override fun onStart() {
