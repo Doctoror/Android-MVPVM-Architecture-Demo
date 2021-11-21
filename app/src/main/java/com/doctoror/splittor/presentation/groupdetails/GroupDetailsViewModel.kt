@@ -8,4 +8,6 @@ class GroupDetailsViewModel : ViewModel() {
     val amount = ObservableField<CharSequence>()
 
     val members = ObservableField<List<GroupMemberItemViewModel>>()
+
+    val title = ObservableField<CharSequence>()
 }

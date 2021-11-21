@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.Observable
+import androidx.databinding.ObservableField
 import androidx.navigation.fragment.navArgs
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
@@ -36,6 +38,7 @@ class GroupDetailsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requireActivity().title = null
 
         adapter
             .itemClickEvents
@@ -60,6 +63,16 @@ class GroupDetailsFragment : BaseFragment() {
         requireBinding().model = viewModel
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.title.addOnPropertyChangedCallback(titlePropertyChangeCallback)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        viewModel.title.removeOnPropertyChangedCallback(titlePropertyChangeCallback)
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding?.unbind()
@@ -72,4 +85,12 @@ class GroupDetailsFragment : BaseFragment() {
     }
 
     private fun requireBinding() = binding!!
+
+    private val titlePropertyChangeCallback = object : Observable.OnPropertyChangedCallback() {
+
+        override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+            sender as ObservableField<CharSequence>
+            requireActivity().title = sender.get()
+        }
+    }
 }

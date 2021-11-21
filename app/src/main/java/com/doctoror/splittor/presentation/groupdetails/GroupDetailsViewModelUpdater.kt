@@ -12,6 +12,7 @@ class GroupDetailsViewModelUpdater(
 
     fun update(group: Group) {
         viewModel.amount.set(amountFormatter.format(group.amount))
+        viewModel.title.set(group.title)
 
         val amountPerMember = amountFormatter.format(
             BigDecimal(group.amount) / BigDecimal(group.members.size)

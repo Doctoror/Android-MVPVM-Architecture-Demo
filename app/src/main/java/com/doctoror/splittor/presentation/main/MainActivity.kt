@@ -29,4 +29,9 @@ class MainActivity : AppCompatActivity() {
         return findNavController(R.id.navHostFragment).navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
+    override fun setTitle(title: CharSequence?) {
+        super.setTitle(title)
+        supportActionBar?.title = title
+    }
 }
