@@ -23,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -37,6 +38,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="@string/group_info"
                 android:textColor="?colorPrimary"
                 android:textSize="16sp"
@@ -46,7 +49,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:hint="@string/title">
+                android:hint="@string/title"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -62,6 +67,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:hint="@string/amount"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 app:prefixText="$">
 
                 <!-- TODO The prefix should not be hardcoded -->
@@ -78,6 +85,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 android:text="@string/contacts"
                 android:textColor="?colorPrimary"
                 android:textSize="16sp"
@@ -97,7 +106,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:minWidth="140dp"
                 android:minHeight="56dp"
                 android:text="@string/add_contact" />

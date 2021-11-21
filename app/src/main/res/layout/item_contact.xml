@@ -19,6 +19,7 @@
         android:paddingEnd="16dp"
         android:paddingBottom="12dp"
         android:text="@{model.name}"
+        android:textAppearance="?textAppearanceSubtitle1"
         tools:text="Text" />
 
 </layout>
