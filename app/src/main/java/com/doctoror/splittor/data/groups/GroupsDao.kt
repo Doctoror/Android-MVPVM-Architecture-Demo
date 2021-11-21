@@ -15,7 +15,7 @@ interface GroupsDao {
     fun insertGroupMembers(members: List<GroupMemberEntity>): Completable
 
     @Transaction
-    @Query("SELECT * FROM $GROUP_TABLE_NAME")
+    @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY $GROUP_COLUMN_NAME_INSERTED_AT DESC")
     fun observeGroupsWithMembers(): Observable<List<GroupWithMembers>>
 
     @Transaction

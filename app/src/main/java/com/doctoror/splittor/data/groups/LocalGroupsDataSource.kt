@@ -16,7 +16,8 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
             GroupEntity(
                 groupId = 0,
                 groupAmount = amount,
-                groupTitle = title
+                groupTitle = title,
+                insertedAt = System.currentTimeMillis()
             )
         )
         .flatMapCompletable { groupId ->

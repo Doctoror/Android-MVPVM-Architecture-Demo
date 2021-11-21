@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "676cb3d56999a60aa9be6bd676840194",
+    "identityHash": "4a1548920e352338887ae225c8a9049c",
     "entities": [
       {
         "tableName": "groups",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupAmount` TEXT NOT NULL, `groupId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `groupTitle` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupAmount` TEXT NOT NULL, `groupId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `groupTitle` TEXT NOT NULL, `insertedAt` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "groupAmount",
@@ -24,6 +24,12 @@
             "fieldPath": "groupTitle",
             "columnName": "groupTitle",
             "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "insertedAt",
+            "columnName": "insertedAt",
+            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -78,7 +84,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '676cb3d56999a60aa9be6bd676840194')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4a1548920e352338887ae225c8a9049c')"
     ]
   }
 }
