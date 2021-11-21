@@ -26,9 +26,10 @@ class AddGroupFragment : BaseFragment() {
     private val activityResultContractPickContact = ActivityResultContracts.PickContact()
 
     private val activityResultLauncherPickContact = registerForActivityResult(
-        activityResultContractPickContact,
-        contactPickedEvents::onNext
-    )
+        activityResultContractPickContact
+    ) {
+        it?.let(contactPickedEvents::onNext)
+    }
 
     private var binding: FragmentGroupAddBinding? = null
 
