@@ -17,7 +17,7 @@ data class GroupMemberEntity(
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_ID) @PrimaryKey(autoGenerate = true) val groupMemberId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_GROUP_ID) val groupMemberGroupId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_PAID) val groupMemberPaid: Boolean,
-    @ColumnInfo(name = "groupMemberTitle") val groupMemberTitle: String
+    @ColumnInfo(name = "groupMemberName") val groupMemberName: String
 ) : GroupMember {
 
     @Ignore
@@ -27,5 +27,5 @@ data class GroupMemberEntity(
     override val paid = groupMemberPaid
 
     @Ignore
-    override val title = groupMemberTitle
+    override val name = groupMemberName
 }

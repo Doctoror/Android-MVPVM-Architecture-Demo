@@ -28,7 +28,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                             groupMemberId = 0,
                             groupMemberGroupId = groupId,
                             groupMemberPaid = false,
-                            groupMemberTitle = it.name
+                            groupMemberName = it.name
                         )
                     }
             )
