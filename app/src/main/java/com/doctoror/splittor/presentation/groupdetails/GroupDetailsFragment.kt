@@ -89,6 +89,7 @@ class GroupDetailsFragment : BaseFragment() {
     private val titlePropertyChangeCallback = object : Observable.OnPropertyChangedCallback() {
 
         override fun onPropertyChanged(sender: Observable, propertyId: Int) {
+            @Suppress("UNCHECKED_CAST")
             sender as ObservableField<CharSequence>
             requireActivity().title = sender.get()
         }

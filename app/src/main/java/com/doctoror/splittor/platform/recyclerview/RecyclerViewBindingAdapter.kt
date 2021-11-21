@@ -1,7 +1,6 @@
 package com.doctoror.splittor.platform.recyclerview
 
 import androidx.databinding.BindingAdapter
-import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
 object RecyclerViewBindingAdapter {
@@ -16,6 +15,7 @@ object RecyclerViewBindingAdapter {
             throw IllegalStateException("Can bind only to BindingRecyclerAdapter")
         }
 
+        @Suppress("UNCHECKED_CAST")
         (adapter as BindingRecyclerAdapter<*, Any>).replaceItems(items?.toList())
         adapter.notifyDataSetChanged()
     }
