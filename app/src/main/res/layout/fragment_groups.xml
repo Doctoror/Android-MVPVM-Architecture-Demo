@@ -33,7 +33,8 @@
 
             <include
                 android:id="@+id/fragmentGroupsContent"
-                layout="@layout/fragment_groups_data" />
+                layout="@layout/fragment_groups_content"
+                app:model="@{model}" />
 
         </ViewAnimator>
 

@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
 import com.doctoror.splittor.databinding.FragmentGroupsBinding
+import com.doctoror.splittor.databinding.ItemGroupBinding
+import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -32,19 +35,27 @@ class GroupsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGroupsBinding.inflate(layoutInflater, container, false)
-        binding!!.model = viewModel
-        return binding!!.root
+        return requireBinding().root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding!!.fab.setOnClickListener {
+        requireBinding().fab.setOnClickListener {
             navigateToAddGroup()
         }
 
-        binding!!.fragmentGroupsEmpty.addFirstGroup.setOnClickListener {
+        requireBinding().fragmentGroupsEmpty.addFirstGroup.setOnClickListener {
             navigateToAddGroup()
         }
+
+        requireBinding().fragmentGroupsContent.recycler.adapter =
+            BindingRecyclerAdapter<ItemGroupBinding>(
+                layoutId = R.layout.item_group,
+                layoutInflater = layoutInflater,
+                modelId = BR.model,
+            )
+
+        requireBinding().model = viewModel
     }
 
     private fun navigateToAddGroup() {
@@ -61,4 +72,6 @@ class GroupsFragment : Fragment() {
         super.onDestroy()
         lifecycle.removeObserver(presenter)
     }
+
+    private fun requireBinding() = binding!!
 }
