@@ -7,9 +7,10 @@ import org.mockito.kotlin.mock
 
 class GroupsViewModelUpdaterTest {
 
+    private val groupItemViewModelMapper: GroupItemViewModelMapper = mock()
     private val viewModel = GroupsViewModel()
 
-    private val underTest = GroupsViewModelUpdater(viewModel)
+    private val underTest = GroupsViewModelUpdater(groupItemViewModelMapper, viewModel)
 
     @Test
     fun setsEmptyViewWhenLoadedEmptyList() {
