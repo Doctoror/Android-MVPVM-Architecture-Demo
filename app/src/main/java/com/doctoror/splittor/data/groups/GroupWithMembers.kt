@@ -19,7 +19,7 @@ data class GroupWithMembers(
     override val id = group.groupId
 
     @Ignore
-    override val sum = group.groupSum
+    override val amount = group.groupAmount
 
     @Ignore
     override val title = group.groupTitle

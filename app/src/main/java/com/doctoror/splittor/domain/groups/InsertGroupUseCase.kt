@@ -30,7 +30,7 @@ class InsertGroupUseCase(
             groupsRepository
                 .insert(
                     contacts = inputFieldsMonitor.contacts.toList(),
-                    sum = inputFieldsMonitor.sum!!.toString(),
+                    amount = inputFieldsMonitor.amount!!.toString(),
                     title = inputFieldsMonitor.title!!.toString()
                 )
                 .andThen(Single.just(true))

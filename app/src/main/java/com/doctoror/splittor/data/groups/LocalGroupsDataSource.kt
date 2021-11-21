@@ -7,12 +7,12 @@ import io.reactivex.rxjava3.core.Observable
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
-    override fun insert(contacts: List<ContactDetails>, sum: String, title: String): Completable =
+    override fun insert(contacts: List<ContactDetails>, amount: String, title: String): Completable =
         groupsDao
             .insertGroup(
                 GroupEntity(
                     groupId = 0,
-                    groupSum = sum,
+                    groupAmount = amount,
                     groupTitle = title
                 )
             )

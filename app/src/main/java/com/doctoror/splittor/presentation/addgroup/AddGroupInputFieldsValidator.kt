@@ -17,8 +17,8 @@ class AddGroupInputFieldsValidator(
             )
         }
 
-        val sum = inputFieldsMonitor.sum
-        if (sum.isNullOrBlank()) {
+        val amount = inputFieldsMonitor.amount
+        if (amount.isNullOrBlank()) {
             return ValidationResult(
                 valid = false,
                 messageId = R.string.amount_not_set

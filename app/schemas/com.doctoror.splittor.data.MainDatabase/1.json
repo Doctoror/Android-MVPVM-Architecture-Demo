@@ -2,22 +2,22 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d44ffbdef0c44afb0d348973a96fe5cd",
+    "identityHash": "8900e9fd5a84713ace8b430ce46d9d59",
     "entities": [
       {
         "tableName": "groups",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `groupSum` TEXT NOT NULL, `groupTitle` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`groupAmount` TEXT NOT NULL, `groupId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `groupTitle` TEXT NOT NULL)",
         "fields": [
+          {
+            "fieldPath": "groupAmount",
+            "columnName": "groupAmount",
+            "affinity": "TEXT",
+            "notNull": true
+          },
           {
             "fieldPath": "groupId",
             "columnName": "groupId",
             "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "groupSum",
-            "columnName": "groupSum",
-            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -79,7 +79,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd44ffbdef0c44afb0d348973a96fe5cd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8900e9fd5a84713ace8b430ce46d9d59')"
     ]
   }
 }

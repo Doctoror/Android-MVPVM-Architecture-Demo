@@ -7,16 +7,16 @@ import com.google.android.material.internal.TextWatcherAdapter
 
 class AddGroupInputFieldsMonitor : ViewModel() {
 
-    var contacts = mutableSetOf<ContactDetails>()
+    var amount: Editable? = null
 
-    var sum: Editable? = null
+    var contacts = mutableSetOf<ContactDetails>()
 
     var title: Editable? = null
 
-    val sumTextWatcher = object : TextWatcherAdapter() {
+    val amountTextWatcher = object : TextWatcherAdapter() {
 
         override fun afterTextChanged(s: Editable) {
-            sum = s
+            amount = s
         }
     }
 

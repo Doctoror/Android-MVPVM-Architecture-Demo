@@ -8,8 +8,8 @@ import io.reactivex.rxjava3.core.Observable
 
 class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
 
-    override fun insert(contacts: List<ContactDetails>, sum: String, title: String): Completable =
-        groupsDataSource.insert(contacts, sum, title)
+    override fun insert(contacts: List<ContactDetails>, amount: String, title: String): Completable =
+        groupsDataSource.insert(contacts, amount, title)
 
     override fun observe(): Observable<List<Group>> = groupsDataSource.observe()
 }

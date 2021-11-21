@@ -49,7 +49,6 @@
                 android:hint="@string/title">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/groupTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textCapSentences"
@@ -67,11 +66,10 @@
 
                 <!-- TODO The prefix should not be hardcoded -->
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/groupAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    app:addTextChangedListener="@{monitor.sumTextWatcher}"
+                    app:addTextChangedListener="@{monitor.amountTextWatcher}"
                     tools:text="6" />
 
             </com.google.android.material.textfield.TextInputLayout>
