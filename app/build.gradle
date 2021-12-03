@@ -65,7 +65,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
 
     implementation "com.google.android.material:material:$materialVersion"
-    implementation "com.google.code.gson:gson:$gsonVersion"
 
     implementation "io.insert-koin:koin-android:$koinVersion"
 
