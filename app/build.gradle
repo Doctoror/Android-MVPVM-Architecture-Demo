@@ -63,18 +63,14 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     implementation "androidx.room:room-runtime:$roomVersion"
-    implementation "androidx.room:room-rxjava3:$roomVersion"
 
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.google.code.gson:gson:$gsonVersion"
 
-    implementation "com.squareup.retrofit2:adapter-rxjava:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
 
     implementation "io.insert-koin:koin-android:$koinVersion"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxAndroidVersion"
-    implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter:$junitVersion"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
