@@ -1,20 +1,22 @@
 package com.doctoror.splittor.presentation.base
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.disposables.Disposable
 
-abstract class BasePresenter : ViewModel(), LifecycleObserver {
+abstract class BasePresenter : ViewModel(), LifecycleEventObserver {
 
     private val disposables = CompositeDisposable()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
+    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
+        when (event) {
+            Lifecycle.Event.ON_CREATE -> onCreate()
+            Lifecycle.Event.ON_DESTROY -> onDestroy()
+        }
+    }
+
     abstract fun onCreate()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy() {
         disposables.clear()
     }
