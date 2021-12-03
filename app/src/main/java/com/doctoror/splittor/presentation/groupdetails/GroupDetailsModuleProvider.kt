@@ -2,8 +2,8 @@ package com.doctoror.splittor.presentation.groupdetails
 
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
+import com.doctoror.splittor.platform.DISPATCHER_IO
 import com.doctoror.splittor.platform.SCHEDULER_IO
-import com.doctoror.splittor.platform.SCHEDULER_MAIN_THREAD
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -14,10 +14,10 @@ fun provideGroupDetailsModule() = module {
 
     viewModel { parameters ->
         GroupDetailsPresenter(
+            dispatcherIo = get(named(DISPATCHER_IO)),
             groupId = parameters.get(),
             observeGroupUseCase = ObserveGroupUseCase(groupsRepository = get()),
             schedulerIo = get(named(SCHEDULER_IO)),
-            schedulerMainThread = get(named(SCHEDULER_MAIN_THREAD)),
             updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository = get()),
             viewModelUpdater = GroupDetailsViewModelUpdater(
                 amountFormatter = get(),

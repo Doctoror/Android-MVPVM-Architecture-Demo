@@ -3,7 +3,6 @@ package com.doctoror.splittor.data.groups
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -47,9 +46,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
             )
         }
 
-    override fun observe(id: Long): Observable<Group> = groupsDao
-        .observeGroupWithMembers(id)
-        .map { it as Group }
+    override fun observe(id: Long): Flow<Group> = groupsDao.observeGroupWithMembers(id)
 
     override fun updateMemberPaidStatus(memberId: Long, paid: Boolean): Completable = groupsDao
         .updateMemberPaidStatus(memberId, paid)
