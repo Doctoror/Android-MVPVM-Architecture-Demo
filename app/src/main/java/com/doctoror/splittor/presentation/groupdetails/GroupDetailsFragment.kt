@@ -6,17 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
 import com.doctoror.splittor.databinding.FragmentGroupDetailsBinding
 import com.doctoror.splittor.databinding.ItemGroupMemberBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
-import com.doctoror.splittor.presentation.base.BaseFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class GroupDetailsFragment : BaseFragment() {
+class GroupDetailsFragment : Fragment() {
 
     private val args: GroupDetailsFragmentArgs by navArgs()
 
