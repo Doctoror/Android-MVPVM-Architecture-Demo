@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.subjects.PublishSubject
 
 class BindingRecyclerAdapter<Binding : ViewDataBinding, Model : Any>(
     @LayoutRes private val layoutId: Int,
@@ -15,9 +15,9 @@ class BindingRecyclerAdapter<Binding : ViewDataBinding, Model : Any>(
     private val modelId: Int
 ) : RecyclerView.Adapter<BindingRecyclerAdapter.BindingViewHolder<Binding>>() {
 
-    private val itemClickEventsSubject = PublishSubject.create<ItemClickEvent<Model>>()
+    private val itemClickEventsSubject = MutableLiveData<ItemClickEvent<Model>>()
 
-    val itemClickEvents: Observable<ItemClickEvent<Model>> = itemClickEventsSubject
+    val itemClickEvents: LiveData<ItemClickEvent<Model>> = itemClickEventsSubject
 
     private val items = mutableListOf<Model>()
 
@@ -37,7 +37,7 @@ class BindingRecyclerAdapter<Binding : ViewDataBinding, Model : Any>(
     override fun onBindViewHolder(holder: BindingViewHolder<Binding>, position: Int) {
         holder.binding.setVariable(modelId, items[position])
         holder.binding.root.setOnClickListener {
-            itemClickEventsSubject.onNext(ItemClickEvent(items[position]))
+            itemClickEventsSubject.value = ItemClickEvent(items[position])
         }
     }
 

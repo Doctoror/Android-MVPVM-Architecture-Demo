@@ -42,8 +42,7 @@ class GroupDetailsFragment : BaseFragment() {
 
         adapter
             .itemClickEvents
-            .subscribe { presenter.updateMemberPaidStatus(it.model.id, !it.model.paid) }
-            .disposeOnDestroy()
+            .observe(this) { presenter.updateMemberPaidStatus(it.model.id, !it.model.paid) }
 
         lifecycle.addObserver(presenter)
     }

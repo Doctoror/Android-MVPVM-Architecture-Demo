@@ -37,12 +37,11 @@ class GroupsFragment : BaseFragment() {
 
         adapter
             .itemClickEvents
-            .subscribe {
+            .observe(this) {
                 findNavController().navigate(
                     GroupsFragmentDirections.actionGroupsToGroupDetails(it.model.id)
                 )
             }
-            .disposeOnDestroy()
 
         lifecycle.addObserver(presenter)
     }
