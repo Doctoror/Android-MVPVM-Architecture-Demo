@@ -3,6 +3,7 @@ package com.doctoror.splittor.presentation.groupdetails
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.platform.text.AmountFormatter
 import java.math.BigDecimal
+import java.math.RoundingMode
 
 class GroupDetailsViewModelUpdater(
     private val amountFormatter: AmountFormatter,
@@ -15,7 +16,8 @@ class GroupDetailsViewModelUpdater(
         viewModel.title.set(group.title)
 
         val amountPerMember = amountFormatter.format(
-            BigDecimal(group.amount) / BigDecimal(group.members.size)
+            BigDecimal(group.amount).setScale(2, RoundingMode.HALF_UP) /
+                    BigDecimal(group.members.size).setScale(2, RoundingMode.HALF_UP)
         )
         viewModel.members.set(
             group.members.map {
