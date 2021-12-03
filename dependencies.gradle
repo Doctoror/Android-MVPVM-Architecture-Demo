@@ -17,7 +17,7 @@ ext {
     navigationVersion = '2.3.5'
 
     retrofitVersion = '2.9.0'
-    roomVersion = '2.3.0'
+    roomVersion = '2.4.0-beta02'
     rxAndroidVersion = '3.0.0'
     rxJavaVersion = '3.1.2'
 
