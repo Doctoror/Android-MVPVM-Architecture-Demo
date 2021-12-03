@@ -2,18 +2,17 @@ package com.doctoror.splittor.data.groups
 
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
-import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
-    override fun insert(
+    override suspend fun insert(
         contacts: List<ContactDetails>,
         amount: String,
         title: String
-    ): Single<Long> = groupsDao
-        .insertGroup(
+    ): Long {
+        val groupId = groupsDao.insertGroup(
             GroupEntity(
                 groupId = 0,
                 groupAmount = amount,
@@ -21,21 +20,21 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                 insertedAt = System.currentTimeMillis()
             )
         )
-        .flatMap { groupId ->
-            groupsDao
-                .insertGroupMembers(
-                    contacts
-                        .map {
-                            GroupMemberEntity(
-                                groupMemberId = 0,
-                                groupMemberGroupId = groupId,
-                                groupMemberPaid = false,
-                                groupMemberName = it.name
-                            )
-                        }
-                )
-                .toSingleDefault(groupId)
-        }
+
+        groupsDao.insertGroupMembers(
+            contacts
+                .map {
+                    GroupMemberEntity(
+                        groupMemberId = 0,
+                        groupMemberGroupId = groupId,
+                        groupMemberPaid = false,
+                        groupMemberName = it.name
+                    )
+                }
+        )
+
+        return groupId
+    }
 
     override fun observe(): Flow<List<Group>> = groupsDao
         .observeGroupsWithMembers()

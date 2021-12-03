@@ -15,7 +15,7 @@ class ContactDetailsResolverImpl(
 
     private val tag by lazy { "ContactDetailsResolverImpl" }
 
-    override fun resolve(uri: Uri): Optional<ContactDetails> {
+    override suspend fun resolve(uri: Uri): Optional<ContactDetails> {
         contentResolver
             .query(uri, null, null, null, null)
             ?.use {

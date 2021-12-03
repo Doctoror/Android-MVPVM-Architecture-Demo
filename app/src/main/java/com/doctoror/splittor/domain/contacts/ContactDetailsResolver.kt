@@ -5,5 +5,5 @@ import java.util.*
 
 interface ContactDetailsResolver {
 
-    fun resolve(uri: Uri): Optional<ContactDetails>
+    suspend fun resolve(uri: Uri): Optional<ContactDetails>
 }

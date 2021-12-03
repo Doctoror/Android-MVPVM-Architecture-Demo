@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -15,21 +14,18 @@ import com.doctoror.splittor.databinding.FragmentGroupAddBinding
 import com.doctoror.splittor.databinding.ItemContactBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 import com.doctoror.splittor.presentation.base.BaseFragment
-import io.reactivex.rxjava3.subjects.PublishSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class AddGroupFragment : BaseFragment() {
 
-    private val contactPickedEvents = PublishSubject.create<Uri>()
-
     private val activityResultContractPickContact = ActivityResultContracts.PickContact()
 
     private val activityResultLauncherPickContact = registerForActivityResult(
         activityResultContractPickContact
     ) {
-        it?.let(contactPickedEvents::onNext)
+        it?.let(presenter::handleContactPick)
     }
 
     private var binding: FragmentGroupAddBinding? = null
@@ -37,7 +33,7 @@ class AddGroupFragment : BaseFragment() {
     private val inputFieldsMonitor: AddGroupInputFieldsMonitor by viewModel()
 
     private val presenter: AddGroupPresenter by viewModel {
-        parametersOf(contactPickedEvents, inputFieldsMonitor, viewModel)
+        parametersOf(inputFieldsMonitor, viewModel)
     }
 
     private val viewModel: AddGroupViewModel by viewModel()
@@ -56,11 +52,10 @@ class AddGroupFragment : BaseFragment() {
 
         presenter
             .groupInsertedEvents
-            .subscribe {
+            .observe(this) {
                 findNavController()
                     .navigate(AddGroupFragmentDirections.actionAddGroupToGroupDetails(groupId = it))
             }
-            .disposeOnDestroy()
 
         lifecycle.addObserver(presenter)
     }
