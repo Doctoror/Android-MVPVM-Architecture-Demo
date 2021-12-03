@@ -1,6 +1,9 @@
 package com.doctoror.splittor.domain.groups
 
-import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.runBlocking
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
@@ -12,18 +15,10 @@ class ObserveGroupsUseCaseTest {
     private val underTest = ObserveGroupsUseCase(groupsRepository)
 
     @Test
-    fun observeSignalsErrorWhenRepositorySignalsError() {
-        val error: Throwable = mock()
-        whenever(groupsRepository.observe()).thenReturn(Observable.error(error))
-
-        underTest.observe().test().assertError(error)
-    }
-
-    @Test
-    fun observeSignalsDataFromRepository() {
+    fun observeEmitsDataFromRepository() {
         val data = listOf<Group>(mock())
-        whenever(groupsRepository.observe()).thenReturn(Observable.just(data))
+        whenever(groupsRepository.observe()).thenReturn(flowOf(data))
 
-        underTest.observe().test().assertValue(data)
+        runBlocking { assertEquals(data, underTest.observe().single()) }
     }
 }

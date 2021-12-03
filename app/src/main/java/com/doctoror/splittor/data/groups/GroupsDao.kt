@@ -4,6 +4,7 @@ import androidx.room.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface GroupsDao {
@@ -16,7 +17,7 @@ interface GroupsDao {
 
     @Transaction
     @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY $GROUP_COLUMN_NAME_INSERTED_AT DESC")
-    fun observeGroupsWithMembers(): Observable<List<GroupWithMembers>>
+    fun observeGroupsWithMembers(): Flow<List<GroupWithMembers>>
 
     @Transaction
     @Query("SELECT * FROM $GROUP_TABLE_NAME WHERE $GROUP_COLUMN_NAME_ID = :id")

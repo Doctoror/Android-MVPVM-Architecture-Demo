@@ -1,22 +1,25 @@
 package com.doctoror.splittor.presentation.groups
 
+import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
-import io.reactivex.rxjava3.core.Scheduler
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.launch
 
 class GroupsPresenter(
+    private val dispatcherIo: CoroutineDispatcher,
     private val observeGroupsUseCase: ObserveGroupsUseCase,
-    private val schedulerIo: Scheduler,
-    private val schedulerMainThread: Scheduler,
     private val viewModelUpdater: GroupsViewModelUpdater
 ) : BasePresenter() {
 
     override fun onCreate() {
-        observeGroupsUseCase
-            .observe()
-            .subscribeOn(schedulerIo)
-            .observeOn(schedulerMainThread)
-            .subscribe(viewModelUpdater::updateOnGroupsListLoaded)
-            .disposeOnDestroy()
+        viewModelScope.launch {
+            observeGroupsUseCase
+                .observe()
+                .flowOn(dispatcherIo)
+                .collect { viewModelUpdater.updateOnGroupsListLoaded(it) }
+        }
     }
 }

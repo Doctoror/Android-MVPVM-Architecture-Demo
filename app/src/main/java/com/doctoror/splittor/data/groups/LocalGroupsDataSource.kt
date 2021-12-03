@@ -5,6 +5,8 @@ import com.doctoror.splittor.domain.groups.Group
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
 
@@ -37,9 +39,8 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                 .toSingleDefault(groupId)
         }
 
-    override fun observe(): Observable<List<Group>> = groupsDao
+    override fun observe(): Flow<List<Group>> = groupsDao
         .observeGroupsWithMembers()
-        .map { it as List<Group> }
         .map { groups ->
             groups.sortedWith(
                 compareBy<Group> { it.allMembersPaid }.thenByDescending { it.insertedAt }

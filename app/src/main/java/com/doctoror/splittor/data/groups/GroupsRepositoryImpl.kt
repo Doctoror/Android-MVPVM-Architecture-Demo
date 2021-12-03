@@ -6,6 +6,7 @@ import com.doctoror.splittor.domain.groups.GroupsRepository
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import kotlinx.coroutines.flow.Flow
 
 class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
 
@@ -15,7 +16,7 @@ class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : Gro
         title: String
     ): Single<Long> = groupsDataSource.insert(contacts, amount, title)
 
-    override fun observe(): Observable<List<Group>> = groupsDataSource.observe()
+    override fun observe(): Flow<List<Group>> = groupsDataSource.observe()
 
     override fun observe(id: Long): Observable<Group> = groupsDataSource.observe(id)
 

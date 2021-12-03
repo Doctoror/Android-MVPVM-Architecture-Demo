@@ -1,8 +1,8 @@
 package com.doctoror.splittor.domain.groups
 
-import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
 
 class ObserveGroupsUseCase(private val groupsRepository: GroupsRepository) {
 
-    fun observe(): Observable<List<Group>> = groupsRepository.observe()
+    fun observe(): Flow<List<Group>> = groupsRepository.observe()
 }
