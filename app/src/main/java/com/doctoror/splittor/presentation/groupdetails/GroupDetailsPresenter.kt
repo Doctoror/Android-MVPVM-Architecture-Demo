@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
-import io.reactivex.rxjava3.core.Scheduler
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
@@ -14,7 +13,6 @@ class GroupDetailsPresenter(
     private val dispatcherIo: CoroutineDispatcher,
     private val groupId: Long,
     private val observeGroupUseCase: ObserveGroupUseCase,
-    private val schedulerIo: Scheduler,
     private val updateMemberPaidStatusUseCase: UpdateMemberPaidStatusUseCase,
     private val viewModelUpdater: GroupDetailsViewModelUpdater
 ) : BasePresenter() {
@@ -29,10 +27,8 @@ class GroupDetailsPresenter(
     }
 
     fun updateMemberPaidStatus(memberId: Long, paid: Boolean) {
-        updateMemberPaidStatusUseCase
-            .updateMemberPaidStatus(memberId, paid)
-            .subscribeOn(schedulerIo)
-            .subscribe()
-            .disposeOnDestroy()
+        viewModelScope.launch {
+            updateMemberPaidStatusUseCase.updateMemberPaidStatus(memberId, paid)
+        }
     }
 }

@@ -23,5 +23,5 @@ interface GroupsDao {
     fun observeGroupWithMembers(id: Long): Flow<GroupWithMembers>
 
     @Query("UPDATE $GROUP_MEMBER_TABLE_NAME SET $GROUP_MEMBER_COLUMN_PAID = :paid WHERE $GROUP_MEMBER_COLUMN_NAME_ID = :id")
-    fun updateMemberPaidStatus(id: Long, paid: Boolean): Completable
+    suspend fun updateMemberPaidStatus(id: Long, paid: Boolean)
 }

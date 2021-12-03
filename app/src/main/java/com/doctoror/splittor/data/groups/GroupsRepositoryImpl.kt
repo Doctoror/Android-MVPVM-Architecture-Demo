@@ -3,7 +3,6 @@ package com.doctoror.splittor.data.groups
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupsRepository
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
 
@@ -19,6 +18,6 @@ class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : Gro
 
     override fun observe(id: Long): Flow<Group> = groupsDataSource.observe(id)
 
-    override fun updateMemberPaidStatus(memberId: Long, paid: Boolean): Completable =
+    override suspend fun updateMemberPaidStatus(memberId: Long, paid: Boolean) =
         groupsDataSource.updateMemberPaidStatus(memberId, paid)
 }
