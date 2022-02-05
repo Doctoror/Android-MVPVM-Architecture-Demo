@@ -12,7 +12,7 @@ ext {
     materialVersion = '1.4.0'
     mockitoVersion = '4.0.0'
 
-    navigationVersion = '2.3.5'
+    navigationVersion = '2.5.0-alpha01'
 
     roomVersion = '2.4.1'
     rxAndroidVersion = '3.0.0'
