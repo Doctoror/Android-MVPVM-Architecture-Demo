@@ -1,5 +1,5 @@
 ext {
-    appCompatVersion = '1.4.0'
+    appCompatVersion = '1.4.1'
 
     constraintlayoutVersion = '2.1.2'
     coreKtxVersion = '1.7.0'
