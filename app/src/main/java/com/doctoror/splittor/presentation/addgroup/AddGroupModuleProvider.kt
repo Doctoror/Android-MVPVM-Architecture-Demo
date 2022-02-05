@@ -1,5 +1,7 @@
 package com.doctoror.splittor.presentation.addgroup
 
+import com.doctoror.splittor.data.contacts.ContactDetailsRepositoryImpl
+import com.doctoror.splittor.domain.groups.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -21,7 +23,7 @@ fun provideAddGroupModule() = module {
 
     viewModel { parameters ->
         AddGroupPresenter(
-            contactDetailsResolver = get(),
+            getContactDetailsUseCase = get(),
             inputFieldsMonitor = parameters.get(),
             insertGroupUseCase = InsertGroupUseCase(groupsRepository = get()),
             validateAddGroupInputFieldsUseCase = ValidateAddGroupInputFieldsUseCase(),
