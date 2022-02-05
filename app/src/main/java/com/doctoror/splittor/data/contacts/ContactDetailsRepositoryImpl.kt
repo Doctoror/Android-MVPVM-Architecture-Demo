@@ -6,16 +6,16 @@ import android.provider.BaseColumns
 import android.provider.ContactsContract
 import android.util.Log
 import com.doctoror.splittor.domain.contacts.ContactDetails
-import com.doctoror.splittor.domain.contacts.ContactDetailsResolver
+import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import java.util.*
 
-class ContactDetailsResolverImpl(
+class ContactDetailsRepositoryImpl(
     private val contentResolver: ContentResolver
-) : ContactDetailsResolver {
+) : ContactDetailsRepository {
 
     private val tag by lazy { "ContactDetailsResolverImpl" }
 
-    override suspend fun resolve(uri: Uri): Optional<ContactDetails> {
+    override suspend fun getForUri(uri: Uri): Optional<ContactDetails> {
         contentResolver
             .query(uri, null, null, null, null)
             ?.use {
