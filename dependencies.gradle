@@ -17,6 +17,6 @@ ext {
     roomVersion = '2.4.1'
     rxAndroidVersion = '3.0.0'
 
-    toolsGradleVersion = '7.1.0'
+    toolsGradleVersion = '7.1.1'
 }
 
