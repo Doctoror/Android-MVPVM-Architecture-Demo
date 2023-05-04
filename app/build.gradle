@@ -7,14 +7,14 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     namespace 'com.doctoror.splittor'
 
     defaultConfig {
         applicationId "com.doctoror.splittor"
         minSdk 24
-        targetSdk 31
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
