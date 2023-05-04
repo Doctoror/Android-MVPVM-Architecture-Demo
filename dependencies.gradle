@@ -10,7 +10,7 @@ ext {
     kotlinVersion = '1.8.21'
 
     materialVersion = '1.8.0'
-    mockitoVersion = '4.0.0'
+    mockitoVersion = '4.1.0'
 
     navigationVersion = '2.5.3'
 
