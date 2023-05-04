@@ -1,11 +1,12 @@
 package com.doctoror.splittor.presentation.addgroup
 
+import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.text.Editable
+import android.text.TextWatcher
 import androidx.lifecycle.ViewModel
 import com.doctoror.splittor.domain.contacts.ContactDetails
-import com.google.android.material.internal.TextWatcherAdapter
 import kotlinx.parcelize.Parcelize
 import java.util.*
 
@@ -21,14 +22,14 @@ class AddGroupInputFieldsMonitor : ViewModel() {
 
     var title: CharSequence? = null
 
-    val amountTextWatcher = object : TextWatcherAdapter() {
+    val amountTextWatcher: TextWatcher = object : TextWatcherAdapter() {
 
         override fun afterTextChanged(s: Editable) {
             amount = s
         }
     }
 
-    val titleTextWatcher = object : TextWatcherAdapter() {
+    val titleTextWatcher: TextWatcher = object : TextWatcherAdapter() {
 
         override fun afterTextChanged(s: Editable) {
             title = s
@@ -52,8 +53,16 @@ class AddGroupInputFieldsMonitor : ViewModel() {
 
     fun onRestoreInstanceState(savedInstanceState: Bundle) {
         amount = savedInstanceState.getCharSequence(STATE_KEY_AMOUNT)
-        savedInstanceState.getParcelableArrayList<ParcelableContactDetails>(STATE_KEY_CONTACTS)
-            ?.let(contacts::addAll)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            @Suppress("UNCHECKED_CAST")
+            (savedInstanceState.getParcelable(STATE_KEY_CONTACTS, ArrayList::class.java)
+                    as? ArrayList<ParcelableContactDetails>?)
+                    ?.let(contacts::addAll)
+        } else {
+            @Suppress("DEPRECATION")
+            savedInstanceState.getParcelableArrayList<ParcelableContactDetails>(STATE_KEY_CONTACTS)
+                ?.let(contacts::addAll)
+        }
         title = savedInstanceState.getCharSequence(STATE_KEY_TITLE)
     }
 
@@ -62,4 +71,10 @@ class AddGroupInputFieldsMonitor : ViewModel() {
         override val id: Long,
         override val name: String
     ) : ContactDetails, Parcelable
+
+    private open class TextWatcherAdapter : TextWatcher {
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+        override fun afterTextChanged(s: Editable) {}
+    }
 }
