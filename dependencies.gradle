@@ -15,7 +15,6 @@ ext {
     navigationVersion = '2.5.3'
 
     roomVersion = '2.5.1'
-    rxAndroidVersion = '3.0.0'
 
     toolsGradleVersion = '8.0.1'
 }
