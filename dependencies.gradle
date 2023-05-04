@@ -4,7 +4,7 @@ ext {
     constraintlayoutVersion = '2.1.4'
     coreKtxVersion = '1.10.0'
 
-    junitVersion = '5.8.1'
+    junitVersion = '5.9.3'
 
     koinVersion = '3.4.0'
     kotlinVersion = '1.8.21'
