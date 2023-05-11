@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
-import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 
 class GroupsOverviewViewModelUpdater(
@@ -9,13 +8,13 @@ class GroupsOverviewViewModelUpdater(
 ) {
 
     fun updateOnGroupsListLoaded(groups: List<Group>) {
-        viewModel.groups.set(groups.map(groupItemViewModelMapper::map))
-        viewModel.displayedChildId.set(
-            if (groups.isEmpty()) {
-                R.id.fragmentGroupsEmpty
-            } else {
-                R.id.fragmentGroupsContent
-            }
-        )
+        viewModel.groups.clear()
+        viewModel.groups.addAll(groups.map(groupItemViewModelMapper::map))
+
+        viewModel.viewType.value = if (groups.isEmpty()) {
+            GroupsOverviewViewModel.ViewType.EMPTY
+        } else {
+            GroupsOverviewViewModel.ViewType.CONTENT
+        }
     }
 }

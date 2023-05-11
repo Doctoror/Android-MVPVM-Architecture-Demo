@@ -1,12 +1,19 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class GroupsOverviewViewModel : ViewModel() {
 
-    val displayedChildId = ObservableInt(android.R.id.progress)
+    val groups = mutableStateListOf<GroupItemViewModel>()
 
-    val groups = ObservableField<List<GroupItemViewModel>>()
+    val viewType = mutableStateOf(ViewType.LOADING)
+
+    enum class ViewType {
+
+        LOADING,
+        CONTENT,
+        EMPTY
+    }
 }

@@ -5,7 +5,6 @@ import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupMember
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
-import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -16,27 +15,16 @@ class GroupItemViewModelMapperTest {
 
     private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase = mock()
     private val resources: Resources = mock()
-    private val strikethroughTextTransformer: StrikethroughTextTransformer = mock()
 
     private val underTest = GroupItemViewModelMapper(
         formatAmountWithCurrencyUseCase,
-        resources,
-        strikethroughTextTransformer
+        resources
     )
 
     @Test
-    fun transformsWhenNotAllMembersPaid() {
-        testTransforms(allMembersPaid = false)
-    }
-
-    @Test
-    fun transformsWhenAllMembersPaid() {
-        testTransforms(allMembersPaid = true)
-    }
-
-    private fun testTransforms(allMembersPaid: Boolean) {
+    fun transforms() {
         val group = object : Group {
-            override val allMembersPaid = allMembersPaid
+            override val allMembersPaid = false
             override val amount = "19.58"
             override val id = 4L
             override val insertedAt = 1684234780123
@@ -57,23 +45,16 @@ class GroupItemViewModelMapperTest {
             )
         ).thenReturn(formattedMemberCount)
 
-        val strikethroughTitle = "strikethroughTitle"
-        whenever(strikethroughTextTransformer.strikethrough(group.title))
-            .thenReturn(strikethroughTitle)
-
         val output = underTest.map(group)
 
         assertEquals(
             output,
             GroupItemViewModel(
                 amount = formattedAmount,
+                allMembersPaid = group.allMembersPaid,
                 id = group.id,
                 members = formattedMemberCount,
-                title = if (allMembersPaid) {
-                    strikethroughTitle
-                } else {
-                    group.title
-                }
+                title = group.title
             )
         )
     }

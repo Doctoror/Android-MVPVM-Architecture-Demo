@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Splittor</string>
+    <string name="add_a_new_one">Add a new one!</string>
     <string name="add_contact">Add contact</string>
+    <string name="add_new_group">Add new group</string>
     <string name="amount">Amount</string>
     <string name="amount_not_set">Amount not set</string>
 
@@ -18,7 +20,7 @@
     <string name="groups">Groups</string>
 
     <string name="no_contacts_added">No contacts added</string>
-    <string name="no_groups_yet">No groups yet.\nAdd a new one!</string>
+    <string name="no_groups_yet">No groups yet</string>
 
     <string name="title">Title</string>
     <string name="title_not_set">Title not set</string>

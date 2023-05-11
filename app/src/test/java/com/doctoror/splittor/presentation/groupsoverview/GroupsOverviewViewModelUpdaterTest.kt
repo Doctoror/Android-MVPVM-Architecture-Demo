@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
-import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -17,13 +16,13 @@ class GroupsOverviewViewModelUpdaterTest {
     @Test
     fun setsEmptyViewWhenLoadedEmptyList() {
         underTest.updateOnGroupsListLoaded(emptyList())
-        assertEquals(R.id.fragmentGroupsEmpty, viewModel.displayedChildId.get())
+        assertEquals(GroupsOverviewViewModel.ViewType.EMPTY, viewModel.viewType.value)
     }
 
     @Test
     fun setsContentViewWhenLoadedNonEmptyList() {
         underTest.updateOnGroupsListLoaded(listOf(mock()))
-        assertEquals(R.id.fragmentGroupsContent, viewModel.displayedChildId.get())
+        assertEquals(GroupsOverviewViewModel.ViewType.CONTENT, viewModel.viewType.value)
     }
 
     @Test
@@ -37,6 +36,6 @@ class GroupsOverviewViewModelUpdaterTest {
 
         underTest.updateOnGroupsListLoaded(listOf(group1, group2))
 
-        assertEquals(listOf(group1ViewModel, group2ViewModel), viewModel.groups.get())
+        assertEquals(listOf(group1ViewModel, group2ViewModel), viewModel.groups)
     }
 }

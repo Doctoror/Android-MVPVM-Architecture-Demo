@@ -1,8 +1,9 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
 data class GroupItemViewModel(
-    val amount: CharSequence,
+    val amount: String,
+    val allMembersPaid: Boolean,
     val id: Long,
-    val members: CharSequence,
-    val title: CharSequence
+    val members: String,
+    val title: String
 )
