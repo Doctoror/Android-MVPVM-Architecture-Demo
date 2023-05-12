@@ -1,19 +1,19 @@
-# Splittor
+# Android Architecture Demos
 
-This is an architecture demo, used as a take home project for one of my previous interviews.
+Splittor app is an architecture demo, used as a take home project for one of my previous interviews.
 
 The application lets you create a bill and share it with your contacts, everyone pays an equal amount.
 
 The group item is crossed out with strikethrough text once everyone has paid.
 
-![Overview](/screenshots/Empty.png)
-![Overview](/screenshots/Overview.png)
-![Overview](/screenshots/Group View.png)
-![Overview](/screenshots/Wizard.png)
+<img src="/screenshots/Empty.png" width="320" /> <img src="/screenshots/Wizard.png" width="320" />
+
+<img src="/screenshots/Group View.png" width="320" /> <img src="/screenshots/Overview.png" width="320" /> 
 
 ## Architecture
 
-This application uses so called "Clean Architecture" with an `MVVMP` (Model-View-ViewModel-Presenter) pattern. For Dependency Injection `Koin` is used.
+This application uses so called "Clean Architecture" with an `MVVMP` (Model-View-ViewModel-Presenter) pattern.
+`Koin` is used for Dependency Injection.
 
 The idea behind `MVVMP` pattern is to avoid business logic in a `ViewModel` entirely.
 
