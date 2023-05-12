@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 
-class GroupsViewModelUpdaterTest {
+class GroupsOverviewViewModelUpdaterTest {
 
     private val groupItemViewModelMapper: GroupItemViewModelMapper = mock()
-    private val viewModel = GroupsViewModel()
+    private val viewModel = GroupsOverviewViewModel()
 
-    private val underTest = GroupsViewModelUpdater(groupItemViewModelMapper, viewModel)
+    private val underTest = GroupsOverviewViewModelUpdater(groupItemViewModelMapper, viewModel)
 
     @Test
     fun setsEmptyViewWhenLoadedEmptyList() {

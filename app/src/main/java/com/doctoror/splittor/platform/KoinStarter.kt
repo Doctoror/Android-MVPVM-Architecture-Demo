@@ -5,7 +5,7 @@ import com.doctoror.splittor.data.contacts.provideContactsModule
 import com.doctoror.splittor.data.groups.provideGroupsDataModule
 import com.doctoror.splittor.presentation.addgroup.provideAddGroupModule
 import com.doctoror.splittor.presentation.groupdetails.provideGroupDetailsModule
-import com.doctoror.splittor.presentation.groups.provideGroupsPresentationModule
+import com.doctoror.splittor.presentation.groupsoverview.provideGroupsOverviewPresentationModule
 import com.doctoror.splittor.platform.text.provideTextModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
@@ -19,7 +19,7 @@ class KoinStarter {
             provideContactsModule(),
             provideGroupDetailsModule(),
             provideGroupsDataModule(),
-            provideGroupsPresentationModule(),
+            provideGroupsOverviewPresentationModule(),
             providePlatformModule(),
             provideTextModule()
         )

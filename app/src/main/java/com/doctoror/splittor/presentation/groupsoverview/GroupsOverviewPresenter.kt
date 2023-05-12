@@ -1,17 +1,16 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 
-class GroupsPresenter(
+class GroupsOverviewPresenter(
     private val dispatcherIo: CoroutineDispatcher,
     private val observeGroupsUseCase: ObserveGroupsUseCase,
-    private val viewModelUpdater: GroupsViewModelUpdater
+    private val viewModelUpdater: GroupsOverviewViewModelUpdater
 ) : BasePresenter() {
 
     override fun onCreate() {

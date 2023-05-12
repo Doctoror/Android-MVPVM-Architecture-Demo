@@ -7,7 +7,7 @@
 
         <variable
             name="model"
-            type="com.doctoror.splittor.presentation.groups.GroupItemViewModel" />
+            type="com.doctoror.splittor.presentation.groupsoverview.GroupItemViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

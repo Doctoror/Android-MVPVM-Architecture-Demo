@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
@@ -10,12 +10,12 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class GroupsPresenterTest {
+class GroupsOverviewPresenterTest {
 
     private val observeGroupsUseCase: ObserveGroupsUseCase = mock()
-    private val viewModelUpdater: GroupsViewModelUpdater = mock()
+    private val viewModelUpdater: GroupsOverviewViewModelUpdater = mock()
 
-    private val underTest = GroupsPresenter(
+    private val underTest = GroupsOverviewPresenter(
         Dispatchers.Unconfined,
         observeGroupsUseCase,
         viewModelUpdater

@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class GroupsFragment : Fragment() {
+class GroupsOverviewFragment : Fragment() {
 
     private val adapter by lazy {
         BindingRecyclerAdapter<ItemGroupBinding, GroupItemViewModel>(
@@ -26,9 +26,9 @@ class GroupsFragment : Fragment() {
 
     private var binding: FragmentGroupsBinding? = null
 
-    private val viewModel: GroupsViewModel by viewModel()
+    private val viewModel: GroupsOverviewViewModel by viewModel()
 
-    private val presenter: GroupsPresenter by viewModel {
+    private val presenter: GroupsOverviewPresenter by viewModel {
         parametersOf(viewModel)
     }
 
@@ -39,7 +39,7 @@ class GroupsFragment : Fragment() {
             .itemClickEvents
             .observe(this) {
                 findNavController().navigate(
-                    GroupsFragmentDirections.actionGroupsToGroupDetails(it.model.id)
+                    GroupsOverviewFragmentDirections.actionGroupsToGroupDetails(it.model.id)
                 )
             }
 
@@ -71,7 +71,7 @@ class GroupsFragment : Fragment() {
     }
 
     private fun navigateToAddGroup() {
-        findNavController().navigate(GroupsFragmentDirections.actionGroupsToAddGroup())
+        findNavController().navigate(GroupsOverviewFragmentDirections.actionGroupsToAddGroup())
     }
 
     override fun onDestroyView() {

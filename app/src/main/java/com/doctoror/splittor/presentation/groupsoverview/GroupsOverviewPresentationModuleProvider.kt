@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.platform.DISPATCHER_IO
@@ -7,17 +7,17 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
-fun provideGroupsPresentationModule() = module {
+fun provideGroupsOverviewPresentationModule() = module {
 
     viewModel {
-        GroupsViewModel()
+        GroupsOverviewViewModel()
     }
 
     viewModel { parameters ->
-        GroupsPresenter(
+        GroupsOverviewPresenter(
             dispatcherIo = get(named(DISPATCHER_IO)),
             observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository = get()),
-            viewModelUpdater = GroupsViewModelUpdater(
+            viewModelUpdater = GroupsOverviewViewModelUpdater(
                 groupItemViewModelMapper = GroupItemViewModelMapper(
                     amountFormatter = get(),
                     resources = androidContext().resources

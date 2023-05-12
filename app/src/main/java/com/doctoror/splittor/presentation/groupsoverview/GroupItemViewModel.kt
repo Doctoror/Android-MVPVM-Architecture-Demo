@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 data class GroupItemViewModel(
     val amount: CharSequence,

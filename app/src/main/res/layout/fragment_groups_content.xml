@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.doctoror.splittor.presentation.groups.GroupsViewModel" />
+            type="com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

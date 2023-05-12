@@ -1,11 +1,11 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 
-class GroupsViewModelUpdater(
+class GroupsOverviewViewModelUpdater(
     private val groupItemViewModelMapper: GroupItemViewModelMapper,
-    private val viewModel: GroupsViewModel
+    private val viewModel: GroupsOverviewViewModel
 ) {
 
     fun updateOnGroupsListLoaded(groups: List<Group>) {

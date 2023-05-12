@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/groupsFragment"
-        android:name="com.doctoror.splittor.presentation.groups.GroupsFragment"
+        android:name="com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewFragment"
         android:label="@string/groups"
         tools:layout="@layout/fragment_groups">
 

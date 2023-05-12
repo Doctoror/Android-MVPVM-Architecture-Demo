@@ -1,10 +1,10 @@
-package com.doctoror.splittor.presentation.groups
+package com.doctoror.splittor.presentation.groupsoverview
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 
-class GroupsViewModel : ViewModel() {
+class GroupsOverviewViewModel : ViewModel() {
 
     val displayedChildId = ObservableInt(android.R.id.progress)
 
