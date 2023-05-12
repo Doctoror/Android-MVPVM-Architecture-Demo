@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
-import com.doctoror.splittor.databinding.FragmentGroupsBinding
+import com.doctoror.splittor.databinding.FragmentGroupsOverviewBinding
 import com.doctoror.splittor.databinding.ItemGroupBinding
 import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +24,7 @@ class GroupsOverviewFragment : Fragment() {
         )
     }
 
-    private var binding: FragmentGroupsBinding? = null
+    private var binding: FragmentGroupsOverviewBinding? = null
 
     private val viewModel: GroupsOverviewViewModel by viewModel()
 
@@ -39,7 +39,7 @@ class GroupsOverviewFragment : Fragment() {
             .itemClickEvents
             .observe(this) {
                 findNavController().navigate(
-                    GroupsOverviewFragmentDirections.actionGroupsToGroupDetails(it.model.id)
+                    GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it.model.id)
                 )
             }
 
@@ -51,7 +51,7 @@ class GroupsOverviewFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentGroupsBinding.inflate(layoutInflater, container, false)
+        binding = FragmentGroupsOverviewBinding.inflate(layoutInflater, container, false)
         return requireBinding().root
     }
 

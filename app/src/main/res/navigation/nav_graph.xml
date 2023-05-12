@@ -2,20 +2,20 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    app:startDestination="@id/groupsFragment">
+    app:startDestination="@id/groupsOverviewFragment">
 
     <fragment
-        android:id="@+id/groupsFragment"
+        android:id="@+id/groupsOverviewFragment"
         android:name="com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewFragment"
         android:label="@string/groups"
-        tools:layout="@layout/fragment_groups">
+        tools:layout="@layout/fragment_groups_overview">
 
         <action
             android:id="@+id/actionGroupsToAddGroup"
             app:destination="@id/addGroupFragment" />
 
         <action
-            android:id="@+id/actionGroupsToGroupDetails"
+            android:id="@+id/actionGroupsOverviewToGroupDetails"
             app:destination="@id/groupDetailsFragment" />
 
     </fragment>
@@ -29,7 +29,7 @@
         <action
             android:id="@+id/actionAddGroupToGroupDetails"
             app:destination="@id/groupDetailsFragment"
-            app:popUpTo="@id/groupsFragment" />
+            app:popUpTo="@id/groupsOverviewFragment" />
 
     </fragment>
 
