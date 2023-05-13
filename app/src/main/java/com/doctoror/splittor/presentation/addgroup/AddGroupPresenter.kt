@@ -5,11 +5,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.R
+import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.Optional
 
 class AddGroupPresenter(
     private val getContactDetailsUseCase: GetContactDetailsUseCase,
@@ -27,7 +31,11 @@ class AddGroupPresenter(
 
     fun handleContactPick(uri: Uri) {
         viewModelScope.launch {
-            val contactDetails = getContactDetailsUseCase.getForUri(uri)
+            val contactDetails: Optional<ContactDetails>
+            withContext(Dispatchers.IO) {
+                contactDetails = getContactDetailsUseCase.getForUri(uri)
+            }
+
             if (contactDetails.isPresent) {
                 inputFieldsMonitor.contacts.add(contactDetails.get())
                 viewModelUpdater.addContact(contactDetails.get())
