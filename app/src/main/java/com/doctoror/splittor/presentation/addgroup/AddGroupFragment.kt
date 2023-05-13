@@ -1,13 +1,21 @@
 package com.doctoror.splittor.presentation.addgroup
 
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.launch
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.databinding.Observable
 import androidx.databinding.ObservableInt
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.BR
 import com.doctoror.splittor.R
@@ -44,7 +52,7 @@ class AddGroupFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        addMenuProvider()
         if (savedInstanceState != null) {
             inputFieldsMonitor.onRestoreInstanceState(savedInstanceState)
             inputFieldsMonitor.contacts.forEach(viewModelUpdater::addContact)
@@ -60,14 +68,18 @@ class AddGroupFragment : Fragment() {
         lifecycle.addObserver(presenter)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.add_group, menu)
-    }
+    private fun addMenuProvider() {
+        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
 
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.create -> presenter.createGroup().let { true }
-        else -> super.onOptionsItemSelected(item)
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.add_group, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem) = when (menuItem.itemId) {
+                R.id.create -> presenter.createGroup().let { true }
+                else -> false
+            }
+        }, this, Lifecycle.State.STARTED)
     }
 
     override fun onCreateView(
