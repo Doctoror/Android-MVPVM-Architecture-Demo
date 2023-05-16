@@ -3,7 +3,7 @@ package com.doctoror.splittor.platform.text
 import android.icu.text.NumberFormat
 import android.icu.util.Currency
 import java.math.BigDecimal
-import java.util.*
+import java.util.Locale
 
 class AmountFormatter(private val locale: Locale) {
 

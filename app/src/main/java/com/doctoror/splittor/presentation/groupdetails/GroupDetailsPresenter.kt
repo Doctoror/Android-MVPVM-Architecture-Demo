@@ -5,7 +5,6 @@ import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 

@@ -7,7 +7,7 @@ import android.provider.ContactsContract
 import android.util.Log
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
-import java.util.*
+import java.util.Optional
 
 class ContactDetailsRepositoryImpl(
     private val contentResolver: ContentResolver
