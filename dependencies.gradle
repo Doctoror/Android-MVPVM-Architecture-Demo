@@ -5,6 +5,7 @@ ext {
 
     constraintlayoutVersion = '2.1.4'
     coreKtxVersion = '1.10.1'
+    coroutinesTestVersion = '1.7.1'
 
     junitVersion = '5.9.3'
 
