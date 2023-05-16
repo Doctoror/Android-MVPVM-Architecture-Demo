@@ -1,8 +1,6 @@
 package com.doctoror.splittor.presentation.addgroup
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.contacts.ContactDetails
@@ -10,12 +8,15 @@ import com.doctoror.splittor.domain.groups.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.Optional
 
 class AddGroupPresenter(
+    private val dispatcherIo: CoroutineDispatcher,
     private val getContactDetailsUseCase: GetContactDetailsUseCase,
     private val inputFieldsMonitor: AddGroupInputFieldsMonitor,
     private val insertGroupUseCase: InsertGroupUseCase,
@@ -23,8 +24,8 @@ class AddGroupPresenter(
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) : BasePresenter() {
 
-    private val groupInsertedEventsSubject = MutableLiveData<Long>()
-    val groupInsertedEvents: LiveData<Long> = groupInsertedEventsSubject
+    private val groupInsertedEventsFlow = MutableSharedFlow<Long>()
+    val groupInsertedEvents: Flow<Long> = groupInsertedEventsFlow
 
     override fun onCreate() {
     }
@@ -32,12 +33,12 @@ class AddGroupPresenter(
     fun handleContactPick(uri: Uri) {
         viewModelScope.launch {
             val contactDetails: Optional<ContactDetails>
-            withContext(Dispatchers.IO) {
+            withContext(dispatcherIo) {
                 contactDetails = getContactDetailsUseCase.getForUri(uri)
             }
 
             if (contactDetails.isPresent) {
-                inputFieldsMonitor.contacts.add(contactDetails.get())
+                inputFieldsMonitor.addContact(contactDetails.get())
                 viewModelUpdater.addContact(contactDetails.get())
             }
         }
@@ -67,10 +68,12 @@ class AddGroupPresenter(
 
         if (validationResult == ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID) {
             viewModelScope.launch {
-                groupInsertedEventsSubject.value = insertGroupUseCase.insert(
-                    inputFieldsMonitor.amount!!.toString(),
-                    inputFieldsMonitor.contacts.toList(),
-                    inputFieldsMonitor.title!!.toString()
+                groupInsertedEventsFlow.emit(
+                    insertGroupUseCase.insert(
+                        inputFieldsMonitor.amount!!.toString(),
+                        inputFieldsMonitor.contacts.toList(),
+                        inputFieldsMonitor.title!!.toString()
+                    )
                 )
             }
         }

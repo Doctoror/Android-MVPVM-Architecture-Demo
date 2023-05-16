@@ -36,6 +36,10 @@ class AddGroupInputFieldsMonitor : ViewModel() {
         }
     }
 
+    fun addContact(contact: ContactDetails) {
+        contacts.add(contact)
+    }
+
     fun onSaveInstanceState(outState: Bundle) {
         outState.putCharSequence(STATE_KEY_AMOUNT, amount?.toString())
 
