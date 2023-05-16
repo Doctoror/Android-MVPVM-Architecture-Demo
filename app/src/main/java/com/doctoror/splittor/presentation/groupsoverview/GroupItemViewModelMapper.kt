@@ -1,16 +1,15 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
 import android.content.res.Resources
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.StrikethroughSpan
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.platform.text.AmountFormatter
+import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 
 class GroupItemViewModelMapper(
     private val amountFormatter: AmountFormatter,
-    private val resources: Resources
+    private val resources: Resources,
+    private val strikethroughTextTransformer: StrikethroughTextTransformer
 ) {
 
     fun map(group: Group) = GroupItemViewModel(
@@ -25,9 +24,9 @@ class GroupItemViewModelMapper(
     )
 
     private fun formatTitle(name: CharSequence, allMembersPaid: Boolean): CharSequence =
-        SpannableString(name).apply {
-            if (allMembersPaid) {
-                setSpan(StrikethroughSpan(), 0, name.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-            }
+        if (allMembersPaid) {
+            strikethroughTextTransformer.strikethrough(name)
+        } else {
+            name
         }
 }

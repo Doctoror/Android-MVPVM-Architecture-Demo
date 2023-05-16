@@ -2,6 +2,7 @@ package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.platform.DISPATCHER_IO
+import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
@@ -20,7 +21,8 @@ fun provideGroupsOverviewPresentationModule() = module {
             viewModelUpdater = GroupsOverviewViewModelUpdater(
                 groupItemViewModelMapper = GroupItemViewModelMapper(
                     amountFormatter = get(),
-                    resources = androidContext().resources
+                    resources = androidContext().resources,
+                    strikethroughTextTransformer = StrikethroughTextTransformer()
                 ),
                 viewModel = parameters.get()
             )
