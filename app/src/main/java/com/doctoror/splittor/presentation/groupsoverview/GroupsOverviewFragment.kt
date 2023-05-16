@@ -21,6 +21,11 @@ class GroupsOverviewFragment : Fragment() {
             layoutId = R.layout.item_group,
             layoutInflater = layoutInflater,
             modelId = BR.model,
+            onItemClickListener = {
+                findNavController().navigate(
+                    GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it.id)
+                )
+            }
         )
     }
 
@@ -34,15 +39,6 @@ class GroupsOverviewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        adapter
-            .itemClickEvents
-            .observe(this) {
-                findNavController().navigate(
-                    GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it.model.id)
-                )
-            }
-
         lifecycle.addObserver(presenter)
     }
 

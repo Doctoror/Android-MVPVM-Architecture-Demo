@@ -25,6 +25,7 @@ class GroupDetailsFragment : Fragment() {
             layoutId = R.layout.item_group_member,
             layoutInflater = layoutInflater,
             modelId = BR.model,
+            onItemClickListener = { presenter.updateMemberPaidStatus(it.id, !it.paid) }
         )
     }
 
@@ -39,11 +40,6 @@ class GroupDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().title = null
-
-        adapter
-            .itemClickEvents
-            .observe(this) { presenter.updateMemberPaidStatus(it.model.id, !it.model.paid) }
-
         lifecycle.addObserver(presenter)
     }
 

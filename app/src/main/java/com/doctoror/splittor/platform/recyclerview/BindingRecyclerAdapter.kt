@@ -5,19 +5,14 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 
 class BindingRecyclerAdapter<Binding : ViewDataBinding, Model : Any>(
     @LayoutRes private val layoutId: Int,
     private val layoutInflater: LayoutInflater,
-    private val modelId: Int
+    private val modelId: Int,
+    private val onItemClickListener: OnItemClickListener<Model>? = null
 ) : RecyclerView.Adapter<BindingRecyclerAdapter.BindingViewHolder<Binding>>() {
-
-    private val itemClickEventsSubject = MutableLiveData<ItemClickEvent<Model>>()
-
-    val itemClickEvents: LiveData<ItemClickEvent<Model>> = itemClickEventsSubject
 
     private val items = mutableListOf<Model>()
 
@@ -36,13 +31,15 @@ class BindingRecyclerAdapter<Binding : ViewDataBinding, Model : Any>(
 
     override fun onBindViewHolder(holder: BindingViewHolder<Binding>, position: Int) {
         holder.binding.setVariable(modelId, items[position])
-        holder.binding.root.setOnClickListener {
-            itemClickEventsSubject.value = ItemClickEvent(items[position])
+        if (onItemClickListener != null) {
+            holder.binding.root.setOnClickListener {
+                onItemClickListener.invoke(items[position])
+            }
         }
     }
 
     class BindingViewHolder<Binding : ViewDataBinding>(val binding: Binding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class ItemClickEvent<Model : Any>(val model: Model)
+    fun interface OnItemClickListener<Model : Any> : (Model) -> Unit
 }
