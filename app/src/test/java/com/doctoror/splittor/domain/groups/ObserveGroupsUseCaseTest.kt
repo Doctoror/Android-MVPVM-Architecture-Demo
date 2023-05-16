@@ -2,7 +2,7 @@ package com.doctoror.splittor.domain.groups
 
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.mock
@@ -15,10 +15,10 @@ class ObserveGroupsUseCaseTest {
     private val underTest = ObserveGroupsUseCase(groupsRepository)
 
     @Test
-    fun observeEmitsDataFromRepository() {
+    fun observeEmitsDataFromRepository() = runTest {
         val data = listOf<Group>(mock())
         whenever(groupsRepository.observe()).thenReturn(flowOf(data))
 
-        runBlocking { assertEquals(data, underTest.observe().single()) }
+        assertEquals(data, underTest.observe().single())
     }
 }
