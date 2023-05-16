@@ -5,7 +5,7 @@ import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.presentation.base.runInViewModelScopeBlocking
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.flowOf
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever

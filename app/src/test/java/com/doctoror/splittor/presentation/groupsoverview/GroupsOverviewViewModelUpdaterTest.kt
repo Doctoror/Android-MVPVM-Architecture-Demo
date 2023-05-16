@@ -2,8 +2,8 @@ package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 

@@ -4,8 +4,8 @@ import android.net.Uri
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.util.Optional

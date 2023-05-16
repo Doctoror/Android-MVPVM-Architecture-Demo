@@ -1,7 +1,7 @@
 package com.doctoror.splittor.domain.groups
 
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 

@@ -1,7 +1,7 @@
 package com.doctoror.splittor.domain.groups
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Test
+import org.junit.Assert.assertEquals
+import org.junit.Test
 import org.mockito.kotlin.mock
 
 class ValidateAddGroupInputFieldsUseCaseTest {

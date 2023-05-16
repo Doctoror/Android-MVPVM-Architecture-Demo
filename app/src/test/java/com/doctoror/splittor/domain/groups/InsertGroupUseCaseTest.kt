@@ -2,7 +2,7 @@ package com.doctoror.splittor.domain.groups
 
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import kotlinx.coroutines.test.runTest
-import org.junit.jupiter.api.Test
+import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 
