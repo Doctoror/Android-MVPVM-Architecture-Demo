@@ -15,6 +15,7 @@
         <item quantity="other">%1$d members</item>
     </plurals>
 
+    <string name="go_back">Go back</string>
     <string name="group_details">Group details</string>
     <string name="group_info">Group info</string>
     <string name="groups">Groups</string>
@@ -24,5 +25,7 @@
 
     <string name="title">Title</string>
     <string name="title_not_set">Title not set</string>
+
+    <string name="total_">Total:</string>
 
 </resources>

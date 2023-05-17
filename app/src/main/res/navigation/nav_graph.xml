@@ -34,8 +34,7 @@
 
     <fragment
         android:id="@+id/groupDetailsFragment"
-        android:name="com.doctoror.splittor.presentation.groupdetails.GroupDetailsFragment"
-        tools:layout="@layout/fragment_group_details">
+        android:name="com.doctoror.splittor.presentation.groupdetails.GroupDetailsFragment">
 
         <argument
             android:name="groupId"

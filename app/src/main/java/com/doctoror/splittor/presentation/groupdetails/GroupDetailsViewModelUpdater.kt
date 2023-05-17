@@ -12,14 +12,16 @@ class GroupDetailsViewModelUpdater(
 ) {
 
     fun update(group: Group) {
-        viewModel.amount.set(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
-        viewModel.title.set(group.title)
+        viewModel.amount.value = formatAmountWithCurrencyUseCase(BigDecimal(group.amount))
+        viewModel.title.value = group.title
 
         val amountPerMember = formatAmountWithCurrencyUseCase(
             BigDecimal(group.amount).setScale(2, RoundingMode.HALF_UP) /
                     BigDecimal(group.members.size).setScale(2, RoundingMode.HALF_UP)
         )
-        viewModel.members.set(
+
+        viewModel.members.clear()
+        viewModel.members.addAll(
             group.members.map {
                 groupMemberItemViewModelMapper.map(amountPerMember, it)
             }

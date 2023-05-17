@@ -1,13 +1,14 @@
 package com.doctoror.splittor.presentation.groupdetails
 
-import androidx.databinding.ObservableField
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 
 class GroupDetailsViewModel : ViewModel() {
 
-    val amount = ObservableField<CharSequence>()
+    val amount = mutableStateOf("")
 
-    val members = ObservableField<List<GroupMemberItemViewModel>>()
+    val members = mutableStateListOf<GroupMemberItemViewModel>()
 
-    val title = ObservableField<CharSequence>()
+    val title = mutableStateOf("")
 }

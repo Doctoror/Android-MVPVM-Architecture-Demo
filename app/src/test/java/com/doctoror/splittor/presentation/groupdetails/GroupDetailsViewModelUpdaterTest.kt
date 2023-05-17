@@ -30,7 +30,7 @@ class GroupDetailsViewModelUpdaterTest {
 
         underTest.update(group)
 
-        assertEquals(formattedAmount, viewModel.amount.get())
+        assertEquals(formattedAmount, viewModel.amount.value)
     }
 
     @Test
@@ -39,7 +39,7 @@ class GroupDetailsViewModelUpdaterTest {
 
         underTest.update(group)
 
-        assertEquals(group.title, viewModel.title.get())
+        assertEquals(group.title, viewModel.title.value)
     }
 
     @Test
@@ -61,7 +61,7 @@ class GroupDetailsViewModelUpdaterTest {
 
         underTest.update(group)
 
-        assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members.get())
+        assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members)
     }
 
     private data class GroupMemberImpl(
