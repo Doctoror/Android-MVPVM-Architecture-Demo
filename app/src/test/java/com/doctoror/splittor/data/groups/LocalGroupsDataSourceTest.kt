@@ -40,7 +40,7 @@ class LocalGroupsDataSourceTest {
             )
         ).thenReturn(insertedGroupId)
 
-        underTest.insert(contacts, amount, title)
+        val output = underTest.insert(contacts, amount, title)
 
         verify(groupsDao).insertGroupMembers(
             contacts
@@ -53,6 +53,8 @@ class LocalGroupsDataSourceTest {
                     )
                 }
         )
+
+        assertEquals(insertedGroupId, output)
     }
 
     @Test
