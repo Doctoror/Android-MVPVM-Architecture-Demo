@@ -20,7 +20,7 @@ fun provideGroupDetailsModule() = module {
             observeGroupUseCase = ObserveGroupUseCase(groupsRepository = get()),
             updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository = get()),
             viewModelUpdater = GroupDetailsViewModelUpdater(
-                amountFormatter = get(),
+                formatAmountWithCurrencyUseCase = get(),
                 groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper(
                     SpannableStringFactory(),
                     StrikethroughTextTransformer()

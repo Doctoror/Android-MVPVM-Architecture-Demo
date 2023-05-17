@@ -1,5 +1,8 @@
 ext {
     appCompatVersion = '1.6.1'
+    androidMinSdkVersion = 24
+    androidTargetSdkVersion = 33
+    androidCompileSdkVersion = 33
     androidTestCoreVersion = '1.5.0'
     androidTestRunnerVersion = '1.5.2'
 

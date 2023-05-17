@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.groupdetails
 
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupMember
-import com.doctoror.splittor.platform.text.AmountFormatter
+import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -11,12 +11,12 @@ import java.math.BigDecimal
 
 class GroupDetailsViewModelUpdaterTest {
 
-    private val amountFormatter: AmountFormatter = mock()
+    private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase = mock()
     private val groupMemberItemViewModelMapper: GroupMemberItemViewModelMapper = mock()
     private val viewModel = GroupDetailsViewModel()
 
     private val underTest = GroupDetailsViewModelUpdater(
-        amountFormatter,
+        formatAmountWithCurrencyUseCase,
         groupMemberItemViewModelMapper,
         viewModel
     )
@@ -25,7 +25,8 @@ class GroupDetailsViewModelUpdaterTest {
     fun updatesAmount() {
         val formattedAmount = "$44.13"
         val group = makeBasicGroup()
-        whenever(amountFormatter.format(group.amount)).thenReturn(formattedAmount)
+        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)))
+            .thenReturn(formattedAmount)
 
         underTest.update(group)
 
@@ -49,7 +50,8 @@ class GroupDetailsViewModelUpdaterTest {
 
         val expectedAmount = "22.06"
         val formattedAmount = "$22.06"
-        whenever(amountFormatter.format(BigDecimal(expectedAmount))).thenReturn(formattedAmount)
+        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(expectedAmount)))
+            .thenReturn(formattedAmount)
 
         whenever(groupMemberItemViewModelMapper.map(formattedAmount, group.members[0]))
             .thenReturn(mappedMember1)

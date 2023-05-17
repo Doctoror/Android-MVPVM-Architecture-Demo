@@ -3,17 +3,18 @@ package com.doctoror.splittor.presentation.groupsoverview
 import android.content.res.Resources
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
-import com.doctoror.splittor.platform.text.AmountFormatter
+import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
+import java.math.BigDecimal
 
 class GroupItemViewModelMapper(
-    private val amountFormatter: AmountFormatter,
+    private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
     private val resources: Resources,
     private val strikethroughTextTransformer: StrikethroughTextTransformer
 ) {
 
     fun map(group: Group) = GroupItemViewModel(
-        amount = amountFormatter.format(group.amount),
+        amount = formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)),
         id = group.id,
         members = resources.getQuantityString(
             R.plurals.d_members,

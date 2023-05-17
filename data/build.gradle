@@ -1,33 +1,22 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id 'com.android.library'
     id 'kotlin-kapt'
-    id 'kotlin-parcelize'
-    id 'androidx.navigation.safeargs.kotlin'
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-
-    namespace 'com.doctoror.splittor'
+    namespace 'com.doctoror.splittor.data'
 
     def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdk globalConfiguration["androidCompileSdkVersion"]
 
     defaultConfig {
-        applicationId "com.doctoror.splittor"
         minSdk globalConfiguration["androidMinSdkVersion"]
         targetSdk globalConfiguration["androidTargetSdkVersion"]
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        kapt {
-            arguments {
-                arg("room.schemaLocation", "$projectDir/schemas")
-            }
-        }
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -36,37 +25,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
-    buildFeatures {
-        dataBinding true
-        viewBinding true
-    }
 }
 
 dependencies {
-    implementation project(path: ':data')
     implementation project(path: ':domain')
 
     apply from: '../dependencies.gradle'
 
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
-    implementation "androidx.core:core-ktx:$coreKtxVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
-
-    implementation "com.google.android.material:material:$materialVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation "androidx.room:room-runtime:$roomVersion"
 
     implementation "io.insert-koin:koin-android:$koinVersion"
 
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
     testImplementation "junit:junit:$junitVersion"
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"

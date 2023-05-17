@@ -4,21 +4,22 @@ import android.content.res.Resources
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupMember
-import com.doctoror.splittor.platform.text.AmountFormatter
+import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import java.math.BigDecimal
 
 class GroupItemViewModelMapperTest {
 
-    private val amountFormatter: AmountFormatter = mock()
+    private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase = mock()
     private val resources: Resources = mock()
     private val strikethroughTextTransformer: StrikethroughTextTransformer = mock()
 
     private val underTest = GroupItemViewModelMapper(
-        amountFormatter,
+        formatAmountWithCurrencyUseCase,
         resources,
         strikethroughTextTransformer
     )
@@ -44,7 +45,8 @@ class GroupItemViewModelMapperTest {
         }
 
         val formattedAmount = "formattedAmount"
-        whenever(amountFormatter.format(group.amount)).thenReturn(formattedAmount)
+        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)))
+            .thenReturn(formattedAmount)
 
         val formattedMemberCount = "formattedMemberCount"
         whenever(

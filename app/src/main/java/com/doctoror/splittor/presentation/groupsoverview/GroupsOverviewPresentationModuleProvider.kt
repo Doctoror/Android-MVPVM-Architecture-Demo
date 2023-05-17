@@ -20,7 +20,7 @@ fun provideGroupsOverviewPresentationModule() = module {
             observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository = get()),
             viewModelUpdater = GroupsOverviewViewModelUpdater(
                 groupItemViewModelMapper = GroupItemViewModelMapper(
-                    amountFormatter = get(),
+                    formatAmountWithCurrencyUseCase = get(),
                     resources = androidContext().resources,
                     strikethroughTextTransformer = StrikethroughTextTransformer()
                 ),
