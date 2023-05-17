@@ -1,11 +1,13 @@
 package com.doctoror.splittor.presentation.groupdetails
 
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.style.StrikethroughSpan
 import com.doctoror.splittor.domain.groups.GroupMember
+import com.doctoror.splittor.platform.text.SpannableStringFactory
+import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 
-class GroupMemberItemViewModelMapper {
+class GroupMemberItemViewModelMapper(
+    private val spannableStringFactory: SpannableStringFactory,
+    private val strikethroughTextTransformer: StrikethroughTextTransformer
+) {
 
     fun map(amountPerMember: CharSequence, groupMember: GroupMember) = GroupMemberItemViewModel(
         amount = amountPerMember,
@@ -14,10 +16,14 @@ class GroupMemberItemViewModelMapper {
         paid = groupMember.paid
     )
 
-    private fun formatName(name: CharSequence, paid: Boolean): CharSequence = SpannableString(name)
-        .apply {
-            if (paid) {
-                setSpan(StrikethroughSpan(), 0, name.length, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
-            }
-        }
+    private fun formatName(name: CharSequence, paid: Boolean): CharSequence = if (paid) {
+        strikethroughTextTransformer.strikethrough(name)
+    } else {
+        // This would normally not be a SpannableString, but TextView does not update when you
+        // replace SpannableString with normal String with the same text representation as it does
+        // not detect a change, i.e. it is not possible to clear spans by setting a non-spannable
+        // string with the same text. But setting a SpannableString without spans clears previous
+        // spans
+        spannableStringFactory.create(name)
+    }
 }

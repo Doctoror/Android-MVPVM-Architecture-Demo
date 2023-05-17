@@ -3,6 +3,8 @@ package com.doctoror.splittor.presentation.groupdetails
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.platform.DISPATCHER_IO
+import com.doctoror.splittor.platform.text.SpannableStringFactory
+import com.doctoror.splittor.platform.text.StrikethroughTextTransformer
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -19,7 +21,10 @@ fun provideGroupDetailsModule() = module {
             updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository = get()),
             viewModelUpdater = GroupDetailsViewModelUpdater(
                 amountFormatter = get(),
-                groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper(),
+                groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper(
+                    SpannableStringFactory(),
+                    StrikethroughTextTransformer()
+                ),
                 viewModel = parameters.get()
             )
         )
