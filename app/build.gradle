@@ -46,6 +46,8 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':domain')
+
     apply from: '../dependencies.gradle'
 
     kapt "androidx.room:room-compiler:$roomVersion"

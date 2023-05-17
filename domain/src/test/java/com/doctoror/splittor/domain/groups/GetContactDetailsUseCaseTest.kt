@@ -1,6 +1,5 @@
 package com.doctoror.splittor.domain.groups
 
-import android.net.Uri
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import kotlinx.coroutines.test.runTest
@@ -18,7 +17,7 @@ class GetContactDetailsUseCaseTest {
 
     @Test
     fun getsForUri() = runTest {
-        val uri: Uri = mock()
+        val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/1"
         val output = Optional.of(mock<ContactDetails>())
         whenever(contactDetailsRepository.getForUri(uri)).thenReturn(output)
 

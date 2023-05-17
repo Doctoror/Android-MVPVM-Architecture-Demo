@@ -30,7 +30,7 @@ class AddGroupPresenter(
     override fun onCreate() {
     }
 
-    fun handleContactPick(uri: Uri) {
+    fun handleContactPick(uri: String) {
         viewModelScope.launch {
             val contactDetails: Optional<ContactDetails>
             withContext(dispatcherIo) {

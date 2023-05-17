@@ -5,19 +5,21 @@ import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.ContactsContract
 import android.util.Log
+import com.doctoror.splittor.data.util.UriParser
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import java.util.Optional
 
 class ContactDetailsRepositoryImpl(
-    private val contentResolver: ContentResolver
+    private val contentResolver: ContentResolver,
+    private val uriParser: UriParser
 ) : ContactDetailsRepository {
 
     private val tag by lazy { "ContactDetailsResolverImpl" }
 
-    override suspend fun getForUri(uri: Uri): Optional<ContactDetails> {
+    override suspend fun getForUri(uri: String): Optional<ContactDetails> {
         contentResolver
-            .query(uri, null, null, null, null)
+            .query(uriParser.parse(uri), null, null, null, null)
             ?.use {
                 if (!it.moveToFirst()) {
                     Log.w(tag, "Got empty Cursor for Uri: $uri")

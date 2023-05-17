@@ -35,8 +35,8 @@ class AddGroupFragment : Fragment() {
 
     private val activityResultLauncherPickContact = registerForActivityResult(
         activityResultContractPickContact
-    ) {
-        it?.let(presenter::handleContactPick)
+    ) { uri ->
+        uri?.let { presenter.handleContactPick(it.toString()) }
     }
 
     private var binding: FragmentGroupAddBinding? = null

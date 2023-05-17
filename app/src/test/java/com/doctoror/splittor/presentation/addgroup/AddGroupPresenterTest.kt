@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import android.net.Uri
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.GetContactDetailsUseCase
@@ -44,7 +43,7 @@ class AddGroupPresenterTest {
 
     @Test
     fun handlesContactPick() = runTest {
-        val uri: Uri = mock()
+        val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/84"
         val contactDetails: ContactDetails = mock()
         whenever(getContactDetailsUseCase.getForUri(uri)).thenReturn(Optional.of(contactDetails))
 
@@ -56,7 +55,7 @@ class AddGroupPresenterTest {
 
     @Test
     fun handleContactPickDoesNothingIfFetchedContactDetailsAreMissing() = runTest {
-        val uri: Uri = mock()
+        val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/143"
         whenever(getContactDetailsUseCase.getForUri(uri))
             .thenReturn(Optional.empty<ContactDetails>())
 
