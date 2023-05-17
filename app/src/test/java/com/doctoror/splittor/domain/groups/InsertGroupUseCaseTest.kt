@@ -2,9 +2,10 @@ package com.doctoror.splittor.domain.groups
 
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import kotlinx.coroutines.test.runTest
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
-import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
 
 class InsertGroupUseCaseTest {
 
@@ -17,9 +18,11 @@ class InsertGroupUseCaseTest {
         val amount = "amount"
         val contacts = listOf<ContactDetails>()
         val title = "title"
+        val insertedGroupId = 112L
+        whenever(groupsRepository.insert(contacts, amount, title)).thenReturn(insertedGroupId)
 
-        underTest.insert(amount, contacts, title)
+        val output = underTest.insert(amount, contacts, title)
 
-        verify(groupsRepository).insert(contacts, amount, title)
+        assertEquals(insertedGroupId, output)
     }
 }
