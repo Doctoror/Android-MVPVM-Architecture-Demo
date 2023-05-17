@@ -9,7 +9,8 @@ object ViewAnimatorBindingAdapter {
     @JvmStatic
     @BindingAdapter("displayedChildId")
     fun displayedChildId(animator: ViewAnimator, displayedChildId: Int) {
-        animator.displayedChild = animator
+        animator
+            .displayedChild = animator
             .children
             .indexOfFirst { it.id == displayedChildId }
     }
