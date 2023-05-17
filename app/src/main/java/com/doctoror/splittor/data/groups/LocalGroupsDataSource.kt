@@ -5,7 +5,10 @@ import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource {
+class LocalGroupsDataSource(
+    private val currentTimeProvider: () -> Long,
+    private val groupsDao: GroupsDao
+) : GroupsDataSource {
 
     override suspend fun insert(
         contacts: List<ContactDetails>,
@@ -17,7 +20,7 @@ class LocalGroupsDataSource(private val groupsDao: GroupsDao) : GroupsDataSource
                 groupId = 0,
                 groupAmount = amount,
                 groupTitle = title,
-                insertedAt = System.currentTimeMillis()
+                insertedAt = currentTimeProvider()
             )
         )
 
