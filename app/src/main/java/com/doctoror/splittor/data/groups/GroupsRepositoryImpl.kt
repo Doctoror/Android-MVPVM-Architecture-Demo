@@ -1,6 +1,5 @@
 package com.doctoror.splittor.data.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import kotlinx.coroutines.flow.Flow
@@ -8,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
 
     override suspend fun insert(
-        contacts: List<ContactDetails>,
         amount: String,
+        contactNames: List<String>,
         title: String
-    ): Long = groupsDataSource.insert(contacts, amount, title)
+    ): Long = groupsDataSource.insert(amount, contactNames, title)
 
     override fun observe(): Flow<List<Group>> = groupsDataSource.observe()
 

@@ -1,6 +1,5 @@
 package com.doctoror.splittor.data.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runTest
@@ -22,11 +21,8 @@ class LocalGroupsDataSourceTest {
         val name1 = "name1"
         val name2 = "name2"
         val amount = "133.55"
+        val contactNames = listOf(name1, name2)
         val title = "Some title"
-        val contacts = listOf<ContactDetails>(
-            mock { whenever(it.name).thenReturn(name1) },
-            mock { whenever(it.name).thenReturn(name2) }
-        )
 
         val insertedGroupId = 12L
         whenever(
@@ -40,16 +36,16 @@ class LocalGroupsDataSourceTest {
             )
         ).thenReturn(insertedGroupId)
 
-        val output = underTest.insert(contacts, amount, title)
+        val output = underTest.insert(amount, contactNames, title)
 
         verify(groupsDao).insertGroupMembers(
-            contacts
+            contactNames
                 .map {
                     GroupMemberEntity(
                         groupMemberId = 0,
                         groupMemberGroupId = insertedGroupId,
                         groupMemberPaid = false,
-                        groupMemberName = it.name
+                        groupMemberName = it
                     )
                 }
         )

@@ -1,6 +1,5 @@
 package com.doctoror.splittor.domain.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -16,12 +15,12 @@ class InsertGroupUseCaseTest {
     @Test
     fun inserts() = runTest {
         val amount = "amount"
-        val contacts = listOf<ContactDetails>()
+        val contactNames = listOf("Someone")
         val title = "title"
         val insertedGroupId = 112L
-        whenever(groupsRepository.insert(contacts, amount, title)).thenReturn(insertedGroupId)
+        whenever(groupsRepository.insert(amount, contactNames, title)).thenReturn(insertedGroupId)
 
-        val output = underTest.insert(amount, contacts, title)
+        val output = underTest.insert(amount, contactNames, title)
 
         assertEquals(insertedGroupId, output)
     }

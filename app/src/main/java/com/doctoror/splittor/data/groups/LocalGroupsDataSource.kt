@@ -1,6 +1,5 @@
 package com.doctoror.splittor.data.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -11,8 +10,8 @@ class LocalGroupsDataSource(
 ) : GroupsDataSource {
 
     override suspend fun insert(
-        contacts: List<ContactDetails>,
         amount: String,
+        contactNames: List<String>,
         title: String
     ): Long {
         val groupId = groupsDao.insertGroup(
@@ -25,13 +24,13 @@ class LocalGroupsDataSource(
         )
 
         groupsDao.insertGroupMembers(
-            contacts
+            contactNames
                 .map {
                     GroupMemberEntity(
                         groupMemberId = 0,
                         groupMemberGroupId = groupId,
                         groupMemberPaid = false,
-                        groupMemberName = it.name
+                        groupMemberName = it
                     )
                 }
         )

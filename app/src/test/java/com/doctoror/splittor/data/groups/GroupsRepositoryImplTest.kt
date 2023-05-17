@@ -1,6 +1,5 @@
 package com.doctoror.splittor.data.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runTest
@@ -10,7 +9,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class GroupsRepositoryTest {
+class GroupsRepositoryImplTest {
 
     private val groupsDataSource: GroupsDataSource = mock()
 
@@ -18,14 +17,14 @@ class GroupsRepositoryTest {
 
     @Test
     fun insertsIntoDataSource() = runTest {
-        val contacts: List<ContactDetails> = listOf(mock())
         val amount = "34343.12"
+        val contacts = listOf("Name")
         val title = "Some title"
 
         val insertedGroupId = 125L
-        whenever(groupsDataSource.insert(contacts, amount, title)).thenReturn(insertedGroupId)
+        whenever(groupsDataSource.insert(amount, contacts, title)).thenReturn(insertedGroupId)
 
-        val output = underTest.insert(contacts, amount, title)
+        val output = underTest.insert(amount, contacts, title)
 
         assertEquals(insertedGroupId, output)
     }

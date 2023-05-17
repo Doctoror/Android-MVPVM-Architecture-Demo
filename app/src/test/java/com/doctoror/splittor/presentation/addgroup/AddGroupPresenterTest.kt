@@ -132,7 +132,7 @@ class AddGroupPresenterTest {
             whenever(
                 insertGroupUseCase.insert(
                     inputFieldsMonitor.amount!!.toString(),
-                    inputFieldsMonitor.contacts.toList(),
+                    inputFieldsMonitor.contacts.map { it.name },
                     inputFieldsMonitor.title!!.toString()
                 )
             ).thenReturn(expectedInsertionResult)

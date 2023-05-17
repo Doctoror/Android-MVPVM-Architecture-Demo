@@ -1,12 +1,11 @@
 package com.doctoror.splittor.data.groups
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.Flow
 
 interface GroupsDataSource {
 
-    suspend fun insert(contacts: List<ContactDetails>, amount: String, title: String): Long
+    suspend fun insert(amount: String, contactNames: List<String>, title: String): Long
 
     fun observe(): Flow<List<Group>>
 
