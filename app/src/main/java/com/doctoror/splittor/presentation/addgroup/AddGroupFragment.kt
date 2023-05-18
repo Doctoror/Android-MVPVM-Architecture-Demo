@@ -2,32 +2,23 @@ package com.doctoror.splittor.presentation.addgroup
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.result.launch
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.databinding.Observable
-import androidx.databinding.ObservableInt
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.doctoror.splittor.BR
-import com.doctoror.splittor.R
-import com.doctoror.splittor.databinding.FragmentGroupAddBinding
-import com.doctoror.splittor.databinding.ItemContactBinding
-import com.doctoror.splittor.platform.recyclerview.BindingRecyclerAdapter
+import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import java.util.Locale
 
 class AddGroupFragment : Fragment() {
 
@@ -39,13 +30,13 @@ class AddGroupFragment : Fragment() {
         uri?.let { presenter.handleContactPick(it.toString()) }
     }
 
-    private var binding: FragmentGroupAddBinding? = null
-
-    private val inputFieldsMonitor: AddGroupInputFieldsMonitor by viewModel()
+    private val locale: Locale by inject()
 
     private val presenter: AddGroupPresenter by viewModel {
-        parametersOf(inputFieldsMonitor, viewModel)
+        parametersOf(viewModel)
     }
+
+    private val provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase by inject()
 
     private val viewModel: AddGroupViewModel by viewModel()
 
@@ -55,10 +46,17 @@ class AddGroupFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addMenuProvider()
-        if (savedInstanceState != null) {
-            inputFieldsMonitor.onRestoreInstanceState(savedInstanceState)
-            inputFieldsMonitor.contacts.forEach(viewModelUpdater::addContact)
+
+        lifecycleScope.launch {
+            viewModel
+                .errorMessage
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect {
+                    if (it != 0) {
+                        viewModel.errorMessage.emit(0)
+                        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    }
+                }
         }
 
         lifecycleScope.launch {
@@ -74,81 +72,28 @@ class AddGroupFragment : Fragment() {
         lifecycle.addObserver(presenter)
     }
 
-    private fun addMenuProvider() {
-        (requireActivity() as MenuHost).addMenuProvider(object : MenuProvider {
-
-            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                menuInflater.inflate(R.menu.add_group, menu)
-            }
-
-            override fun onMenuItemSelected(menuItem: MenuItem) = when (menuItem.itemId) {
-                R.id.create -> presenter.createGroup().let { true }
-                else -> false
-            }
-        }, this, Lifecycle.State.STARTED)
-    }
-
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentGroupAddBinding.inflate(inflater, container, false)
-        return requireBinding().root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        requireBinding().recycler.adapter =
-            BindingRecyclerAdapter<ItemContactBinding, ContactDetailsViewModel>(
-                layoutId = R.layout.item_contact,
-                layoutInflater = layoutInflater,
-                modelId = BR.model,
+    ): View = ComposeView(requireContext()).apply {
+        setContent {
+            AddGroupContent(
+                currencySymbol = provideCurrencySymbolUseCase(),
+                locale = locale,
+                onAmountChange = { viewModelUpdater.updateAmount(it) },
+                onAddContactClick = { activityResultLauncherPickContact.launch(null) },
+                onCreateClick = { presenter.createGroup() },
+                onNavigationClick = { findNavController().popBackStack() },
+                onTitleChange = { viewModelUpdater.updateTitle(it) },
+                viewModel = viewModel
             )
-
-        requireBinding().addContact.setOnClickListener { activityResultLauncherPickContact.launch() }
-        requireBinding().model = viewModel
-        requireBinding().monitor = inputFieldsMonitor
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        inputFieldsMonitor.onSaveInstanceState(outState)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.errorMessage.addOnPropertyChangedCallback(errorMessagePropertyChangeCallback)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        viewModel.errorMessage.removeOnPropertyChangedCallback(errorMessagePropertyChangeCallback)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         lifecycle.removeObserver(presenter)
     }
-
-    private fun requireBinding() = binding!!
-
-    private val errorMessagePropertyChangeCallback =
-        object : Observable.OnPropertyChangedCallback() {
-
-            override fun onPropertyChanged(sender: Observable, propertyId: Int) {
-                sender as ObservableInt
-
-                val message = sender.get()
-                if (message != 0) {
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-                    sender.set(0)
-                }
-            }
-        }
 }

@@ -42,11 +42,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
     }
-
-    buildFeatures {
-        dataBinding = true
-        viewBinding = true
-    }
 }
 
 dependencies {
@@ -60,6 +55,7 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.constraintlayout)
     implementation(libs.koin)
+    implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
 

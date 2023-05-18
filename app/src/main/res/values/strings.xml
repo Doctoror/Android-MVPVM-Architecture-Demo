@@ -8,7 +8,6 @@
 
     <string name="contacts">Contacts</string>
     <string name="create">Create</string>
-    <string name="create_group">Create group</string>
 
     <plurals name="d_members">
         <item quantity="one">%1$d member</item>

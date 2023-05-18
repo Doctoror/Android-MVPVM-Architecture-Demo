@@ -6,6 +6,7 @@ import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
+import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.base.BasePresenter
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
@@ -17,9 +18,10 @@ import java.util.Optional
 class AddGroupPresenter(
     private val dispatcherIo: CoroutineDispatcher,
     private val getContactDetailsUseCase: GetContactDetailsUseCase,
-    private val inputFieldsMonitor: AddGroupInputFieldsMonitor,
     private val insertGroupUseCase: InsertGroupUseCase,
+    private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase,
+    private val viewModel: AddGroupViewModel,
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) : BasePresenter() {
 
@@ -37,7 +39,6 @@ class AddGroupPresenter(
             }
 
             if (contactDetails.isPresent) {
-                inputFieldsMonitor.addContact(contactDetails.get())
                 viewModelUpdater.addContact(contactDetails.get())
             }
         }
@@ -45,33 +46,35 @@ class AddGroupPresenter(
 
     fun createGroup() {
         val validationResult = validateAddGroupInputFieldsUseCase(
-            inputFieldsMonitor.amount,
-            inputFieldsMonitor.contacts,
-            inputFieldsMonitor.title
+            viewModel.amount,
+            viewModel.contacts,
+            viewModel.title
         )
 
-        viewModelUpdater.setErrorMessageId(
-            when (validationResult) {
-                ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING ->
-                    R.string.amount_not_set
+        viewModelScope.launch {
+            viewModelUpdater.setErrorMessageId(
+                when (validationResult) {
+                    ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING ->
+                        R.string.amount_not_set
 
-                ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING ->
-                    R.string.no_contacts_added
+                    ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING ->
+                        R.string.no_contacts_added
 
-                ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING ->
-                    R.string.title_not_set
+                    ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING ->
+                        R.string.title_not_set
 
-                else -> 0
-            }
-        )
+                    else -> 0
+                }
+            )
+        }
 
         if (validationResult == ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID) {
             viewModelScope.launch {
                 groupInsertedEventsFlow.emit(
                     insertGroupUseCase(
-                        inputFieldsMonitor.amount!!.toString(),
-                        inputFieldsMonitor.contacts.map { it.name },
-                        inputFieldsMonitor.title!!.toString()
+                        stripCurrencyAndGroupingSeparatorsUseCase(viewModel.amount),
+                        viewModel.contacts.map { it.name },
+                        viewModel.title
                     )
                 )
             }

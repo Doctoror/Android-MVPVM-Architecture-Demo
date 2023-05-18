@@ -1,12 +1,26 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import androidx.databinding.ObservableField
-import androidx.databinding.ObservableInt
+import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
+import androidx.lifecycle.viewmodel.compose.saveable
+import kotlinx.coroutines.flow.MutableSharedFlow
 
-class AddGroupViewModel : ViewModel() {
+@OptIn(SavedStateHandleSaveableApi::class)
+class AddGroupViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
-    val contacts = ObservableField<MutableSet<ContactDetailsViewModel>>(sortedSetOf())
+    var amount by savedStateHandle.saveable {
+        mutableStateOf("")
+    }
 
-    val errorMessage = ObservableInt()
+    var contacts by savedStateHandle.saveable {
+        mutableStateOf(emptyList<ContactDetailsViewModel>())
+    }
+
+    val errorMessage = MutableSharedFlow<Int>()
+
+    var title by savedStateHandle.saveable {
+        mutableStateOf("")
+    }
 }

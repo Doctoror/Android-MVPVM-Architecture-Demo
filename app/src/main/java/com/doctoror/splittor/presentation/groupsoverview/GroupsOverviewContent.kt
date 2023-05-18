@@ -48,7 +48,7 @@ fun GroupsOverviewContent(
                     FloatingActionButton(onClick = onAddClick) {
                         Image(
                             imageVector = Icons.Filled.Add,
-                            contentDescription = stringResource(id = R.string.create_group)
+                            contentDescription = stringResource(id = R.string.add_new_group)
                         )
                     }
                 }

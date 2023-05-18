@@ -5,6 +5,7 @@ import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
+import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -27,17 +28,20 @@ class AddGroupPresenterTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val getContactDetailsUseCase: GetContactDetailsUseCase = mock()
-    private val inputFieldsMonitor: AddGroupInputFieldsMonitor = mock()
     private val insertGroupUseCase: InsertGroupUseCase = mock()
+    private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase =
+        mock()
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase = mock()
+    private val viewModel: AddGroupViewModel = mock()
     private val viewModelUpdater: AddGroupViewModelUpdater = mock()
 
     private val underTest = AddGroupPresenter(
         Dispatchers.Unconfined,
         getContactDetailsUseCase,
-        inputFieldsMonitor,
         insertGroupUseCase,
+        stripCurrencyAndGroupingSeparatorsUseCase,
         validateAddGroupInputFieldsUseCase,
+        viewModel,
         viewModelUpdater
     )
 
@@ -49,7 +53,6 @@ class AddGroupPresenterTest {
 
         underTest.handleContactPick(uri)
 
-        verify(inputFieldsMonitor).addContact(contactDetails)
         verify(viewModelUpdater).addContact(contactDetails)
     }
 
@@ -61,17 +64,16 @@ class AddGroupPresenterTest {
 
         underTest.handleContactPick(uri)
 
-        verifyNoInteractions(inputFieldsMonitor)
         verifyNoInteractions(viewModelUpdater)
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenAmountMissing() {
+    fun createGroupSetsErrorMessageWhenAmountMissing() = runTest {
         whenever(
             validateAddGroupInputFieldsUseCase(
-                inputFieldsMonitor.amount,
-                inputFieldsMonitor.contacts,
-                inputFieldsMonitor.title
+                viewModel.amount,
+                viewModel.contacts,
+                viewModel.title
             )
         ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING)
 
@@ -81,12 +83,12 @@ class AddGroupPresenterTest {
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenContactsAreMissing() {
+    fun createGroupSetsErrorMessageWhenContactsAreMissing() = runTest {
         whenever(
             validateAddGroupInputFieldsUseCase(
-                inputFieldsMonitor.amount,
-                inputFieldsMonitor.contacts,
-                inputFieldsMonitor.title
+                viewModel.amount,
+                viewModel.contacts,
+                viewModel.title
             )
         ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING)
 
@@ -96,12 +98,12 @@ class AddGroupPresenterTest {
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenTitleIsMissing() {
+    fun createGroupSetsErrorMessageWhenTitleIsMissing() = runTest {
         whenever(
             validateAddGroupInputFieldsUseCase(
-                inputFieldsMonitor.amount,
-                inputFieldsMonitor.contacts,
-                inputFieldsMonitor.title
+                viewModel.amount,
+                viewModel.contacts,
+                viewModel.title
             )
         ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING)
 
@@ -113,28 +115,24 @@ class AddGroupPresenterTest {
     @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun insertsGroupWhenFieldsAreValid() {
-        whenever(inputFieldsMonitor.amount).thenReturn("amount")
-        whenever(inputFieldsMonitor.contacts).thenReturn(mutableSetOf())
-        whenever(inputFieldsMonitor.title).thenReturn("title")
+        val amount = "amount"
+        val contacts = emptyList<ContactDetailsViewModel>()
+        val title = "title"
+        whenever(viewModel.amount).thenReturn(amount)
+        whenever(viewModel.contacts).thenReturn(contacts)
+        whenever(viewModel.title).thenReturn(title)
 
-        whenever(
-            validateAddGroupInputFieldsUseCase(
-                inputFieldsMonitor.amount,
-                inputFieldsMonitor.contacts,
-                inputFieldsMonitor.title
-            )
-        ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID)
+        whenever(validateAddGroupInputFieldsUseCase(amount, contacts, title))
+            .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID)
+
+        val amountStripped = "amountStripped"
+        whenever(stripCurrencyAndGroupingSeparatorsUseCase(amount)).thenReturn(amountStripped)
 
         var actualInsertedId = -1L
         val expectedInsertionResult = 1L
         runTest(UnconfinedTestDispatcher()) {
-            whenever(
-                insertGroupUseCase(
-                    inputFieldsMonitor.amount!!.toString(),
-                    inputFieldsMonitor.contacts.map { it.name },
-                    inputFieldsMonitor.title!!.toString()
-                )
-            ).thenReturn(expectedInsertionResult)
+            whenever(insertGroupUseCase(amountStripped, contacts.map { it.name }, title))
+                .thenReturn(expectedInsertionResult)
 
             val collectJob = launch {
                 underTest.groupInsertedEvents.collect { actualInsertedId = it }

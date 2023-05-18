@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     app:startDestination="@id/groupsOverviewFragment">
 
     <fragment
@@ -22,8 +21,7 @@
     <fragment
         android:id="@+id/addGroupFragment"
         android:name="com.doctoror.splittor.presentation.addgroup.AddGroupFragment"
-        android:label="@string/create_group"
-        tools:layout="@layout/fragment_group_add">
+        android:label="@string/add_new_group">
 
         <action
             android:id="@+id/actionAddGroupToGroupDetails"
