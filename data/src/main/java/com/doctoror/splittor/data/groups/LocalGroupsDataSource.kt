@@ -4,7 +4,7 @@ import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class LocalGroupsDataSource(
+internal class LocalGroupsDataSource(
     private val currentTimeProvider: () -> Long,
     private val groupsDao: GroupsDao
 ) : GroupsDataSource {

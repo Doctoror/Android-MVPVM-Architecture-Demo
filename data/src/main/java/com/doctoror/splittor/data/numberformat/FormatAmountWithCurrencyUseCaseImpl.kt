@@ -9,7 +9,7 @@ import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import java.math.BigDecimal
 import java.util.Locale
 
-class FormatAmountWithCurrencyUseCaseImpl(
+internal class FormatAmountWithCurrencyUseCaseImpl(
     private val locale: Locale
 ) : FormatAmountWithCurrencyUseCase {
 

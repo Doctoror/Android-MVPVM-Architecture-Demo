@@ -10,7 +10,7 @@ import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import java.util.Optional
 
-class ContactDetailsRepositoryImpl(
+internal class ContactDetailsRepositoryImpl(
     private val contentResolver: ContentResolver,
     private val uriParser: UriParser
 ) : ContactDetailsRepository {

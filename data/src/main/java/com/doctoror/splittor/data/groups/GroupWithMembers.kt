@@ -5,7 +5,7 @@ import androidx.room.Ignore
 import androidx.room.Relation
 import com.doctoror.splittor.domain.groups.Group
 
-data class GroupWithMembers(
+internal data class GroupWithMembers(
     @Embedded val group: GroupEntity,
 
     @Relation(

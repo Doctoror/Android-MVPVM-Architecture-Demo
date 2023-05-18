@@ -3,7 +3,7 @@ package com.doctoror.splittor.data.groups
 import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.Flow
 
-interface GroupsDataSource {
+internal interface GroupsDataSource {
 
     suspend fun insert(amount: String, contactNames: List<String>, title: String): Long
 

@@ -4,7 +4,9 @@ import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import kotlinx.coroutines.flow.Flow
 
-class GroupsRepositoryImpl(private val groupsDataSource: GroupsDataSource) : GroupsRepository {
+internal class GroupsRepositoryImpl(
+    private val groupsDataSource: GroupsDataSource
+) : GroupsRepository {
 
     override suspend fun insert(
         amount: String,

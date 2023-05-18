@@ -13,7 +13,7 @@ const val GROUP_MEMBER_COLUMN_NAME_GROUP_ID = "groupMemberGroupId"
 const val GROUP_MEMBER_COLUMN_PAID = "groupMemberPaid"
 
 @Entity(tableName = GROUP_MEMBER_TABLE_NAME)
-data class GroupMemberEntity(
+internal data class GroupMemberEntity(
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_ID) @PrimaryKey(autoGenerate = true) val groupMemberId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_NAME_GROUP_ID) val groupMemberGroupId: Long,
     @ColumnInfo(name = GROUP_MEMBER_COLUMN_PAID) val groupMemberPaid: Boolean,

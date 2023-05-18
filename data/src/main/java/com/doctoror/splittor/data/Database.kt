@@ -13,7 +13,7 @@ import com.doctoror.splittor.data.groups.GroupsDao
     ],
     version = 1
 )
-abstract class MainDatabase : RoomDatabase() {
+internal abstract class MainDatabase : RoomDatabase() {
 
     abstract fun groupsDao(): GroupsDao
 }
