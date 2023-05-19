@@ -1,7 +1,5 @@
-package com.doctoror.splittor.domain.groups
+package com.doctoror.splittor.domain.contacts
 
-import com.doctoror.splittor.domain.contacts.ContactDetails
-import com.doctoror.splittor.domain.contacts.ContactDetailsRepository
 import java.util.Optional
 
 class GetContactDetailsUseCase(private val contactDetailsRepository: ContactDetailsRepository) {

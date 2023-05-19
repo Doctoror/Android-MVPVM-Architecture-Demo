@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.addgroup
 
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.contacts.ContactDetails
-import com.doctoror.splittor.domain.groups.GetContactDetailsUseCase
+import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
