@@ -30,7 +30,7 @@ class GroupsOverviewPresenterTest {
     @Test
     fun updatesViewModelWithGroups() {
         val groups = listOf<Group>(mock())
-        whenever(observeGroupsUseCase.observe()).thenReturn(flowOf(groups))
+        whenever(observeGroupsUseCase()).thenReturn(flowOf(groups))
 
         underTest.onCreate()
 

@@ -19,6 +19,6 @@ class ObserveGroupsUseCaseTest {
         val data = listOf<Group>(mock())
         whenever(groupsRepository.observe()).thenReturn(flowOf(data))
 
-        assertEquals(data, underTest.observe().single())
+        assertEquals(data, underTest().single())
     }
 }

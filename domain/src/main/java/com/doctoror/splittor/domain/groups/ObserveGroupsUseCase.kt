@@ -4,5 +4,5 @@ import kotlinx.coroutines.flow.Flow
 
 class ObserveGroupsUseCase(private val groupsRepository: GroupsRepository) {
 
-    fun observe(): Flow<List<Group>> = groupsRepository.observe()
+    operator fun invoke(): Flow<List<Group>> = groupsRepository.observe()
 }
