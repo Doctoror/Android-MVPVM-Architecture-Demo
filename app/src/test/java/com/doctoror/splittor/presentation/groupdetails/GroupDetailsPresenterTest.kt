@@ -36,7 +36,7 @@ class GroupDetailsPresenterTest {
     @Test
     fun observesGroupAndUpdatesViewModelOnCreate() {
         val group: Group = mock()
-        whenever(observeGroupUseCase.observe(groupId)).thenReturn(flowOf(group))
+        whenever(observeGroupUseCase(groupId)).thenReturn(flowOf(group))
 
         underTest.onCreate()
 

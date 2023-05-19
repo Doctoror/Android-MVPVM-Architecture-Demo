@@ -18,8 +18,7 @@ class GroupDetailsPresenter(
 
     override fun onCreate() {
         viewModelScope.launch {
-            observeGroupUseCase
-                .observe(groupId)
+            observeGroupUseCase(groupId)
                 .flowOn(dispatcherIo)
                 .collect { viewModelUpdater.update(it) }
         }

@@ -20,6 +20,6 @@ class ObserveGroupUseCaseTest {
         val id = 12L
         whenever(groupsRepository.observe(id)).thenReturn(flowOf(data))
 
-        assertEquals(data, underTest.observe(id).single())
+        assertEquals(data, underTest(id).single())
     }
 }
