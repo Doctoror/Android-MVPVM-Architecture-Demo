@@ -44,7 +44,7 @@ class AddGroupPresenter(
     }
 
     fun createGroup() {
-        val validationResult = validateAddGroupInputFieldsUseCase.validate(
+        val validationResult = validateAddGroupInputFieldsUseCase(
             inputFieldsMonitor.amount,
             inputFieldsMonitor.contacts,
             inputFieldsMonitor.title

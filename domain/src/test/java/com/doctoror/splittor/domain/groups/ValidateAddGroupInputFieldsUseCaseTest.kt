@@ -12,7 +12,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
     fun validateReturnsAmountMissingWhenAmountIsNullOrEmptyOrBlank() {
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
-            underTest.validate(
+            underTest(
                 null,
                 listOf(mock()),
                 "title"
@@ -21,7 +21,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
 
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
-            underTest.validate(
+            underTest(
                 "",
                 listOf(mock()),
                 "title"
@@ -30,7 +30,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
 
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
-            underTest.validate(
+            underTest(
                 " ",
                 listOf(mock()),
                 "title"
@@ -42,7 +42,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
     fun validateReturnsTitleMissingWhenTitleIsNullOrEmptyOrBlank() {
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
-            underTest.validate(
+            underTest(
                 "16",
                 listOf(mock()),
                 null
@@ -51,7 +51,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
 
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
-            underTest.validate(
+            underTest(
                 "16",
                 listOf(mock()),
                 ""
@@ -60,7 +60,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
 
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
-            underTest.validate(
+            underTest(
                 "16",
                 listOf(mock()),
                 " "
@@ -72,7 +72,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
     fun validateReturnsTitleMissingWhenAllFieldsAreEmptyOrBlank() {
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
-            underTest.validate(
+            underTest(
                 null,
                 emptyList(),
                 null
@@ -84,7 +84,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
     fun validateReturnsContactsMissingWhenContactsAreNullOrEmpty() {
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING,
-            underTest.validate(
+            underTest(
                 "23",
                 null,
                 "Title"
@@ -93,7 +93,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
 
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING,
-            underTest.validate(
+            underTest(
                 "36",
                 emptyList(),
                 "Title"
@@ -105,7 +105,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
     fun validateReturnsValidWhenAllParametersArePresent() {
         assertEquals(
             ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID,
-            underTest.validate(
+            underTest(
                 "23",
                 listOf(mock()),
                 "Title"

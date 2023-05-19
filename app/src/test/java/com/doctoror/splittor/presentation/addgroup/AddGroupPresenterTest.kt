@@ -68,7 +68,7 @@ class AddGroupPresenterTest {
     @Test
     fun createGroupSetsErrorMessageWhenAmountMissing() {
         whenever(
-            validateAddGroupInputFieldsUseCase.validate(
+            validateAddGroupInputFieldsUseCase(
                 inputFieldsMonitor.amount,
                 inputFieldsMonitor.contacts,
                 inputFieldsMonitor.title
@@ -83,7 +83,7 @@ class AddGroupPresenterTest {
     @Test
     fun createGroupSetsErrorMessageWhenContactsAreMissing() {
         whenever(
-            validateAddGroupInputFieldsUseCase.validate(
+            validateAddGroupInputFieldsUseCase(
                 inputFieldsMonitor.amount,
                 inputFieldsMonitor.contacts,
                 inputFieldsMonitor.title
@@ -98,7 +98,7 @@ class AddGroupPresenterTest {
     @Test
     fun createGroupSetsErrorMessageWhenTitleIsMissing() {
         whenever(
-            validateAddGroupInputFieldsUseCase.validate(
+            validateAddGroupInputFieldsUseCase(
                 inputFieldsMonitor.amount,
                 inputFieldsMonitor.contacts,
                 inputFieldsMonitor.title
@@ -118,7 +118,7 @@ class AddGroupPresenterTest {
         whenever(inputFieldsMonitor.title).thenReturn("title")
 
         whenever(
-            validateAddGroupInputFieldsUseCase.validate(
+            validateAddGroupInputFieldsUseCase(
                 inputFieldsMonitor.amount,
                 inputFieldsMonitor.contacts,
                 inputFieldsMonitor.title

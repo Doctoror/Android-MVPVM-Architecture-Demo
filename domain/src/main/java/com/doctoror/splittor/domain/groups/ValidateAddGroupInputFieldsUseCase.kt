@@ -4,7 +4,7 @@ import com.doctoror.splittor.domain.contacts.ContactDetails
 
 class ValidateAddGroupInputFieldsUseCase {
 
-    fun validate(
+    operator fun invoke(
         amount: CharSequence?,
         contacts: Collection<ContactDetails>?,
         title: CharSequence?
