@@ -19,6 +19,6 @@ class GetContactDetailsUseCaseTest {
         val output = Optional.of(mock<ContactDetails>())
         whenever(contactDetailsRepository.getForUri(uri)).thenReturn(output)
 
-        assertEquals(output, underTest.getForUri(uri))
+        assertEquals(output, underTest(uri))
     }
 }

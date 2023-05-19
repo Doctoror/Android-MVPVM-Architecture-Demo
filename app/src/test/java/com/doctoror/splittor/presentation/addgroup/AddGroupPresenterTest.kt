@@ -45,7 +45,7 @@ class AddGroupPresenterTest {
     fun handlesContactPick() = runTest {
         val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/84"
         val contactDetails: ContactDetails = mock()
-        whenever(getContactDetailsUseCase.getForUri(uri)).thenReturn(Optional.of(contactDetails))
+        whenever(getContactDetailsUseCase(uri)).thenReturn(Optional.of(contactDetails))
 
         underTest.handleContactPick(uri)
 
@@ -56,7 +56,7 @@ class AddGroupPresenterTest {
     @Test
     fun handleContactPickDoesNothingIfFetchedContactDetailsAreMissing() = runTest {
         val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/143"
-        whenever(getContactDetailsUseCase.getForUri(uri))
+        whenever(getContactDetailsUseCase(uri))
             .thenReturn(Optional.empty<ContactDetails>())
 
         underTest.handleContactPick(uri)

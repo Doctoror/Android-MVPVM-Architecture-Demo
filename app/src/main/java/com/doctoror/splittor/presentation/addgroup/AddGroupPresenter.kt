@@ -33,7 +33,7 @@ class AddGroupPresenter(
         viewModelScope.launch {
             val contactDetails: Optional<ContactDetails>
             withContext(dispatcherIo) {
-                contactDetails = getContactDetailsUseCase.getForUri(uri)
+                contactDetails = getContactDetailsUseCase(uri)
             }
 
             if (contactDetails.isPresent) {

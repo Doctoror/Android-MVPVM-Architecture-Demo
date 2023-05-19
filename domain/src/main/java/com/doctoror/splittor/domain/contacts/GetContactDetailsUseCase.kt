@@ -4,6 +4,6 @@ import java.util.Optional
 
 class GetContactDetailsUseCase(private val contactDetailsRepository: ContactDetailsRepository) {
 
-    suspend fun getForUri(uri: String): Optional<ContactDetails> =
+    suspend operator fun invoke(uri: String): Optional<ContactDetails> =
         contactDetailsRepository.getForUri(uri)
 }
