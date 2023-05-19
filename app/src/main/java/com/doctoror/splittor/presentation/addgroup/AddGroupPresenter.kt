@@ -68,7 +68,7 @@ class AddGroupPresenter(
         if (validationResult == ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID) {
             viewModelScope.launch {
                 groupInsertedEventsFlow.emit(
-                    insertGroupUseCase.insert(
+                    insertGroupUseCase(
                         inputFieldsMonitor.amount!!.toString(),
                         inputFieldsMonitor.contacts.map { it.name },
                         inputFieldsMonitor.title!!.toString()

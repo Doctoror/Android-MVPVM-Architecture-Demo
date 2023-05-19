@@ -129,7 +129,7 @@ class AddGroupPresenterTest {
         val expectedInsertionResult = 1L
         runTest(UnconfinedTestDispatcher()) {
             whenever(
-                insertGroupUseCase.insert(
+                insertGroupUseCase(
                     inputFieldsMonitor.amount!!.toString(),
                     inputFieldsMonitor.contacts.map { it.name },
                     inputFieldsMonitor.title!!.toString()

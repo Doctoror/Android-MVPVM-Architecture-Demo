@@ -2,7 +2,7 @@ package com.doctoror.splittor.domain.groups
 
 class InsertGroupUseCase(private val groupsRepository: GroupsRepository) {
 
-    suspend fun insert(
+    suspend operator fun invoke(
         amount: String,
         contactNames: List<String>,
         title: String

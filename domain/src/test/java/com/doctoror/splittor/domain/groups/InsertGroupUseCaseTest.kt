@@ -20,7 +20,7 @@ class InsertGroupUseCaseTest {
         val insertedGroupId = 112L
         whenever(groupsRepository.insert(amount, contactNames, title)).thenReturn(insertedGroupId)
 
-        val output = underTest.insert(amount, contactNames, title)
+        val output = underTest(amount, contactNames, title)
 
         assertEquals(insertedGroupId, output)
     }
