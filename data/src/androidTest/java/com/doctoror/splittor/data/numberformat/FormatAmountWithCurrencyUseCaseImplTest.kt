@@ -11,26 +11,26 @@ class FormatAmountWithCurrencyUseCaseImplTest {
 
     @Test
     fun formatsZeroAmount() {
-        assertEquals("$0.00", underTest.format(BigDecimal.ZERO))
+        assertEquals("$0.00", underTest(BigDecimal.ZERO))
     }
 
     @Test
     fun formatsAmountWith1FractionDigit() {
-        assertEquals("$13.40", underTest.format(BigDecimal("13.4")))
+        assertEquals("$13.40", underTest(BigDecimal("13.4")))
     }
 
     @Test
     fun formatsAmountWith2FractionDigits() {
-        assertEquals("$99.68", underTest.format(BigDecimal("99.68")))
+        assertEquals("$99.68", underTest(BigDecimal("99.68")))
     }
 
     @Test
     fun formatsAmountWithMoreThan2FractionDigits() {
-        assertEquals("$200.13", underTest.format(BigDecimal("200.134")))
+        assertEquals("$200.13", underTest(BigDecimal("200.134")))
     }
 
     @Test
     fun formatsAmountWithMoreThanThousandsSeparator() {
-        assertEquals("$150,000.99", underTest.format(BigDecimal("150000.99")))
+        assertEquals("$150,000.99", underTest(BigDecimal("150000.99")))
     }
 }

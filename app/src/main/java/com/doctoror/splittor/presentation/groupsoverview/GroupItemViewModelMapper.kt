@@ -14,7 +14,7 @@ class GroupItemViewModelMapper(
 ) {
 
     fun map(group: Group) = GroupItemViewModel(
-        amount = formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)),
+        amount = formatAmountWithCurrencyUseCase(BigDecimal(group.amount)),
         id = group.id,
         members = resources.getQuantityString(
             R.plurals.d_members,

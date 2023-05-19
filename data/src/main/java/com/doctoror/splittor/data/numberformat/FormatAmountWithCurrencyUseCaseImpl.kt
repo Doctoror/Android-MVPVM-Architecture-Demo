@@ -13,7 +13,7 @@ internal class FormatAmountWithCurrencyUseCaseImpl(
     private val locale: Locale
 ) : FormatAmountWithCurrencyUseCase {
 
-    override fun format(amount: BigDecimal): String = with(Currency.getInstance(locale)) {
+    override fun invoke(amount: BigDecimal): String = with(Currency.getInstance(locale)) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             formatApiLevel30(amount, this)
         } else {

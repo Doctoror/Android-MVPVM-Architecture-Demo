@@ -25,7 +25,7 @@ class GroupDetailsViewModelUpdaterTest {
     fun updatesAmount() {
         val formattedAmount = "$44.13"
         val group = makeBasicGroup()
-        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)))
+        whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
             .thenReturn(formattedAmount)
 
         underTest.update(group)
@@ -50,7 +50,7 @@ class GroupDetailsViewModelUpdaterTest {
 
         val expectedAmount = "22.06"
         val formattedAmount = "$22.06"
-        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(expectedAmount)))
+        whenever(formatAmountWithCurrencyUseCase(BigDecimal(expectedAmount)))
             .thenReturn(formattedAmount)
 
         whenever(groupMemberItemViewModelMapper.map(formattedAmount, group.members[0]))

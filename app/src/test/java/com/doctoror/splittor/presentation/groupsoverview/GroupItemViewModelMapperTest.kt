@@ -45,7 +45,7 @@ class GroupItemViewModelMapperTest {
         }
 
         val formattedAmount = "formattedAmount"
-        whenever(formatAmountWithCurrencyUseCase.format(BigDecimal(group.amount)))
+        whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
             .thenReturn(formattedAmount)
 
         val formattedMemberCount = "formattedMemberCount"
