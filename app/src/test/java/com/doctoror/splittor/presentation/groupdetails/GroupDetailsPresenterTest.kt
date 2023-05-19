@@ -50,6 +50,6 @@ class GroupDetailsPresenterTest {
 
         underTest.updateMemberPaidStatus(memberId, paid)
 
-        verify(updateMemberPaidStatusUseCase).updateMemberPaidStatus(memberId, paid)
+        verify(updateMemberPaidStatusUseCase)(memberId, paid)
     }
 }

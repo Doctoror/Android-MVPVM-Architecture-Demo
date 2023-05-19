@@ -16,7 +16,7 @@ class UpdateMemberPaidStatusUseCaseTest {
         val memberId = 64L
         val paid = true
 
-        underTest.updateMemberPaidStatus(memberId, paid)
+        underTest(memberId, paid)
 
         verify(groupsRepository).updateMemberPaidStatus(memberId, paid)
     }

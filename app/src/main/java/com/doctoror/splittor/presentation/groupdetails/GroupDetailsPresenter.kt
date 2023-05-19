@@ -26,7 +26,7 @@ class GroupDetailsPresenter(
 
     fun updateMemberPaidStatus(memberId: Long, paid: Boolean) {
         viewModelScope.launch {
-            updateMemberPaidStatusUseCase.updateMemberPaidStatus(memberId, paid)
+            updateMemberPaidStatusUseCase(memberId, paid)
         }
     }
 }
