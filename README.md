@@ -8,7 +8,7 @@ The group item is crossed out with strikethrough text once everyone has paid.
 
 <img src="/screenshots/Empty.png" width="320" /> <img src="/screenshots/Wizard.png" width="320" />
 
-<img src="/screenshots/Group View.png" width="320" /> <img src="/screenshots/Overview.png" width="320" /> 
+<img src="/screenshots/Details.png" width="320" /> <img src="/screenshots/Overview.png" width="320" /> 
 
 ## Architecture
 
