@@ -6,7 +6,6 @@ ext {
     androidTestRunnerVersion = '1.5.2'
 
     constraintlayoutVersion = '2.1.4'
-    coreKtxVersion = '1.10.1'
     coroutinesVersion = '1.7.1'
 
     junitVersion = '4.13.2'
