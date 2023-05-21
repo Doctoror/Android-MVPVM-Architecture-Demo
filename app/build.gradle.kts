@@ -17,8 +17,6 @@ android {
         minSdk = libs.versions.androidMinSdkVersion.get().toInt()
         targetSdk = libs.versions.androidTargetSdkVersion.get().toInt()
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
         versionCode = 1
         versionName = "1.0"
     }
@@ -62,7 +60,4 @@ dependencies {
     testImplementation(libs.kotlin.reflect)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.kotlin)
-
-    androidTestImplementation(libs.test.core)
-    androidTestImplementation(libs.test.runner)
 }

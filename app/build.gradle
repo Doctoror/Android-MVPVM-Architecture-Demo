@@ -1,0 +1,65 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    namespace 'com.doctoror.splittor'
+
+    compileSdk libs.versions.androidCompileSdkVersion.get().toInteger()
+
+    defaultConfig {
+        applicationId "com.doctoror.splittor"
+
+        minSdk libs.versions.androidMinSdkVersion.get().toInteger()
+        targetSdk libs.versions.androidTargetSdkVersion.get().toInteger()
+
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+}
+
+dependencies {
+    debugImplementation libs.compose.ui.tooling
+
+    implementation platform(libs.compose.bom)
+
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
+    implementation libs.accompanist.systemuicontroller
+    implementation libs.compose.material3
+    implementation libs.compose.ui.tooling.preview
+    implementation libs.koin
+    implementation libs.lifecycle.viewmodel.compose
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
+    testImplementation libs.junit
+    testImplementation libs.kotlin.reflect
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.kotlin
+}
