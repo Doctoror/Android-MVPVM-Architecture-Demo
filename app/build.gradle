@@ -54,8 +54,6 @@ dependencies {
 
     apply from: '../dependencies.gradle'
 
-    kapt "androidx.room:room-compiler:$roomVersion"
-
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
