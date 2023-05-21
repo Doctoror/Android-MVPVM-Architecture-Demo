@@ -7,13 +7,11 @@ plugins {
 android {
     namespace 'com.doctoror.splittor.data'
 
-    apply from: '../sdk-versions.gradle'
-
-    compileSdk androidCompileSdkVersion
+    compileSdk libs.versions.androidCompileSdkVersion.get().toInteger()
 
     defaultConfig {
-        minSdk androidMinSdkVersion
-        targetSdk androidTargetSdkVersion
+        minSdk libs.versions.androidMinSdkVersion.get().toInteger()
+        targetSdk libs.versions.androidTargetSdkVersion.get().toInteger()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -22,7 +20,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
     }
     compileOptions {

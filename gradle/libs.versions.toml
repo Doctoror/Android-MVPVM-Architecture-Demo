@@ -1,4 +1,8 @@
 [versions]
+androidCompileSdkVersion = "33"
+androidMinSdkVersion = "24"
+androidTargetSdkVersion = "33"
+
 androidTestCore = "1.5.0"
 androidTestRunner = "1.5.2"
 
