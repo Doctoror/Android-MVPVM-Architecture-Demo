@@ -11,6 +11,7 @@ import com.doctoror.splittor.data.groups.GroupsDao
         GroupEntity::class,
         GroupMemberEntity::class
     ],
+    exportSchema = false,
     version = 1
 )
 internal abstract class MainDatabase : RoomDatabase() {
