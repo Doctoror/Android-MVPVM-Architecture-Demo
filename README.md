@@ -37,7 +37,6 @@ Storage mechanism. Uses Room database.
 
 
 # Disclaimer
-For time saving only one feature (groups list) is covered by unit tests.
 
 You will also find a TODO that states that the currency should not be hardcoded, as I decided to leave out this functionality to save development time.
 
