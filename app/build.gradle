@@ -62,8 +62,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
 
-    implementation "com.google.android.material:material:$materialVersion"
-
     implementation "io.insert-koin:koin-android:$koinVersion"
 
     testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
