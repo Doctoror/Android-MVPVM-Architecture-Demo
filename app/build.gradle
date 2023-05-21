@@ -56,7 +56,6 @@ dependencies {
 
     kapt "androidx.room:room-compiler:$roomVersion"
 
-    implementation "androidx.appcompat:appcompat:$appCompatVersion"
     implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
     implementation "androidx.core:core-ktx:$coreKtxVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
