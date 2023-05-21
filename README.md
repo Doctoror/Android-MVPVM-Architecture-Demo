@@ -35,9 +35,3 @@ Business logic
 
 Storage mechanism. Uses Room database.
 
-
-# Disclaimer
-
-You will also find a TODO that states that the currency should not be hardcoded, as I decided to leave out this functionality to save development time.
-
-One more useful feature that is missing is an `InputFilter` on the Amount text view that forbids entering more fraction digits than the selected currency allows.
