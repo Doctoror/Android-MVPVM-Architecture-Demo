@@ -53,7 +53,6 @@ dependencies {
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.material3)
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.constraintlayout)
     implementation(libs.koin)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.fragment.ktx)
