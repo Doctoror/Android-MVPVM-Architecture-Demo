@@ -1,0 +1,6 @@
+ext {
+    androidCompileSdkVersion = 33
+    androidMinSdkVersion = 24
+    androidTargetSdkVersion = 33
+}
+

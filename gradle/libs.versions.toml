@@ -1,0 +1,46 @@
+[versions]
+androidTestCore = "1.5.0"
+androidTestRunner = "1.5.2"
+
+constraintlayout = "2.1.4"
+coroutines = "1.7.1"
+
+junit = "4.13.2"
+
+koin = "3.4.0"
+kotlin = "1.8.21"
+
+mockito = "4.1.0"
+
+navigation = "2.5.3"
+
+room = "2.5.1"
+
+toolsGradle = "8.0.1"
+
+
+[libraries]
+constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+
+koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+
+mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockito" }
+
+navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+navigation-safe-args-gradle-plugin = { group = "androidx.navigation", name = "navigation-safe-args-gradle-plugin", version.ref = "navigation" }
+navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
+
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+
+test-core = { group = "androidx.test", name = "core", version.ref = "androidTestCore" }
+test-runner = { group = "androidx.test", name = "runner", version.ref = "androidTestRunner" }
+
+tools-build-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "toolsGradle" }

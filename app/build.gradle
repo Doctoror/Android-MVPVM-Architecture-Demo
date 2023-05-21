@@ -7,17 +7,16 @@ plugins {
 }
 
 android {
-
     namespace 'com.doctoror.splittor'
 
-    def globalConfiguration = rootProject.extensions.getByName("ext")
+    apply from: '../sdk-versions.gradle'
 
-    compileSdk globalConfiguration["androidCompileSdkVersion"]
+    compileSdk androidCompileSdkVersion
 
     defaultConfig {
         applicationId "com.doctoror.splittor"
-        minSdk globalConfiguration["androidMinSdkVersion"]
-        targetSdk globalConfiguration["androidTargetSdkVersion"]
+        minSdk androidMinSdkVersion
+        targetSdk androidTargetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -52,19 +51,16 @@ dependencies {
     implementation project(path: ':data')
     implementation project(path: ':domain')
 
-    apply from: '../dependencies.gradle'
+    implementation libs.constraintlayout
+    implementation libs.koin
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
 
-    implementation "androidx.constraintlayout:constraintlayout:$constraintlayoutVersion"
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    testImplementation libs.junit
+    testImplementation libs.kotlin.reflect
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.kotlin
 
-    implementation "io.insert-koin:koin-android:$koinVersion"
-
-    testImplementation "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
-
-    androidTestImplementation "androidx.test:core:$androidTestCoreVersion"
-    androidTestImplementation "androidx.test:runner:$androidTestRunnerVersion"
+    androidTestImplementation libs.test.core
+    androidTestImplementation libs.test.runner
 }

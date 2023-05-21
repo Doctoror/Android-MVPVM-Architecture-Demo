@@ -7,13 +7,13 @@ plugins {
 android {
     namespace 'com.doctoror.splittor.data'
 
-    def globalConfiguration = rootProject.extensions.getByName("ext")
+    apply from: '../sdk-versions.gradle'
 
-    compileSdk globalConfiguration["androidCompileSdkVersion"]
+    compileSdk androidCompileSdkVersion
 
     defaultConfig {
-        minSdk globalConfiguration["androidMinSdkVersion"]
-        targetSdk globalConfiguration["androidTargetSdkVersion"]
+        minSdk androidMinSdkVersion
+        targetSdk androidTargetSdkVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -34,19 +34,16 @@ android {
 dependencies {
     implementation project(path: ':domain')
 
-    apply from: '../dependencies.gradle'
+    kapt libs.room.compiler
 
-    kapt "androidx.room:room-compiler:$roomVersion"
+    implementation libs.room.ktx
+    implementation libs.room.runtime
+    implementation libs.koin
 
-    implementation "androidx.room:room-ktx:$roomVersion"
-    implementation "androidx.room:room-runtime:$roomVersion"
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.kotlin
 
-    implementation "io.insert-koin:koin-android:$koinVersion"
-
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
-
-    androidTestImplementation "androidx.test:core:$androidTestCoreVersion"
-    androidTestImplementation "androidx.test:runner:$androidTestRunnerVersion"
+    androidTestImplementation libs.test.core
+    androidTestImplementation libs.test.runner
 }

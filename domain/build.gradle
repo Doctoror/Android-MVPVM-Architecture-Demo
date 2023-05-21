@@ -9,11 +9,10 @@ java {
 }
 
 dependencies {
-    apply from: '../dependencies.gradle'
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    implementation libs.kotlinx.coroutines.core
 
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
-    testImplementation "junit:junit:$junitVersion"
-    testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoVersion"
+    testImplementation libs.junit
+    testImplementation libs.kotlinx.coroutines.test
+    testImplementation libs.mockito.kotlin
 }
