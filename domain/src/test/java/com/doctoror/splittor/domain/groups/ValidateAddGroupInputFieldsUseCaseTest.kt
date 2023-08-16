@@ -21,7 +21,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
             underTest(
                 null,
-                listOf(mock()),
+                listOf(Any()),
                 "title"
             )
         )
@@ -30,7 +30,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
             underTest(
                 "",
-                listOf(mock()),
+                listOf(Any()),
                 "title"
             )
         )
@@ -39,7 +39,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
             underTest(
                 " ",
-                listOf(mock()),
+                listOf(Any()),
                 "title"
             )
         )
@@ -54,7 +54,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
             underTest(
                 amount,
-                listOf(mock()),
+                listOf(Any()),
                 "title"
             )
         )
@@ -65,7 +65,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING,
             underTest(
                 amount,
-                listOf(mock()),
+                listOf(Any()),
                 "title"
             )
         )
@@ -77,7 +77,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
             underTest(
                 "16",
-                listOf(mock()),
+                listOf(Any()),
                 null
             )
         )
@@ -86,7 +86,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
             underTest(
                 "16",
-                listOf(mock()),
+                listOf(Any()),
                 ""
             )
         )
@@ -95,7 +95,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
             underTest(
                 "16",
-                listOf(mock()),
+                listOf(Any()),
                 " "
             )
         )
@@ -107,7 +107,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING,
             underTest(
                 null,
-                emptyList(),
+                emptyList<Any>(),
                 null
             )
         )
@@ -131,7 +131,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING,
             underTest(
                 amount,
-                emptyList(),
+                emptyList<Any>(),
                 "Title"
             )
         )
@@ -146,7 +146,7 @@ class ValidateAddGroupInputFieldsUseCaseTest {
             ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID,
             underTest(
                 amount,
-                listOf(mock()),
+                listOf(Any()),
                 "Title"
             )
         )

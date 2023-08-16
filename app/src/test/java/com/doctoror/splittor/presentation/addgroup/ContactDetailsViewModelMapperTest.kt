@@ -10,10 +10,10 @@ class ContactDetailsViewModelMapperTest {
 
     @Test
     fun transforms() {
-        val input = object : ContactDetails {
-            override val id = 14L
-            override val name = "name"
-        }
+        val input = ContactDetails(
+            id = 14L,
+            name = "name"
+        )
 
         val output = underTest.map(input)
 

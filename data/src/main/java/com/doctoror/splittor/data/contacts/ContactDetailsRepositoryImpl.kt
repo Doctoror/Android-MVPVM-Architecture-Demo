@@ -1,7 +1,6 @@
 package com.doctoror.splittor.data.contacts
 
 import android.content.ContentResolver
-import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.ContactsContract
 import android.util.Log
@@ -43,7 +42,7 @@ internal class ContactDetailsRepositoryImpl(
                 }
 
                 return Optional.of(
-                    ContactDetailsImpl(
+                    ContactDetails(
                         id = it.getLong(idColumnIndex),
                         name = name
                     )

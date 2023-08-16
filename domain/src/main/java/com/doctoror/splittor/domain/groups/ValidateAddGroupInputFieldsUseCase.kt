@@ -9,7 +9,7 @@ class ValidateAddGroupInputFieldsUseCase(
 
     operator fun invoke(
         amount: String?,
-        contacts: Collection<ContactDetails>?,
+        contacts: Collection<*>?,
         title: CharSequence?
     ): ValidationResult = when {
         title.isNullOrBlank() -> ValidationResult.TITLE_MISSING
