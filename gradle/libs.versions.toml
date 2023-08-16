@@ -2,7 +2,7 @@
 accompanist = "0.30.1"
 androidCompileSdkVersion = "34"
 androidMinSdkVersion = "24"
-androidTargetSdkVersion = "33"
+androidTargetSdkVersion = "34"
 androidTestCore = "1.5.0"
 androidTestRunner = "1.5.2"
 
