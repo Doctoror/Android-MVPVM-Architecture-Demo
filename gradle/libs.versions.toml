@@ -25,7 +25,7 @@ navigation = "2.5.3"
 
 room = "2.5.1"
 
-toolsGradle = "8.0.1"
+toolsGradle = "8.0.2"
 
 
 [libraries]
