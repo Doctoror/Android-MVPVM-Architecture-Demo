@@ -5,7 +5,7 @@
 
     <fragment
         android:id="@+id/groupsOverviewFragment"
-        android:name="com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewFragment"
+        android:name="com.doctoror.splittor.groupsoverview.GroupsOverviewFragment"
         android:label="@string/groups">
 
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/addGroupFragment"
-        android:name="com.doctoror.splittor.presentation.addgroup.AddGroupFragment"
+        android:name="com.doctoror.splittor.addgroup.AddGroupFragment"
         android:label="@string/add_new_group">
 
         <action
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/groupDetailsFragment"
-        android:name="com.doctoror.splittor.presentation.groupdetails.GroupDetailsFragment">
+        android:name="com.doctoror.splittor.groupdetails.GroupDetailsFragment">
 
         <argument
             android:name="groupId"

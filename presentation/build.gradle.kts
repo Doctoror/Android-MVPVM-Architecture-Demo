@@ -1,17 +1,26 @@
 plugins {
     id("com.android.library")
-    id("com.google.devtools.ksp")
-    id("org.jetbrains.kotlin.android")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("kotlin-parcelize")
 }
 
 android {
-    namespace = "com.doctoror.splittor.data"
+    namespace = "com.doctoror.splittor.presentation"
 
     compileSdk = libs.versions.androidCompileSdkVersion.get().toInt()
 
+    buildFeatures {
+        compose = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
+    }
+
     defaultConfig {
         minSdk = libs.versions.androidMinSdkVersion.get().toInt()
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        targetSdk = libs.versions.androidTargetSdkVersion.get().toInt()
     }
 
     buildTypes {
@@ -20,6 +29,7 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -27,17 +37,17 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.compose.bom))
+
     implementation(project(":domain"))
 
-    ksp(libs.room.compiler)
-
-    implementation(libs.room.ktx)
-    implementation(libs.room.runtime)
+    implementation(libs.accompanist.systemuicontroller)
+    implementation(libs.compose.material3)
+    implementation(libs.compose.ui.tooling.preview)
+    implementation(libs.lifecycle.viewmodel.compose)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlin.reflect)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.kotlin)
-
-    androidTestImplementation(libs.test.core)
-    androidTestImplementation(libs.test.runner)
 }
