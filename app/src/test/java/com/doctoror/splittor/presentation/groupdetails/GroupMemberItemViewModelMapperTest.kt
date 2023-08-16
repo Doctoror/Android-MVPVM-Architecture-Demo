@@ -11,11 +11,11 @@ class GroupMemberItemViewModelMapperTest {
     @Test
     fun transforms() {
         val amount = "55.44"
-        val member = object : GroupMember {
-            override val id = 489L
-            override val name = "name"
-            override val paid = true
-        }
+        val member = GroupMember(
+            id = 489L,
+            name = "name",
+            paid = true
+        )
 
         val output = underTest.map(amount, member)
 

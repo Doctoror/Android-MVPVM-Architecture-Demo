@@ -1,5 +1,6 @@
 package com.doctoror.splittor.data.groups
 
+import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runTest
@@ -31,7 +32,7 @@ class GroupsRepositoryImplTest {
 
     @Test
     fun observeEmitsDataFromDataSource() = runTest {
-        val data = listOf<GroupWithMembers>(mock())
+        val data = listOf<Group>(mock())
         whenever(groupsDataSource.observe()).thenReturn(flowOf(data))
 
         assertEquals(data, underTest.observe().single())
@@ -40,7 +41,7 @@ class GroupsRepositoryImplTest {
     @Test
     fun observeByIdEmitsDataFromDataSource() = runTest {
         val id = 3434L
-        val data: GroupWithMembers = mock()
+        val data: Group = mock()
         whenever(groupsDataSource.observe(id)).thenReturn(flowOf(data))
 
         assertEquals(data, underTest.observe(id).single())

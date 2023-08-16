@@ -6,7 +6,8 @@ import kotlinx.coroutines.flow.map
 
 internal class LocalGroupsDataSource(
     private val currentTimeProvider: () -> Long,
-    private val groupsDao: GroupsDao
+    private val groupsDao: GroupsDao,
+    private val groupWithMembersMapper: GroupWithMembersMapper
 ) : GroupsDataSource {
 
     override suspend fun insert(
@@ -42,11 +43,15 @@ internal class LocalGroupsDataSource(
         .observeGroupsWithMembers()
         .map { groups ->
             groups.sortedWith(
-                compareBy<Group> { it.allMembersPaid }.thenByDescending { it.insertedAt }
+                compareBy<GroupWithMembers> { gwm -> gwm.members.all { it.groupMemberPaid } }
+                    .thenByDescending { it.group.insertedAt }
             )
         }
+        .map { it.map(groupWithMembersMapper::transform) }
 
-    override fun observe(id: Long): Flow<Group> = groupsDao.observeGroupWithMembers(id)
+    override fun observe(id: Long): Flow<Group> = groupsDao
+        .observeGroupWithMembers(id)
+        .map(groupWithMembersMapper::transform)
 
     override suspend fun updateMemberPaidStatus(memberId: Long, paid: Boolean) = groupsDao
         .updateMemberPaidStatus(memberId, paid)

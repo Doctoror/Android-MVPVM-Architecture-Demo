@@ -64,34 +64,19 @@ class GroupDetailsViewModelUpdaterTest {
         assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members)
     }
 
-    private data class GroupMemberImpl(
-        override val id: Long,
-        override val name: String,
-        override val paid: Boolean
-    ) : GroupMember
-
-    private data class GroupImpl(
-        override val allMembersPaid: Boolean,
-        override val amount: String,
-        override val id: Long,
-        override val insertedAt: Long,
-        override val members: List<GroupMember>,
-        override val title: String
-    ) : Group
-
-    private fun makeBasicGroup() = GroupImpl(
+    private fun makeBasicGroup() = Group(
         allMembersPaid = false,
         amount = "44.13",
         id = 1L,
         insertedAt = 1684338081385,
         members = listOf(
-            GroupMemberImpl(
+            GroupMember(
                 id = 1L,
                 name = "name1",
                 paid = false
             ),
 
-            GroupMemberImpl(
+            GroupMember(
                 id = 2L,
                 name = "name2",
                 paid = true

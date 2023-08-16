@@ -1,5 +1,6 @@
 package com.doctoror.splittor.data.groups
 
+import com.doctoror.splittor.domain.groups.Group
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.test.runTest
@@ -13,8 +14,13 @@ class LocalGroupsDataSourceTest {
 
     private val currentTimeProvider = { 1684318017123 }
     private val groupsDao: GroupsDao = mock()
+    private val groupWithMembersMapper: GroupWithMembersMapper = mock()
 
-    private val underTest = LocalGroupsDataSource(currentTimeProvider, groupsDao)
+    private val underTest = LocalGroupsDataSource(
+        currentTimeProvider,
+        groupsDao,
+        groupWithMembersMapper
+    )
 
     @Test
     fun insertsInDao() = runTest {
@@ -55,10 +61,14 @@ class LocalGroupsDataSourceTest {
 
     @Test
     fun observeGroupsWithMembersEmitsDataFromDao() = runTest {
-        val data = listOf<GroupWithMembers>(mock())
+        val group: GroupWithMembers = mock()
+        val groupTransformed: Group = mock()
+        val data = listOf(group)
+
+        whenever(groupWithMembersMapper.transform(group)).thenReturn(groupTransformed)
         whenever(groupsDao.observeGroupsWithMembers()).thenReturn(flowOf(data))
 
-        assertEquals(data, underTest.observe().single())
+        assertEquals(listOf(groupTransformed), underTest.observe().single())
     }
 
     @Test
@@ -66,9 +76,12 @@ class LocalGroupsDataSourceTest {
         val id = 1L
 
         val data: GroupWithMembers = mock()
+        val groupTransformed: Group = mock()
+
+        whenever(groupWithMembersMapper.transform(data)).thenReturn(groupTransformed)
         whenever(groupsDao.observeGroupWithMembers(id)).thenReturn(flowOf(data))
 
-        assertEquals(data, underTest.observe(id).single())
+        assertEquals(groupTransformed, underTest.observe(id).single())
     }
 
     @Test

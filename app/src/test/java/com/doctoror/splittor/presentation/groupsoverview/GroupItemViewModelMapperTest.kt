@@ -3,7 +3,6 @@ package com.doctoror.splittor.presentation.groupsoverview
 import android.content.res.Resources
 import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
-import com.doctoror.splittor.domain.groups.GroupMember
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -23,14 +22,14 @@ class GroupItemViewModelMapperTest {
 
     @Test
     fun transforms() {
-        val group = object : Group {
-            override val allMembersPaid = false
-            override val amount = "19.58"
-            override val id = 4L
-            override val insertedAt = 1684234780123
-            override val members = listOf(mock<GroupMember>())
-            override val title = "title"
-        }
+        val group = Group(
+            allMembersPaid = false,
+            amount = "19.58",
+            id = 4L,
+            insertedAt = 1684234780123,
+            members = listOf(mock()),
+            title = "title"
+        )
 
         val formattedAmount = "formattedAmount"
         whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))

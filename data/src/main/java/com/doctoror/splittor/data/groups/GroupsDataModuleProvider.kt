@@ -21,7 +21,8 @@ fun provideGroupsDataModule() = module {
         GroupsRepositoryImpl(
             groupsDataSource = LocalGroupsDataSource(
                 currentTimeProvider = { System.currentTimeMillis() },
-                groupsDao = get<MainDatabase>().groupsDao()
+                groupsDao = get<MainDatabase>().groupsDao(),
+                groupWithMembersMapper = GroupWithMembersMapper()
             )
         )
     }
