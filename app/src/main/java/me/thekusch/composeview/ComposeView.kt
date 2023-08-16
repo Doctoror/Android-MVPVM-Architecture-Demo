@@ -54,7 +54,8 @@ fun CurrencyTextField(
     modifier: Modifier = Modifier,
     locale: Locale = Locale.getDefault(),
     initialText: String = "",
-    keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+    keyboardOptions: KeyboardOptions =
+        KeyboardOptions(keyboardType = KeyboardType.Number),
     maxLines: Int = 1,
     maxNoOfDecimal: Int = 2,
     currencySymbol: String,
@@ -107,7 +108,11 @@ fun CurrencyTextField(
             onValueChange = {
                 textFieldState = formatUserInput(
                     oldText,
-                    it,
+                    sanitizeInput(
+                        currencySymbol,
+                        decimalFormatSymbols,
+                        it
+                    ),
                     decimalFormatSymbols,
                     maxNoOfDecimal,
                     currencySymbol,
