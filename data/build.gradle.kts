@@ -1,6 +1,6 @@
 plugins {
     id("com.android.library")
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.android")
 }
 
@@ -29,7 +29,7 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     implementation(libs.room.ktx)
     implementation(libs.room.runtime)
