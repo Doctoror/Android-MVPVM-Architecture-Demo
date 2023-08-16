@@ -23,7 +23,7 @@ mockito = "4.1.0"
 
 navigation = "2.5.3"
 
-room = "2.5.1"
+room = "2.5.2"
 
 toolsGradle = "8.0.2"
 
