@@ -53,7 +53,6 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-    implementation(libs.koin)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)

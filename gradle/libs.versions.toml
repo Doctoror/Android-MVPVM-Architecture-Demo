@@ -15,7 +15,6 @@ hilt = "2.47"
 
 junit = "4.13.2"
 
-koin = "3.4.0"
 kotlin = "1.9.0"
 ksp = "1.9.0-1.0.13"
 
@@ -44,7 +43,6 @@ hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", ve
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 
-koin = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlin-reflect = { group = "org.jetbrains.kotlin", name = "kotlin-reflect", version.ref = "kotlin" }
 kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }

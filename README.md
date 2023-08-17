@@ -13,7 +13,7 @@ The group item is crossed out with strikethrough text once everyone has paid.
 ## Architecture
 
 This application uses so called "Clean Architecture" with an `MVVMP` (Model-View-ViewModel-Presenter) pattern.
-`Koin` is used for Dependency Injection.
+`Hilt` is used for Dependency Injection.
 
 The idea behind `MVVMP` pattern is to avoid business logic in a `ViewModel` entirely.
 
