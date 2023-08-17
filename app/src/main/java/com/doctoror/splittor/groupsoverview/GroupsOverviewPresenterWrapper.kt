@@ -9,9 +9,12 @@ import com.doctoror.splittor.presentation.groupsoverview.GroupItemViewModelMappe
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewPresenter
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModelUpdater
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class GroupsOverviewPresenterWrapper(
+@HiltViewModel
+class GroupsOverviewPresenterWrapper @Inject constructor(
     formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
     groupsRepository: GroupsRepository,
     resources: Resources

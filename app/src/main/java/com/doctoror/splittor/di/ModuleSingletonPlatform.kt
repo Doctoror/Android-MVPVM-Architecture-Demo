@@ -1,12 +1,13 @@
 package com.doctoror.splittor.di
 
+import android.content.ContentResolver
 import android.content.Context
+import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.Dispatchers
 import java.util.Locale
 
 @Module
@@ -14,12 +15,12 @@ import java.util.Locale
 class ModuleSingletonPlatform {
 
     @Provides
-    fun contentResolver(@ApplicationContext context: Context) = context.contentResolver
+    fun contentResolver(@ApplicationContext context: Context): ContentResolver =
+        context.contentResolver
 
     @Provides
-    fun locale() = Locale.getDefault()
+    fun locale(): Locale = Locale.getDefault()
 
     @Provides
-    @IoDispatcher
-    fun dispatcherIo() = Dispatchers.IO
+    fun resources(@ApplicationContext context: Context): Resources = context.resources
 }

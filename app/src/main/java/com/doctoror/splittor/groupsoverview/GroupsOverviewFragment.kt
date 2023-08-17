@@ -6,13 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewContent
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class GroupsOverviewFragment : Fragment() {
 
-    private val presenter: GroupsOverviewPresenterWrapper by viewModel()
+    private val presenter: GroupsOverviewPresenterWrapper by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

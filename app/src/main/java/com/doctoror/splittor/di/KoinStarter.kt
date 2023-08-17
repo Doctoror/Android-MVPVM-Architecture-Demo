@@ -12,7 +12,6 @@ class KoinStarter {
             provideContactsModule(),
             provideGroupDetailsModule(),
             provideGroupsDataModule(),
-            provideGroupsOverviewPresentationModule(),
             provideNumberFormatDataModule(),
             providePlatformModule()
         )
