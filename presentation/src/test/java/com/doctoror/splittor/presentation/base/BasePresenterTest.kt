@@ -1,24 +1,32 @@
 package com.doctoror.splittor.presentation.base
 
-import androidx.lifecycle.Lifecycle
-import org.junit.Assert.assertTrue
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
+import org.junit.Assert.assertSame
 import org.junit.Test
-import org.mockito.kotlin.mock
 
 class BasePresenterTest {
 
-    @Test
-    fun dispatchesOnCreate() {
-        var created = false
-        val underTest = object : BasePresenter() {
+    @Test(expected = IllegalArgumentException::class)
+    fun throwsWhenTryingToAccessViewModelScopeWhenNotSet() {
+        TestPresenter().getScope()
+    }
 
-            override fun onCreate() {
-                created = true
-            }
+    @Test
+    fun providesViewModelScope() {
+        val underTest = TestPresenter()
+        val scope: CoroutineScope = MainScope()
+
+        underTest.viewModelScopeProvider = { scope }
+
+        assertSame(scope, underTest.getScope())
+    }
+
+    private class TestPresenter : BasePresenter<Any>(Any()) {
+
+        override fun onCreate() {
         }
 
-        underTest.onStateChanged(mock(), Lifecycle.Event.ON_CREATE)
-
-        assertTrue(created)
+        fun getScope() = viewModelScope
     }
 }
