@@ -5,7 +5,7 @@ import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 
-abstract class BasePresenter : ViewModel(), LifecycleEventObserver {
+abstract class BasePresenter<VM : Any>(val viewModel: VM) : ViewModel(), LifecycleEventObserver {
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         if (event == Lifecycle.Event.ON_CREATE) {

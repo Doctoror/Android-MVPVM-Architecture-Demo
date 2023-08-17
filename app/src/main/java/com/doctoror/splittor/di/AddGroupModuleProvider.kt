@@ -14,11 +14,10 @@ import org.koin.dsl.module
 
 fun provideAddGroupModule() = module {
 
-    viewModel { (handle: SavedStateHandle) -> AddGroupViewModel(handle) }
-
-    viewModel { parameters ->
+    viewModel { (handle: SavedStateHandle) ->
         val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase =
             get()
+
         AddGroupPresenter(
             dispatcherIo = Dispatchers.IO,
             getContactDetailsUseCase = get(),
@@ -27,7 +26,7 @@ fun provideAddGroupModule() = module {
             validateAddGroupInputFieldsUseCase = ValidateAddGroupInputFieldsUseCase(
                 stripCurrencyAndGroupingSeparatorsUseCase
             ),
-            viewModel = parameters.get(),
+            viewModel = AddGroupViewModel(handle),
             viewModelUpdater = AddGroupViewModelUpdater(
                 contactDetailsViewModelMapper = ContactDetailsViewModelMapper()
             )

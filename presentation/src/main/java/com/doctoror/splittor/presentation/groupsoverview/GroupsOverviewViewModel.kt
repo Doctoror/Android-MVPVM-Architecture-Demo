@@ -2,9 +2,8 @@ package com.doctoror.splittor.presentation.groupsoverview
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
 
-class GroupsOverviewViewModel : ViewModel() {
+class GroupsOverviewViewModel {
 
     val groups = mutableStateListOf<GroupItemViewModel>()
 

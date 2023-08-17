@@ -9,17 +9,11 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewContent
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewPresenter
-import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 
 class GroupsOverviewFragment : Fragment() {
 
-    private val viewModel: GroupsOverviewViewModel by viewModel()
-
-    private val presenter: GroupsOverviewPresenter by viewModel {
-        parametersOf(viewModel)
-    }
+    private val presenter: GroupsOverviewPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +33,7 @@ class GroupsOverviewFragment : Fragment() {
                         GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it)
                     )
                 },
-                viewModel = viewModel
+                viewModel = presenter.viewModel
             )
         }
     }

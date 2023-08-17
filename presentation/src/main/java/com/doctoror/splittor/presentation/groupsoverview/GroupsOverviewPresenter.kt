@@ -10,9 +10,9 @@ import kotlinx.coroutines.launch
 class GroupsOverviewPresenter(
     private val dispatcherIo: CoroutineDispatcher,
     private val observeGroupsUseCase: ObserveGroupsUseCase,
-    private val viewModel: GroupsOverviewViewModel,
+    viewModel: GroupsOverviewViewModel,
     private val viewModelUpdater: GroupsOverviewViewModelUpdater
-) : BasePresenter() {
+) : BasePresenter<GroupsOverviewViewModel>(viewModel) {
 
     override fun onCreate() {
         viewModelScope.launch {

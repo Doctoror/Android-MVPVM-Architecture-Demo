@@ -21,9 +21,9 @@ class AddGroupPresenter(
     private val insertGroupUseCase: InsertGroupUseCase,
     private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase,
-    private val viewModel: AddGroupViewModel,
+    viewModel: AddGroupViewModel,
     private val viewModelUpdater: AddGroupViewModelUpdater
-) : BasePresenter() {
+) : BasePresenter<AddGroupViewModel>(viewModel) {
 
     private val groupInsertedEventsFlow = MutableSharedFlow<Long>()
     val groupInsertedEvents: Flow<Long> = groupInsertedEventsFlow

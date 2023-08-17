@@ -16,11 +16,9 @@ import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import com.doctoror.splittor.presentation.addgroup.AddGroupContent
 import com.doctoror.splittor.presentation.addgroup.AddGroupPresenter
-import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import java.util.Locale
 
 class AddGroupFragment : Fragment() {
@@ -35,24 +33,21 @@ class AddGroupFragment : Fragment() {
 
     private val locale: Locale by inject()
 
-    private val presenter: AddGroupPresenter by viewModel {
-        parametersOf(viewModel)
-    }
+    private val presenter: AddGroupPresenter by viewModel()
 
     private val provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase by inject()
-
-    private val viewModel: AddGroupViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            viewModel
+            presenter
+                .viewModel
                 .errorMessage
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     if (it != 0) {
-                        viewModel.errorMessage.emit(0)
+                        presenter.viewModel.errorMessage.emit(0)
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -86,7 +81,7 @@ class AddGroupFragment : Fragment() {
                 onCreateClick = { presenter.createGroup() },
                 onNavigationClick = { findNavController().popBackStack() },
                 onTitleChange = presenter::handleTitleChange,
-                viewModel = viewModel
+                viewModel = presenter.viewModel
             )
         }
     }

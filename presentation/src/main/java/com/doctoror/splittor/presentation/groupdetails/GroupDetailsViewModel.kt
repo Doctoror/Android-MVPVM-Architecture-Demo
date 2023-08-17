@@ -2,9 +2,8 @@ package com.doctoror.splittor.presentation.groupdetails
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.ViewModel
 
-class GroupDetailsViewModel : ViewModel() {
+class GroupDetailsViewModel {
 
     val amount = mutableStateOf("")
 
