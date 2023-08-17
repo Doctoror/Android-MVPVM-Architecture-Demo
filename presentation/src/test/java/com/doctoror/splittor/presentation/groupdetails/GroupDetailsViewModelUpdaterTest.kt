@@ -17,8 +17,7 @@ class GroupDetailsViewModelUpdaterTest {
 
     private val underTest = GroupDetailsViewModelUpdater(
         formatAmountWithCurrencyUseCase,
-        groupMemberItemViewModelMapper,
-        viewModel
+        groupMemberItemViewModelMapper
     )
 
     @Test
@@ -28,7 +27,7 @@ class GroupDetailsViewModelUpdaterTest {
         whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
             .thenReturn(formattedAmount)
 
-        underTest.update(group)
+        underTest.update(viewModel, group)
 
         assertEquals(formattedAmount, viewModel.amount.value)
     }
@@ -37,7 +36,7 @@ class GroupDetailsViewModelUpdaterTest {
     fun updatesTitle() {
         val group = makeBasicGroup()
 
-        underTest.update(group)
+        underTest.update(viewModel, group)
 
         assertEquals(group.title, viewModel.title.value)
     }
@@ -59,7 +58,7 @@ class GroupDetailsViewModelUpdaterTest {
         whenever(groupMemberItemViewModelMapper.map(formattedAmount, group.members[1]))
             .thenReturn(mappedMember2)
 
-        underTest.update(group)
+        underTest.update(viewModel, group)
 
         assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members)
     }

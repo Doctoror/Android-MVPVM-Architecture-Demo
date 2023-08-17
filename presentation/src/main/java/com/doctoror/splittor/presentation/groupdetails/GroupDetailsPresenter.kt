@@ -13,6 +13,7 @@ class GroupDetailsPresenter(
     private val groupId: Long,
     private val observeGroupUseCase: ObserveGroupUseCase,
     private val updateMemberPaidStatusUseCase: UpdateMemberPaidStatusUseCase,
+    private val viewModel: GroupDetailsViewModel,
     private val viewModelUpdater: GroupDetailsViewModelUpdater
 ) : BasePresenter() {
 
@@ -20,7 +21,7 @@ class GroupDetailsPresenter(
         viewModelScope.launch {
             observeGroupUseCase(groupId)
                 .flowOn(dispatcherIo)
-                .collect { viewModelUpdater.update(it) }
+                .collect { viewModelUpdater.update(viewModel, it) }
         }
     }
 

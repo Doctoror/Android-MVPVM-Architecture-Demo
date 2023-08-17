@@ -7,11 +7,10 @@ import java.math.RoundingMode
 
 class GroupDetailsViewModelUpdater(
     private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
-    private val groupMemberItemViewModelMapper: GroupMemberItemViewModelMapper,
-    private val viewModel: GroupDetailsViewModel
+    private val groupMemberItemViewModelMapper: GroupMemberItemViewModelMapper
 ) {
 
-    fun update(group: Group) {
+    fun update(viewModel: GroupDetailsViewModel, group: Group) {
         viewModel.amount.value = formatAmountWithCurrencyUseCase(BigDecimal(group.amount))
         viewModel.title.value = group.title
 

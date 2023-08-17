@@ -23,6 +23,7 @@ class GroupDetailsPresenterTest {
     private val groupId = 1923L
     private val observeGroupUseCase: ObserveGroupUseCase = mock()
     private val updateMemberPaidStatusUseCase: UpdateMemberPaidStatusUseCase = mock()
+    private val viewModel: GroupDetailsViewModel = mock()
     private val viewModelUpdater: GroupDetailsViewModelUpdater = mock()
 
     private val underTest = GroupDetailsPresenter(
@@ -30,6 +31,7 @@ class GroupDetailsPresenterTest {
         groupId,
         observeGroupUseCase,
         updateMemberPaidStatusUseCase,
+        viewModel,
         viewModelUpdater
     )
 
@@ -40,7 +42,7 @@ class GroupDetailsPresenterTest {
 
         underTest.onCreate()
 
-        verify(viewModelUpdater).update(group)
+        verify(viewModelUpdater).update(viewModel, group)
     }
 
     @Test

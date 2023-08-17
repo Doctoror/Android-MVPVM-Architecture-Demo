@@ -20,10 +20,10 @@ fun provideGroupDetailsModule() = module {
             groupId = parameters.get(),
             observeGroupUseCase = ObserveGroupUseCase(groupsRepository = get()),
             updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository = get()),
+            viewModel = parameters.get(),
             viewModelUpdater = GroupDetailsViewModelUpdater(
                 formatAmountWithCurrencyUseCase = get(),
-                groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper(),
-                viewModel = parameters.get()
+                groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper()
             )
         )
     }
