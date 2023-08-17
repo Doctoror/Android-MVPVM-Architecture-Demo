@@ -1,11 +1,11 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
+import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -46,6 +46,24 @@ class AddGroupPresenterTest {
     )
 
     @Test
+    fun handlesAmountChange() {
+        val amount = "amount"
+
+        underTest.handleAmountChange(amount)
+
+        verify(viewModelUpdater).updateAmount(viewModel, amount)
+    }
+
+    @Test
+    fun handlesTitleChange() {
+        val title = "title"
+
+        underTest.handleTitleChange(title)
+
+        verify(viewModelUpdater).updateTitle(viewModel, title)
+    }
+
+    @Test
     fun handlesContactPick() = runTest {
         val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/84"
         val contactDetails: ContactDetails = mock()
@@ -53,7 +71,7 @@ class AddGroupPresenterTest {
 
         underTest.handleContactPick(uri)
 
-        verify(viewModelUpdater).addContact(contactDetails)
+        verify(viewModelUpdater).addContact(viewModel, contactDetails)
     }
 
     @Test
@@ -79,7 +97,7 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(R.string.amount_not_set)
+        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.amount_not_set)
     }
 
     @Test
@@ -94,7 +112,7 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(R.string.no_contacts_added)
+        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.no_contacts_added)
     }
 
     @Test
@@ -109,7 +127,7 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(R.string.title_not_set)
+        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.title_not_set)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

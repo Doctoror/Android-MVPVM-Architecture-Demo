@@ -1,9 +1,9 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
 import android.content.res.Resources
-import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
+import com.doctoror.splittor.presentation.R
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock

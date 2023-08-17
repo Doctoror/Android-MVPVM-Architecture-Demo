@@ -17,7 +17,6 @@ import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import com.doctoror.splittor.presentation.addgroup.AddGroupContent
 import com.doctoror.splittor.presentation.addgroup.AddGroupPresenter
 import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
-import com.doctoror.splittor.presentation.addgroup.AddGroupViewModelUpdater
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -43,10 +42,6 @@ class AddGroupFragment : Fragment() {
     private val provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase by inject()
 
     private val viewModel: AddGroupViewModel by viewModel()
-
-    private val viewModelUpdater: AddGroupViewModelUpdater by inject {
-        parametersOf(viewModel)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,11 +81,11 @@ class AddGroupFragment : Fragment() {
             AddGroupContent(
                 currencySymbol = provideCurrencySymbolUseCase(),
                 locale = locale,
-                onAmountChange = { viewModelUpdater.updateAmount(it) },
+                onAmountChange = presenter::handleAmountChange,
                 onAddContactClick = { activityResultLauncherPickContact.launch(null) },
                 onCreateClick = { presenter.createGroup() },
                 onNavigationClick = { findNavController().popBackStack() },
-                onTitleChange = { viewModelUpdater.updateTitle(it) },
+                onTitleChange = presenter::handleTitleChange,
                 viewModel = viewModel
             )
         }

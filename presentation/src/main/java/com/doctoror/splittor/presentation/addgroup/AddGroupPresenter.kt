@@ -31,6 +31,14 @@ class AddGroupPresenter(
     override fun onCreate() {
     }
 
+    fun handleAmountChange(amount: String) {
+        viewModelUpdater.updateAmount(viewModel, amount)
+    }
+
+    fun handleTitleChange(title: String) {
+        viewModelUpdater.updateTitle(viewModel, title)
+    }
+
     fun handleContactPick(uri: String) {
         viewModelScope.launch {
             val contactDetails: Optional<ContactDetails>
@@ -39,7 +47,7 @@ class AddGroupPresenter(
             }
 
             if (contactDetails.isPresent) {
-                viewModelUpdater.addContact(contactDetails.get())
+                viewModelUpdater.addContact(viewModel, contactDetails.get())
             }
         }
     }
@@ -53,6 +61,7 @@ class AddGroupPresenter(
 
         viewModelScope.launch {
             viewModelUpdater.setErrorMessageId(
+                viewModel,
                 when (validationResult) {
                     ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING ->
                         R.string.amount_not_set

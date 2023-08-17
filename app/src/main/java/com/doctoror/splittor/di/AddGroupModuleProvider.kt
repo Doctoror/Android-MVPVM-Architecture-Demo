@@ -10,19 +10,11 @@ import com.doctoror.splittor.presentation.addgroup.AddGroupViewModelUpdater
 import com.doctoror.splittor.presentation.addgroup.ContactDetailsViewModelMapper
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 fun provideAddGroupModule() = module {
 
     viewModel { (handle: SavedStateHandle) -> AddGroupViewModel(handle) }
-
-    factory { parameters ->
-        AddGroupViewModelUpdater(
-            contactDetailsViewModelMapper = ContactDetailsViewModelMapper(),
-            viewModel = parameters.get()
-        )
-    }
 
     viewModel { parameters ->
         val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase =
@@ -36,7 +28,9 @@ fun provideAddGroupModule() = module {
                 stripCurrencyAndGroupingSeparatorsUseCase
             ),
             viewModel = parameters.get(),
-            viewModelUpdater = get { parametersOf(parameters.get<AddGroupViewModel>()) }
+            viewModelUpdater = AddGroupViewModelUpdater(
+                contactDetailsViewModelMapper = ContactDetailsViewModelMapper()
+            )
         )
     }
 }

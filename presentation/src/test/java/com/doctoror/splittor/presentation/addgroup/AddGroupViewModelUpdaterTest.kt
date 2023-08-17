@@ -1,7 +1,7 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import com.doctoror.splittor.R
 import com.doctoror.splittor.domain.contacts.ContactDetails
+import com.doctoror.splittor.presentation.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -17,7 +17,7 @@ class AddGroupViewModelUpdaterTest {
     private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper = mock()
     private val viewModel = AddGroupViewModel(mock())
 
-    private val underTest = AddGroupViewModelUpdater(contactDetailsViewModelMapper, viewModel)
+    private val underTest = AddGroupViewModelUpdater(contactDetailsViewModelMapper)
 
     @Test
     fun addsContact() {
@@ -25,7 +25,7 @@ class AddGroupViewModelUpdaterTest {
         val detailsViewModel: ContactDetailsViewModel = mock()
         whenever(contactDetailsViewModelMapper.map(details)).thenReturn(detailsViewModel)
 
-        underTest.addContact(details)
+        underTest.addContact(viewModel, details)
 
         assertTrue(viewModel.contacts.contains(detailsViewModel))
     }
@@ -35,7 +35,7 @@ class AddGroupViewModelUpdaterTest {
     fun setsErrorMessageId() = runTest {
         val messageId = R.string.amount_not_set
 
-        underTest.setErrorMessageId(messageId)
+        underTest.setErrorMessageId(viewModel, messageId)
 
         var collectedMessageId = -1
         runTest(UnconfinedTestDispatcher()) {
@@ -44,7 +44,7 @@ class AddGroupViewModelUpdaterTest {
                 viewModel.errorMessage.collect { collectedMessageId = it }
             }
 
-            underTest.setErrorMessageId(messageId)
+            underTest.setErrorMessageId(viewModel, messageId)
 
             collectJob.cancel()
         }

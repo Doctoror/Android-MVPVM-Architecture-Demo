@@ -5,33 +5,34 @@ import androidx.compose.runtime.snapshots.Snapshot.Companion.withMutableSnapshot
 import com.doctoror.splittor.domain.contacts.ContactDetails
 
 class AddGroupViewModelUpdater(
-    private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper,
-    private val viewModel: AddGroupViewModel
+    private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper
 ) {
 
-    private val sortedContacts: MutableSet<ContactDetailsViewModel> =
-        viewModel.contacts.toSortedSet()
+    private var sortedContacts: MutableSet<ContactDetailsViewModel>? = null
 
-    fun addContact(contact: ContactDetails) {
-        sortedContacts.add(contactDetailsViewModelMapper.map(contact))
+    fun addContact(viewModel: AddGroupViewModel, contact: ContactDetails) {
+        if (sortedContacts == null) {
+            sortedContacts = viewModel.contacts.toSortedSet()
+        }
+        sortedContacts!!.add(contactDetailsViewModelMapper.map(contact))
         withMutableSnapshot {
-            viewModel.contacts = sortedContacts.toList()
+            viewModel.contacts = sortedContacts!!.toList()
         }
     }
 
-    fun updateAmount(amount: String) {
+    fun updateAmount(viewModel: AddGroupViewModel, amount: String) {
         withMutableSnapshot {
             viewModel.amount = amount
         }
     }
 
-    fun updateTitle(title: String) {
+    fun updateTitle(viewModel: AddGroupViewModel, title: String) {
         withMutableSnapshot {
             viewModel.title = title
         }
     }
 
-    suspend fun setErrorMessageId(@StringRes message: Int) {
+    suspend fun setErrorMessageId(viewModel: AddGroupViewModel, @StringRes message: Int) {
         viewModel.errorMessage.emit(message)
     }
 }
