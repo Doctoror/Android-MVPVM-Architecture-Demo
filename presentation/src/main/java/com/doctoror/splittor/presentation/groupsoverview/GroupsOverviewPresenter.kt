@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 class GroupsOverviewPresenter(
     private val dispatcherIo: CoroutineDispatcher,
     private val observeGroupsUseCase: ObserveGroupsUseCase,
+    private val viewModel: GroupsOverviewViewModel,
     private val viewModelUpdater: GroupsOverviewViewModelUpdater
 ) : BasePresenter() {
 
@@ -17,7 +18,7 @@ class GroupsOverviewPresenter(
         viewModelScope.launch {
             observeGroupsUseCase()
                 .flowOn(dispatcherIo)
-                .collect { viewModelUpdater.updateOnGroupsListLoaded(it) }
+                .collect { viewModelUpdater.updateOnGroupsListLoaded(viewModel, it) }
         }
     }
 }

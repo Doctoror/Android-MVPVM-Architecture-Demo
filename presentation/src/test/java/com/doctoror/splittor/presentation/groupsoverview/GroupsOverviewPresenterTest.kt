@@ -19,11 +19,13 @@ class GroupsOverviewPresenterTest {
     val mainDispatcherRule = MainDispatcherRule()
 
     private val observeGroupsUseCase: ObserveGroupsUseCase = mock()
+    private val viewModel: GroupsOverviewViewModel = mock()
     private val viewModelUpdater: GroupsOverviewViewModelUpdater = mock()
 
     private val underTest = GroupsOverviewPresenter(
         Dispatchers.Unconfined,
         observeGroupsUseCase,
+        viewModel,
         viewModelUpdater
     )
 
@@ -34,6 +36,6 @@ class GroupsOverviewPresenterTest {
 
         underTest.onCreate()
 
-        verify(viewModelUpdater).updateOnGroupsListLoaded(groups)
+        verify(viewModelUpdater).updateOnGroupsListLoaded(viewModel, groups)
     }
 }

@@ -20,12 +20,12 @@ fun provideGroupsOverviewPresentationModule() = module {
         GroupsOverviewPresenter(
             dispatcherIo = get(named(DISPATCHER_IO)),
             observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository = get()),
+            viewModel = parameters.get(),
             viewModelUpdater = GroupsOverviewViewModelUpdater(
                 groupItemViewModelMapper = GroupItemViewModelMapper(
                     formatAmountWithCurrencyUseCase = get(),
                     resources = androidContext().resources
-                ),
-                viewModel = parameters.get()
+                )
             )
         )
     }

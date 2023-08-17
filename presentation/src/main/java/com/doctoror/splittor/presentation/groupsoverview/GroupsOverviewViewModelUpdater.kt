@@ -3,11 +3,10 @@ package com.doctoror.splittor.presentation.groupsoverview
 import com.doctoror.splittor.domain.groups.Group
 
 class GroupsOverviewViewModelUpdater(
-    private val groupItemViewModelMapper: GroupItemViewModelMapper,
-    private val viewModel: GroupsOverviewViewModel
+    private val groupItemViewModelMapper: GroupItemViewModelMapper
 ) {
 
-    fun updateOnGroupsListLoaded(groups: List<Group>) {
+    fun updateOnGroupsListLoaded(viewModel: GroupsOverviewViewModel, groups: List<Group>) {
         viewModel.groups.clear()
         viewModel.groups.addAll(groups.map(groupItemViewModelMapper::map))
 

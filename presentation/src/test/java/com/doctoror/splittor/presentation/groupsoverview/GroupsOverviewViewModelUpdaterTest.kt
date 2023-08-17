@@ -11,17 +11,17 @@ class GroupsOverviewViewModelUpdaterTest {
     private val groupItemViewModelMapper: GroupItemViewModelMapper = mock()
     private val viewModel = GroupsOverviewViewModel()
 
-    private val underTest = GroupsOverviewViewModelUpdater(groupItemViewModelMapper, viewModel)
+    private val underTest = GroupsOverviewViewModelUpdater(groupItemViewModelMapper)
 
     @Test
     fun setsEmptyViewWhenLoadedEmptyList() {
-        underTest.updateOnGroupsListLoaded(emptyList())
+        underTest.updateOnGroupsListLoaded(viewModel, emptyList())
         assertEquals(GroupsOverviewViewModel.ViewType.EMPTY, viewModel.viewType.value)
     }
 
     @Test
     fun setsContentViewWhenLoadedNonEmptyList() {
-        underTest.updateOnGroupsListLoaded(listOf(mock()))
+        underTest.updateOnGroupsListLoaded(viewModel, listOf(mock()))
         assertEquals(GroupsOverviewViewModel.ViewType.CONTENT, viewModel.viewType.value)
     }
 
@@ -34,7 +34,7 @@ class GroupsOverviewViewModelUpdaterTest {
         whenever(groupItemViewModelMapper.map(group1)).thenReturn(group1ViewModel)
         whenever(groupItemViewModelMapper.map(group2)).thenReturn(group2ViewModel)
 
-        underTest.updateOnGroupsListLoaded(listOf(group1, group2))
+        underTest.updateOnGroupsListLoaded(viewModel, listOf(group1, group2))
 
         assertEquals(listOf(group1ViewModel, group2ViewModel), viewModel.groups)
     }
