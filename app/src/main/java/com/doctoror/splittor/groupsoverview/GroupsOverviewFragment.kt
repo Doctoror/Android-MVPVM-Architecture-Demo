@@ -8,16 +8,15 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewContent
-import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewPresenter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class GroupsOverviewFragment : Fragment() {
 
-    private val presenter: GroupsOverviewPresenter by viewModel()
+    private val presenter: GroupsOverviewPresenterWrapper by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(presenter)
+        lifecycle.addObserver(presenter.unwrapped)
     }
 
     override fun onCreateView(
@@ -33,7 +32,7 @@ class GroupsOverviewFragment : Fragment() {
                         GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it)
                     )
                 },
-                viewModel = presenter.viewModel
+                viewModel = presenter.unwrapped.viewModel
             )
         }
     }
@@ -44,6 +43,6 @@ class GroupsOverviewFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(presenter)
+        lifecycle.removeObserver(presenter.unwrapped)
     }
 }

@@ -15,7 +15,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import com.doctoror.splittor.presentation.addgroup.AddGroupContent
-import com.doctoror.splittor.presentation.addgroup.AddGroupPresenter
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,12 +27,12 @@ class AddGroupFragment : Fragment() {
     private val activityResultLauncherPickContact = registerForActivityResult(
         activityResultContractPickContact
     ) { uri ->
-        uri?.let { presenter.handleContactPick(it.toString()) }
+        uri?.let { presenter.unwrapped.handleContactPick(it.toString()) }
     }
 
     private val locale: Locale by inject()
 
-    private val presenter: AddGroupPresenter by viewModel()
+    private val presenter: AddGroupPresenterWrapper by viewModel()
 
     private val provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase by inject()
 
@@ -42,12 +41,13 @@ class AddGroupFragment : Fragment() {
 
         lifecycleScope.launch {
             presenter
+                .unwrapped
                 .viewModel
                 .errorMessage
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
                     if (it != 0) {
-                        presenter.viewModel.errorMessage.emit(0)
+                        presenter.unwrapped.viewModel.errorMessage.emit(0)
                         Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -55,6 +55,7 @@ class AddGroupFragment : Fragment() {
 
         lifecycleScope.launch {
             presenter
+                .unwrapped
                 .groupInsertedEvents
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect {
@@ -63,7 +64,7 @@ class AddGroupFragment : Fragment() {
                 }
         }
 
-        lifecycle.addObserver(presenter)
+        lifecycle.addObserver(presenter.unwrapped)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -76,18 +77,18 @@ class AddGroupFragment : Fragment() {
             AddGroupContent(
                 currencySymbol = provideCurrencySymbolUseCase(),
                 locale = locale,
-                onAmountChange = presenter::handleAmountChange,
+                onAmountChange = presenter.unwrapped::handleAmountChange,
                 onAddContactClick = { activityResultLauncherPickContact.launch(null) },
-                onCreateClick = { presenter.createGroup() },
+                onCreateClick = { presenter.unwrapped.createGroup() },
                 onNavigationClick = { findNavController().popBackStack() },
-                onTitleChange = presenter::handleTitleChange,
-                viewModel = presenter.viewModel
+                onTitleChange = presenter.unwrapped::handleTitleChange,
+                viewModel = presenter.unwrapped.viewModel
             )
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(presenter)
+        lifecycle.removeObserver(presenter.unwrapped)
     }
 }
