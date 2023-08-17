@@ -16,7 +16,7 @@ class GroupsOverviewFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(presenter.unwrapped)
+        lifecycle.addObserver(presenter)
     }
 
     override fun onCreateView(
@@ -43,6 +43,6 @@ class GroupsOverviewFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(presenter.unwrapped)
+        lifecycle.removeObserver(presenter)
     }
 }

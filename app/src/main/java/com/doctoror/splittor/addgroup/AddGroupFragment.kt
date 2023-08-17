@@ -64,7 +64,7 @@ class AddGroupFragment : Fragment() {
                 }
         }
 
-        lifecycle.addObserver(presenter.unwrapped)
+        lifecycle.addObserver(presenter)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -89,6 +89,6 @@ class AddGroupFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        lifecycle.removeObserver(presenter.unwrapped)
+        lifecycle.removeObserver(presenter)
     }
 }

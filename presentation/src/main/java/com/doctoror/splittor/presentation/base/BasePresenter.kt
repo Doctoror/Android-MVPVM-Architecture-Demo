@@ -1,11 +1,8 @@
 package com.doctoror.splittor.presentation.base
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleOwner
 import kotlinx.coroutines.CoroutineScope
 
-abstract class BasePresenter<VM : Any>(val viewModel: VM) : LifecycleEventObserver {
+abstract class BasePresenter<VM : Any>(val viewModel: VM) {
 
     var viewModelScopeProvider: (() -> CoroutineScope)? = null
 
@@ -13,12 +10,6 @@ abstract class BasePresenter<VM : Any>(val viewModel: VM) : LifecycleEventObserv
         get() =
             requireNotNull(viewModelScopeProvider) { "viewModelScopeProvider not set" }
                 .invoke()
-
-    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        if (event == Lifecycle.Event.ON_CREATE) {
-            onCreate()
-        }
-    }
 
     abstract fun onCreate()
 }
