@@ -54,4 +54,7 @@ dependencies {
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
 }
