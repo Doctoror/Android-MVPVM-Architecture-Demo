@@ -1,5 +1,6 @@
 plugins {
     id("com.android.application")
+    id("com.google.dagger.hilt.android")
     id("kotlin-android")
     id("kotlin-kapt")
     id("kotlin-parcelize")
@@ -50,6 +51,8 @@ dependencies {
     implementation(project(":presentation"))
 
     implementation(libs.compose.material3)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.koin)
     implementation(libs.lifecycle.viewmodel.compose)
     implementation(libs.navigation.fragment.ktx)

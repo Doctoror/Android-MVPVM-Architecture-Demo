@@ -9,17 +9,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import com.doctoror.splittor.presentation.addgroup.AddGroupContent
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.Locale
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddGroupFragment : Fragment() {
 
     private val activityResultContractPickContact = ActivityResultContracts.PickContact()
@@ -30,11 +32,13 @@ class AddGroupFragment : Fragment() {
         uri?.let { presenter.unwrapped.handleContactPick(it.toString()) }
     }
 
-    private val locale: Locale by inject()
+    @Inject
+    lateinit var locale: Locale
 
-    private val presenter: AddGroupPresenterWrapper by viewModel()
+    @Inject
+    lateinit var provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase
 
-    private val provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase by inject()
+    private val presenter: AddGroupPresenterWrapper by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

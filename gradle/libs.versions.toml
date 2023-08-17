@@ -11,6 +11,8 @@ composeCompiler = "1.5.1"
 constraintlayout = "2.1.4"
 coroutines = "1.7.1"
 
+hilt = "2.47"
+
 junit = "4.13.2"
 
 koin = "3.4.0"
@@ -36,6 +38,9 @@ compose-material3 = { module = "androidx.compose.material3:material3" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 

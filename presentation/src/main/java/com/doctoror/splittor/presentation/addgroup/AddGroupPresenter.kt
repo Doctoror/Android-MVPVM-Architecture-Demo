@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase

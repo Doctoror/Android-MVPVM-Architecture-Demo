@@ -11,9 +11,12 @@ import com.doctoror.splittor.presentation.addgroup.AddGroupPresenter
 import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
 import com.doctoror.splittor.presentation.addgroup.AddGroupViewModelUpdater
 import com.doctoror.splittor.presentation.addgroup.ContactDetailsViewModelMapper
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class AddGroupPresenterWrapper(
+@HiltViewModel
+class AddGroupPresenterWrapper @Inject constructor(
     getContactDetailsUseCase: GetContactDetailsUseCase,
     groupsRepository: GroupsRepository,
     savedStateHandle: SavedStateHandle,
