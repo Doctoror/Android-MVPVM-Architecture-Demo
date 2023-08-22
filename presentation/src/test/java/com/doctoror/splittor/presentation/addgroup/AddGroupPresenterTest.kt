@@ -9,10 +9,12 @@ import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -44,6 +46,12 @@ class AddGroupPresenterTest {
         viewModel,
         viewModelUpdater
     )
+
+    @Before
+    fun setup() {
+        val scope = MainScope()
+        underTest.viewModelScopeProvider = { scope }
+    }
 
     @Test
     fun handlesAmountChange() {

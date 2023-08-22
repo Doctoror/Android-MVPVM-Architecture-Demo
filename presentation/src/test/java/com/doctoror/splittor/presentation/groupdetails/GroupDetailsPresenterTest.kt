@@ -6,8 +6,10 @@ import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -34,6 +36,12 @@ class GroupDetailsPresenterTest {
         viewModel,
         viewModelUpdater
     )
+
+    @Before
+    fun setup() {
+        val scope = MainScope()
+        underTest.viewModelScopeProvider = { scope }
+    }
 
     @Test
     fun observesGroupAndUpdatesViewModelOnCreate() {
