@@ -1,6 +1,7 @@
 package com.doctoror.splittor.groupsoverview
 
 import android.content.res.Resources
+import com.doctoror.splittor.domain.groups.DeleteGroupUseCase
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
@@ -20,6 +21,7 @@ class GroupsOverviewPresenterWrapper @Inject constructor(
     resources: Resources
 ) : PresenterWrapper<GroupsOverviewPresenter>(
     GroupsOverviewPresenter(
+        deleteGroupUseCase = DeleteGroupUseCase(groupsRepository),
         dispatcherIo = Dispatchers.IO,
         observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository),
         viewModel = GroupsOverviewViewModel(),

@@ -93,4 +93,13 @@ class RoomGroupsRepositoryTest {
 
         verify(groupsDao).updateMemberPaidStatus(memberId, paid)
     }
+
+    @Test
+    fun deletesGroupInDao() = runTest {
+        val id = 13L
+
+        underTest.delete(id)
+
+        verify(groupsDao).deleteGroup(id)
+    }
 }

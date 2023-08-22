@@ -34,6 +34,7 @@ class GroupsOverviewFragment : Fragment() {
                         GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it)
                     )
                 },
+                onGroupLongClick = { presenter.unwrapped.onGroupLongClick(it) },
                 viewModel = presenter.unwrapped.viewModel
             )
         }

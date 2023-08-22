@@ -56,4 +56,6 @@ internal class RoomGroupsRepository(
 
     override suspend fun updateMemberPaidStatus(memberId: Long, paid: Boolean) = groupsDao
         .updateMemberPaidStatus(memberId, paid)
+
+    override suspend fun delete(id: Long) = groupsDao.deleteGroup(id)
 }

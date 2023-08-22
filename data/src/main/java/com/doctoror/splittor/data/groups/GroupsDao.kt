@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 internal interface GroupsDao {
 
+    @Query("DELETE FROM $GROUP_TABLE_NAME WHERE groupId = :id")
+    suspend fun deleteGroup(id: Long)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertGroup(group: GroupEntity): Long
 

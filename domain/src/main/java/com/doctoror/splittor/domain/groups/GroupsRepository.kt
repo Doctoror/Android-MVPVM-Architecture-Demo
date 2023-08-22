@@ -11,4 +11,6 @@ interface GroupsRepository {
     fun observe(id: Long): Flow<Group>
 
     suspend fun updateMemberPaidStatus(memberId: Long, paid: Boolean)
+
+    suspend fun delete(id: Long)
 }

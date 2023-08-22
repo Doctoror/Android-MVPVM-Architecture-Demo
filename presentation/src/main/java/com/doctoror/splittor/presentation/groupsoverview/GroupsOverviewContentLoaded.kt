@@ -1,6 +1,7 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,9 +19,11 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import com.doctoror.splittor.presentation.base.AppTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun GroupsOverviewContentLoaded(
     onGroupClick: (Long) -> Unit,
+    onGroupLongClick: (Long) -> Unit,
     viewModel: GroupsOverviewViewModel
 ) {
     LazyColumn {
@@ -28,7 +31,10 @@ fun GroupsOverviewContentLoaded(
             Box(
                 modifier = Modifier
                     .defaultMinSize(minHeight = 72.dp)
-                    .clickable { onGroupClick(it.id) }
+                    .combinedClickable(
+                        onClick = { onGroupClick(it.id) },
+                        onLongClick = { onGroupLongClick(it.id) }
+                    )
             ) {
                 Row(
                     Modifier

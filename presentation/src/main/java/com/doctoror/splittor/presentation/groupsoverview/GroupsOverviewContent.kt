@@ -26,6 +26,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 fun GroupsOverviewContent(
     onAddClick: () -> Unit,
     onGroupClick: (Long) -> Unit,
+    onGroupLongClick: (Long) -> Unit,
     viewModel: GroupsOverviewViewModel
 ) {
     val surfaceColor = AppTheme.colorScheme.surface
@@ -68,6 +69,7 @@ fun GroupsOverviewContent(
 
                     GroupsOverviewViewModel.ViewType.CONTENT -> GroupsOverviewContentLoaded(
                         onGroupClick,
+                        onGroupLongClick,
                         viewModel
                     )
                 }
@@ -82,6 +84,7 @@ fun GroupsOverviewContentLoadingPreview() {
     GroupsOverviewContent(
         onAddClick = {},
         onGroupClick = {},
+        onGroupLongClick = {},
         viewModel = GroupsOverviewViewModel().apply {
             viewType.value = GroupsOverviewViewModel.ViewType.LOADING
         }
@@ -94,6 +97,7 @@ fun GroupsOverviewContentEmptyPreview() {
     GroupsOverviewContent(
         onAddClick = {},
         onGroupClick = {},
+        onGroupLongClick = {},
         viewModel = GroupsOverviewViewModel().apply {
             viewType.value = GroupsOverviewViewModel.ViewType.EMPTY
         }
@@ -106,6 +110,7 @@ fun GroupsOverviewContentLoadedPreview() {
     GroupsOverviewContent(
         onAddClick = {},
         onGroupClick = {},
+        onGroupLongClick = {},
         viewModel = GroupsOverviewViewModel().apply {
             viewType.value = GroupsOverviewViewModel.ViewType.CONTENT
 
