@@ -1,14 +1,15 @@
 package com.doctoror.splittor.data.groups
 
 import com.doctoror.splittor.domain.groups.Group
+import com.doctoror.splittor.domain.groups.GroupsRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-internal class LocalGroupsDataSource(
+internal class RoomGroupsRepository(
     private val currentTimeProvider: () -> Long,
     private val groupsDao: GroupsDao,
     private val groupWithMembersMapper: GroupWithMembersMapper
-) : GroupsDataSource {
+) : GroupsRepository {
 
     override suspend fun insert(
         amount: String,

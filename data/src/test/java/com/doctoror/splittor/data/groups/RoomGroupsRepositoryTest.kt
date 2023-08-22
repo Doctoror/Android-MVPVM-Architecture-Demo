@@ -10,13 +10,13 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-class LocalGroupsDataSourceTest {
+class RoomGroupsRepositoryTest {
 
     private val currentTimeProvider = { 1684318017123 }
     private val groupsDao: GroupsDao = mock()
     private val groupWithMembersMapper: GroupWithMembersMapper = mock()
 
-    private val underTest = LocalGroupsDataSource(
+    private val underTest = RoomGroupsRepository(
         currentTimeProvider,
         groupsDao,
         groupWithMembersMapper

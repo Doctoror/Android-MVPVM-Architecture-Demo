@@ -16,11 +16,9 @@ class GroupsRepositoryFactory(private val androidContext: Context) {
             .build()
     }
 
-    fun newInstance(): GroupsRepository = GroupsRepositoryImpl(
-        groupsDataSource = LocalGroupsDataSource(
-            currentTimeProvider = { System.currentTimeMillis() },
-            groupsDao = mainDatabase.groupsDao(),
-            groupWithMembersMapper = GroupWithMembersMapper()
-        )
+    fun newInstance(): GroupsRepository = RoomGroupsRepository(
+        currentTimeProvider = { System.currentTimeMillis() },
+        groupsDao = mainDatabase.groupsDao(),
+        groupWithMembersMapper = GroupWithMembersMapper()
     )
 }
