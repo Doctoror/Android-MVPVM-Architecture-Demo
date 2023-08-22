@@ -13,13 +13,13 @@ internal interface GroupsDao {
     suspend fun insertGroupMembers(members: List<GroupMemberEntity>)
 
     @Transaction
-    @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY $GROUP_COLUMN_NAME_INSERTED_AT DESC")
+    @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY insertedAt DESC")
     fun observeGroupsWithMembers(): Flow<List<GroupWithMembers>>
 
     @Transaction
-    @Query("SELECT * FROM $GROUP_TABLE_NAME WHERE $GROUP_COLUMN_NAME_ID = :id")
+    @Query("SELECT * FROM $GROUP_TABLE_NAME WHERE groupId = :id")
     fun observeGroupWithMembers(id: Long): Flow<GroupWithMembers>
 
-    @Query("UPDATE $GROUP_MEMBER_TABLE_NAME SET $GROUP_MEMBER_COLUMN_PAID = :paid WHERE $GROUP_MEMBER_COLUMN_NAME_ID = :id")
+    @Query("UPDATE $GROUP_MEMBER_TABLE_NAME SET groupMemberPaid = :paid WHERE groupMemberId = :id")
     suspend fun updateMemberPaidStatus(id: Long, paid: Boolean)
 }

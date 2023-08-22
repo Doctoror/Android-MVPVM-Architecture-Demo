@@ -7,8 +7,8 @@ internal data class GroupWithMembers(
     @Embedded val group: GroupEntity,
 
     @Relation(
-        parentColumn = GROUP_COLUMN_NAME_ID,
-        entityColumn = GROUP_MEMBER_COLUMN_NAME_GROUP_ID
+        parentColumn = "groupId",
+        entityColumn = "groupMemberGroupId"
     )
     val members: List<GroupMemberEntity>
 )
