@@ -37,7 +37,7 @@ class LocalGroupsDataSourceTest {
                     groupId = 0,
                     groupAmount = amount,
                     groupTitle = title,
-                    insertedAt = currentTimeProvider()
+                    groupInsertedAt = currentTimeProvider()
                 )
             )
         ).thenReturn(insertedGroupId)

@@ -20,7 +20,7 @@ internal class LocalGroupsDataSource(
                 groupId = 0,
                 groupAmount = amount,
                 groupTitle = title,
-                insertedAt = currentTimeProvider()
+                groupInsertedAt = currentTimeProvider()
             )
         )
 
@@ -44,7 +44,7 @@ internal class LocalGroupsDataSource(
         .map { groups ->
             groups.sortedWith(
                 compareBy<GroupWithMembers> { gwm -> gwm.members.all { it.groupMemberPaid } }
-                    .thenByDescending { it.group.insertedAt }
+                    .thenByDescending { it.group.groupInsertedAt }
             )
         }
         .map { it.map(groupWithMembersMapper::transform) }

@@ -9,7 +9,7 @@ internal class GroupWithMembersMapper {
         allMembersPaid = input.members.all { it.groupMemberPaid },
         amount = input.group.groupAmount,
         id = input.group.groupId,
-        insertedAt = input.group.insertedAt,
+        insertedAt = input.group.groupInsertedAt,
         members = input.members.map { transform(it) },
         title = input.group.groupTitle
     )

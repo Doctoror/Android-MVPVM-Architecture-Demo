@@ -13,7 +13,7 @@ internal interface GroupsDao {
     suspend fun insertGroupMembers(members: List<GroupMemberEntity>)
 
     @Transaction
-    @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY insertedAt DESC")
+    @Query("SELECT * FROM $GROUP_TABLE_NAME ORDER BY groupInsertedAt DESC")
     fun observeGroupsWithMembers(): Flow<List<GroupWithMembers>>
 
     @Transaction

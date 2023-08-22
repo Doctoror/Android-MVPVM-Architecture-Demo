@@ -10,5 +10,5 @@ internal data class GroupEntity(
     val groupAmount: String,
     @PrimaryKey(autoGenerate = true) val groupId: Long,
     val groupTitle: String,
-    val insertedAt: Long
+    val groupInsertedAt: Long
 )
