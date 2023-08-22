@@ -4,7 +4,6 @@ import com.doctoror.splittor.domain.groups.DeleteGroupUseCase
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOf
@@ -29,7 +28,6 @@ class GroupsOverviewPresenterTest {
 
     private val underTest = GroupsOverviewPresenter(
         deleteGroupUseCase,
-        Dispatchers.Unconfined,
         observeGroupsUseCase,
         viewModel,
         viewModelUpdater

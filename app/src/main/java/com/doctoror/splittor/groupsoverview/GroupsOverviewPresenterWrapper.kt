@@ -11,7 +11,6 @@ import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewPresenter
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModelUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,7 +21,6 @@ class GroupsOverviewPresenterWrapper @Inject constructor(
 ) : PresenterWrapper<GroupsOverviewPresenter>(
     GroupsOverviewPresenter(
         deleteGroupUseCase = DeleteGroupUseCase(groupsRepository),
-        dispatcherIo = Dispatchers.IO,
         observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository),
         viewModel = GroupsOverviewViewModel(),
         viewModelUpdater = GroupsOverviewViewModelUpdater(

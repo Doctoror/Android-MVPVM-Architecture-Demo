@@ -4,7 +4,6 @@ import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOf
@@ -29,7 +28,6 @@ class GroupDetailsPresenterTest {
     private val viewModelUpdater: GroupDetailsViewModelUpdater = mock()
 
     private val underTest = GroupDetailsPresenter(
-        Dispatchers.Unconfined,
         groupId,
         observeGroupUseCase,
         updateMemberPaidStatusUseCase,

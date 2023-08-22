@@ -21,7 +21,6 @@ class GroupDetailsPresenterWrapper @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : PresenterWrapper<GroupDetailsPresenter>(
     GroupDetailsPresenter(
-        dispatcherIo = Dispatchers.IO,
         groupId = savedStateHandle["groupId"]!!,
         observeGroupUseCase = ObserveGroupUseCase(groupsRepository),
         updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository),
