@@ -102,3 +102,18 @@ Splitting by features and then layers is possible with the following module stru
   - domain
   - presentation
   - ui
+
+Or, if you have a centralized database
+
+- app
+- data (centralized database, application-wide network requests, etc)
+- domain (repository interfaces for centralized data, centralized domain models, common use cases)
+- feature-1
+  - data (network requests for feature-1, DataStore for data in scope of feature-1, etc)
+  - domain (use cases for feature-1)
+  - presentation
+  - ui
+- feature-2
+  - domain (use cases for feature-2)
+  - presentation
+  - ui
