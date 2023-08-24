@@ -20,6 +20,10 @@ Please refer to the diagram below that compares it with original Clean Architect
 
 The naming and concepts of *Data*, *Domain*, *UI* and *Presentation* layers are taken from [Guide to app architecture](https://developer.android.com/topic/architecture) and pretty much correspond to what they do in the proposed architecture in the linked article.
 
+Having each layer in it's own Gradle module allows for framework separation and reduces a chance of accidental leaks of responsibilities between layer. For example, you cannot access the database or Compose/Views from `*domain* or *Presentation* layer.
+
+This separation makes updating and replacing frameworks easy.
+
 ### Domain layer
 
 This is the core of the application itself. I.e. what the application does.
@@ -78,4 +82,23 @@ It contains Android components like *Application*, *Activity*, *Fragment*, *Serv
 
 It also khows how to build the DI graph and the DI framework is not leaked to any other modules, which minimizes the effort of replacing the DI framework.
 
+## Drawbacks, Criticism
 
+- engineers have to jump between gradle modules when developing same feature
+- having literal modules per each layer means the application is still a monolith, and if you'd want to extract features to own modules, you'll also have to create all the layer modules for each feature.
+
+### Possible module structure to avoid having a monolith
+
+Splitting by features and then layers is possible with the following module structure (see [Nested Modules in Gradle](https://www.developerphil.com/nested-modules-in-gradle/))
+
+- app
+- feature-1
+  - data
+  - domain
+  - presentation
+  - ui
+- feature-2
+  - data
+  - domain
+  - presentation
+  - ui
