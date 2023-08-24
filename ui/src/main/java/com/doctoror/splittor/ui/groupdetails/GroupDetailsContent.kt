@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groupdetails
+package com.doctoror.splittor.ui.groupdetails
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,8 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.AppTheme
+import com.doctoror.splittor.presentation.groupdetails.GroupDetailsViewModel
+import com.doctoror.splittor.presentation.groupdetails.GroupMemberItemViewModel
+import com.doctoror.splittor.ui.R
+import com.doctoror.splittor.ui.base.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

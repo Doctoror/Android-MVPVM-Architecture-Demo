@@ -8,7 +8,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.doctoror.splittor.presentation.groupdetails.GroupDetailsContent
+import com.doctoror.splittor.ui.groupdetails.GroupDetailsContent
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

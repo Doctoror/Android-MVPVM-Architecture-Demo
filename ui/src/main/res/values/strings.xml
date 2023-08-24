@@ -1,0 +1,23 @@
+<resources>
+
+    <string name="app_name">Splittor</string>
+    <string name="add_a_new_one">Add a new one!</string>
+    <string name="add_contact">Add contact</string>
+    <string name="add_new_group">Add new group</string>
+    <string name="amount">Amount</string>
+
+    <string name="contacts">Contacts</string>
+    <string name="create">Create</string>
+
+    <string name="go_back">Go back</string>
+    <string name="group_details">Group details</string>
+    <string name="group_info">Group info</string>
+    <string name="groups">Groups</string>
+
+    <string name="no_groups_yet">No groups yet</string>
+
+    <string name="title">Title</string>
+
+    <string name="total_">Total:</string>
+
+</resources>

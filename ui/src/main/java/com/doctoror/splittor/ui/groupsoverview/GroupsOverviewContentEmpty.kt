@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groupsoverview
+package com.doctoror.splittor.ui.groupsoverview
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -12,8 +12,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.AppTheme
+import com.doctoror.splittor.ui.R
+import com.doctoror.splittor.ui.base.AppTheme
 
 @Composable
 fun BoxScope.GroupsOverviewContentEmpty(onAddClick: () -> Unit) {

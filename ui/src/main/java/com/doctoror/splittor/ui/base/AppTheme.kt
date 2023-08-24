@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.base
+package com.doctoror.splittor.ui.base
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

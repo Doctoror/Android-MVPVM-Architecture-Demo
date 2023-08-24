@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groupsoverview
+package com.doctoror.splittor.ui.groupsoverview
 
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.padding

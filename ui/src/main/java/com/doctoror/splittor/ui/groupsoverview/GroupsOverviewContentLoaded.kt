@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groupsoverview
+package com.doctoror.splittor.ui.groupsoverview
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -17,7 +17,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import com.doctoror.splittor.presentation.base.AppTheme
+import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
+import com.doctoror.splittor.ui.base.AppTheme
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

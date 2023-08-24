@@ -15,7 +15,7 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
-import com.doctoror.splittor.presentation.addgroup.AddGroupContent
+import com.doctoror.splittor.ui.addgroup.AddGroupContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.Locale

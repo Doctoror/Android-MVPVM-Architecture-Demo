@@ -10,24 +10,9 @@ android {
 
     compileSdk = libs.versions.androidCompileSdkVersion.get().toInt()
 
-    buildFeatures {
-        compose = true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = libs.versions.composeCompiler.get()
-    }
-
     defaultConfig {
         minSdk = libs.versions.androidMinSdkVersion.get().toInt()
         targetSdk = libs.versions.androidTargetSdkVersion.get().toInt()
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"))
-        }
     }
 
     compileOptions {
@@ -37,13 +22,8 @@ android {
 }
 
 dependencies {
-    implementation(platform(libs.compose.bom))
-
     implementation(project(":domain"))
 
-    implementation(libs.accompanist.systemuicontroller)
-    implementation(libs.compose.material3)
-    implementation(libs.compose.ui.tooling.preview)
     implementation(libs.lifecycle.viewmodel.compose)
 
     testImplementation(libs.junit)

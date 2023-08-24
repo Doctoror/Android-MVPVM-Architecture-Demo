@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.groupsoverview
+package com.doctoror.splittor.ui.groupsoverview
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -17,8 +17,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.AppTheme
+import com.doctoror.splittor.presentation.groupsoverview.GroupItemViewModel
+import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
+import com.doctoror.splittor.ui.R
+import com.doctoror.splittor.ui.base.AppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalMaterial3Api::class)

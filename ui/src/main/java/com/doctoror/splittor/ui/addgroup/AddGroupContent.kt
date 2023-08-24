@@ -1,4 +1,4 @@
-package com.doctoror.splittor.presentation.addgroup
+package com.doctoror.splittor.ui.addgroup
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -33,8 +33,10 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
-import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.AppTheme
+import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
+import com.doctoror.splittor.presentation.addgroup.ContactDetailsViewModel
+import com.doctoror.splittor.ui.R
+import com.doctoror.splittor.ui.base.AppTheme
 import me.thekusch.composeview.CurrencyTextField
 import java.util.Locale
 
