@@ -6,6 +6,7 @@ import android.net.Uri
 import android.provider.BaseColumns
 import android.provider.ContactsContract
 import com.doctoror.splittor.data.util.UriParser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -18,7 +19,11 @@ class ContactDetailsRepositoryImplTest {
     private val contentResolver: ContentResolver = mock()
     private val uriParser: UriParser = mock()
 
-    private val underTest = ContactDetailsRepositoryImpl(contentResolver, uriParser)
+    private val underTest = ContactDetailsRepositoryImpl(
+        contentResolver,
+        Dispatchers.Unconfined,
+        uriParser
+    )
 
     @Test
     fun getsContactDetailsForUri() = runTest {

@@ -7,7 +7,6 @@ import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -38,7 +37,6 @@ class AddGroupPresenterTest {
     private val viewModelUpdater: AddGroupViewModelUpdater = mock()
 
     private val underTest = AddGroupPresenter(
-        Dispatchers.Unconfined,
         getContactDetailsUseCase,
         insertGroupUseCase,
         stripCurrencyAndGroupingSeparatorsUseCase,
