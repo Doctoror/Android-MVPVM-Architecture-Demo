@@ -1,5 +1,6 @@
 [versions]
 accompanist = "0.30.1"
+agp = "8.1.1"
 androidCompileSdkVersion = "34"
 androidMinSdkVersion = "24"
 androidTargetSdkVersion = "33"
@@ -15,8 +16,8 @@ hilt = "2.47"
 
 junit = "4.13.2"
 
-kotlin = "1.9.0"
-ksp = "1.9.0-1.0.13"
+kotlin = "1.9.10"
+ksp = "1.9.10-1.0.13"
 
 lifecycle = "2.6.1"
 
@@ -25,9 +26,6 @@ mockito = "5.1.0"
 navigation = "2.7.1"
 
 room = "2.5.2"
-
-toolsGradle = "8.0.2"
-
 
 [libraries]
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
