@@ -10,13 +10,13 @@ plugins {
 android {
     namespace = "com.doctoror.splittor"
 
-    compileSdk = libs.versions.androidCompileSdkVersion.get().toInt()
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.doctoror.splittor"
 
-        minSdk = libs.versions.androidMinSdkVersion.get().toInt()
-        targetSdk = libs.versions.androidTargetSdkVersion.get().toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
+        targetSdk = libs.versions.androidTargetSdk.get().toInt()
 
         versionCode = 1
         versionName = "1.0"

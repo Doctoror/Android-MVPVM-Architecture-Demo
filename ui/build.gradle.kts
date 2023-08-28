@@ -6,7 +6,7 @@ plugins {
 android {
     namespace = "com.doctoror.splittor.ui"
 
-    compileSdk = libs.versions.androidCompileSdkVersion.get().toInt()
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     buildFeatures {
         compose = true
@@ -17,7 +17,7 @@ android {
     }
 
     defaultConfig {
-        minSdk = libs.versions.androidMinSdkVersion.get().toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
     }
 
     compileOptions {
