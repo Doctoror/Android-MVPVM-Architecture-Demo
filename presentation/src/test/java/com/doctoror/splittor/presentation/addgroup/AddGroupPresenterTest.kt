@@ -9,6 +9,7 @@ import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -16,6 +17,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.kotlin.anyOrNull
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.verifyNoInteractions
@@ -49,6 +51,10 @@ class AddGroupPresenterTest {
     fun setup() {
         val scope = MainScope()
         underTest.viewModelScopeProvider = { scope }
+
+        whenever(viewModel.amount).thenReturn(MutableStateFlow(""))
+        whenever(viewModel.contacts).thenReturn(MutableStateFlow(emptyList()))
+        whenever(viewModel.title).thenReturn(MutableStateFlow(""))
     }
 
     @Test
@@ -93,13 +99,8 @@ class AddGroupPresenterTest {
 
     @Test
     fun createGroupSetsErrorMessageWhenAmountMissing() = runTest {
-        whenever(
-            validateAddGroupInputFieldsUseCase(
-                viewModel.amount,
-                viewModel.contacts,
-                viewModel.title
-            )
-        ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING)
+        whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
+            .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING)
 
         underTest.createGroup()
 
@@ -108,13 +109,8 @@ class AddGroupPresenterTest {
 
     @Test
     fun createGroupSetsErrorMessageWhenContactsAreMissing() = runTest {
-        whenever(
-            validateAddGroupInputFieldsUseCase(
-                viewModel.amount,
-                viewModel.contacts,
-                viewModel.title
-            )
-        ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING)
+        whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
+            .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING)
 
         underTest.createGroup()
 
@@ -123,13 +119,8 @@ class AddGroupPresenterTest {
 
     @Test
     fun createGroupSetsErrorMessageWhenTitleIsMissing() = runTest {
-        whenever(
-            validateAddGroupInputFieldsUseCase(
-                viewModel.amount,
-                viewModel.contacts,
-                viewModel.title
-            )
-        ).thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING)
+        whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
+            .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING)
 
         underTest.createGroup()
 
@@ -142,9 +133,9 @@ class AddGroupPresenterTest {
         val amount = "amount"
         val contacts = emptyList<ContactDetailsViewModel>()
         val title = "title"
-        whenever(viewModel.amount).thenReturn(amount)
-        whenever(viewModel.contacts).thenReturn(contacts)
-        whenever(viewModel.title).thenReturn(title)
+        whenever(viewModel.amount).thenReturn(MutableStateFlow(amount))
+        whenever(viewModel.contacts).thenReturn(MutableStateFlow(contacts))
+        whenever(viewModel.title).thenReturn(MutableStateFlow(title))
 
         whenever(validateAddGroupInputFieldsUseCase(amount, contacts, title))
             .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID)

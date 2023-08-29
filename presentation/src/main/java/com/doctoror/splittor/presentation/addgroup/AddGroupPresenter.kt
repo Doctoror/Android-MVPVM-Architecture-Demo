@@ -26,11 +26,15 @@ class AddGroupPresenter(
     }
 
     fun handleAmountChange(amount: String) {
-        viewModelUpdater.updateAmount(viewModel, amount)
+        viewModelScope.launch {
+            viewModelUpdater.updateAmount(viewModel, amount)
+        }
     }
 
     fun handleTitleChange(title: String) {
-        viewModelUpdater.updateTitle(viewModel, title)
+        viewModelScope.launch {
+            viewModelUpdater.updateTitle(viewModel, title)
+        }
     }
 
     fun handleContactPick(uri: String) {
@@ -44,9 +48,9 @@ class AddGroupPresenter(
 
     fun createGroup() {
         val validationResult = validateAddGroupInputFieldsUseCase(
-            viewModel.amount,
-            viewModel.contacts,
-            viewModel.title
+            viewModel.amount.value,
+            viewModel.contacts.value,
+            viewModel.title.value
         )
 
         viewModelScope.launch {
@@ -71,9 +75,9 @@ class AddGroupPresenter(
             viewModelScope.launch {
                 groupInsertedEventsFlow.emit(
                     insertGroupUseCase(
-                        stripCurrencyAndGroupingSeparatorsUseCase(viewModel.amount),
-                        viewModel.contacts.map { it.name },
-                        viewModel.title
+                        stripCurrencyAndGroupingSeparatorsUseCase(viewModel.amount.value),
+                        viewModel.contacts.value.map { it.name },
+                        viewModel.title.value
                     )
                 )
             }

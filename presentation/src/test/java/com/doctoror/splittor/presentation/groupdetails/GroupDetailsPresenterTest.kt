@@ -42,7 +42,7 @@ class GroupDetailsPresenterTest {
     }
 
     @Test
-    fun observesGroupAndUpdatesViewModelOnCreate() {
+    fun observesGroupAndUpdatesViewModelOnCreate() = runTest {
         val group: Group = mock()
         whenever(observeGroupUseCase(groupId)).thenReturn(flowOf(group))
 

@@ -1,7 +1,6 @@
 package com.doctoror.splittor.presentation.addgroup
 
 import androidx.annotation.StringRes
-import androidx.compose.runtime.snapshots.Snapshot.Companion.withMutableSnapshot
 import com.doctoror.splittor.domain.contacts.ContactDetails
 
 class AddGroupViewModelUpdater(
@@ -12,24 +11,20 @@ class AddGroupViewModelUpdater(
 
     fun addContact(viewModel: AddGroupViewModel, contact: ContactDetails) {
         if (sortedContacts == null) {
-            sortedContacts = viewModel.contacts.toSortedSet()
+            sortedContacts = viewModel.contacts.value.toSortedSet()
         }
         sortedContacts!!.add(contactDetailsViewModelMapper.map(contact))
-        withMutableSnapshot {
-            viewModel.contacts = sortedContacts!!.toList()
-        }
+
+        val contactsList = sortedContacts!!.toList()
+        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_CONTACTS] = contactsList
     }
 
     fun updateAmount(viewModel: AddGroupViewModel, amount: String) {
-        withMutableSnapshot {
-            viewModel.amount = amount
-        }
+        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_AMOUNT] = amount
     }
 
     fun updateTitle(viewModel: AddGroupViewModel, title: String) {
-        withMutableSnapshot {
-            viewModel.title = title
-        }
+        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_TITLE] = title
     }
 
     suspend fun setErrorMessageId(viewModel: AddGroupViewModel, @StringRes message: Int) {

@@ -33,6 +33,8 @@ dependencies {
 
     implementation(libs.accompanist.systemuicontroller)
     implementation(libs.compose.material3)
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.ui.tooling.preview)
-    implementation(libs.lifecycle.viewmodel.compose)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.lifecycle.viewmodel.savedstate)
 }

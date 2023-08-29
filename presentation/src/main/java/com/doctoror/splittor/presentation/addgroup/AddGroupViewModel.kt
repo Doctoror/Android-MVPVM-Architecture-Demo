@@ -1,25 +1,20 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.viewmodel.compose.SavedStateHandleSaveableApi
-import androidx.lifecycle.viewmodel.compose.saveable
 import kotlinx.coroutines.flow.MutableSharedFlow
 
-@OptIn(SavedStateHandleSaveableApi::class)
-class AddGroupViewModel(savedStateHandle: SavedStateHandle) {
+const val ADD_GROUP_VIEW_MODEL_KEY_AMOUNT = "amount"
+const val ADD_GROUP_VIEW_MODEL_KEY_CONTACTS = "contacts"
+const val ADD_GROUP_VIEW_MODEL_KEY_TITLE = "title"
 
-    var amount by savedStateHandle.saveable {
-        mutableStateOf("")
-    }
+class AddGroupViewModel(val savedStateHandle: SavedStateHandle) {
 
-    var contacts by savedStateHandle.saveable {
-        mutableStateOf(emptyList<ContactDetailsViewModel>())
-    }
+    val amount = savedStateHandle.getStateFlow(ADD_GROUP_VIEW_MODEL_KEY_AMOUNT, "")
+
+    val contacts = savedStateHandle
+        .getStateFlow(ADD_GROUP_VIEW_MODEL_KEY_CONTACTS, emptyList<ContactDetailsViewModel>())
 
     val errorMessage = MutableSharedFlow<Int>()
 
-    var title by savedStateHandle.saveable {
-        mutableStateOf("")
-    }
+    val title = savedStateHandle.getStateFlow(ADD_GROUP_VIEW_MODEL_KEY_TITLE, "")
 }

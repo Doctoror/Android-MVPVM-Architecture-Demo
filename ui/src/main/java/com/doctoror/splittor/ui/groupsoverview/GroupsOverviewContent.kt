@@ -17,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.doctoror.splittor.presentation.groupsoverview.GroupItemViewModel
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
 import com.doctoror.splittor.ui.R
@@ -44,6 +45,8 @@ fun GroupsOverviewContent(
 
     fun shouldShowFab() = viewModel.viewType.value != GroupsOverviewViewModel.ViewType.LOADING
 
+    val viewType = viewModel.viewType.collectAsStateWithLifecycle()
+
     AppTheme {
         Scaffold(
             floatingActionButton = {
@@ -64,7 +67,7 @@ fun GroupsOverviewContent(
                     .fillMaxSize()
                     .padding(it)
             ) {
-                when (viewModel.viewType.value) {
+                when (viewType.value) {
                     GroupsOverviewViewModel.ViewType.LOADING -> GroupsOverviewContentLoading()
 
                     GroupsOverviewViewModel.ViewType.EMPTY -> GroupsOverviewContentEmpty(onAddClick)
@@ -116,27 +119,23 @@ fun GroupsOverviewContentLoadedPreview() {
         viewModel = GroupsOverviewViewModel().apply {
             viewType.value = GroupsOverviewViewModel.ViewType.CONTENT
 
-            groups.add(
+            groups.value = listOf(
                 GroupItemViewModel(
                     amount = "$12.99",
                     allMembersPaid = false,
                     id = 1L,
                     members = "2 members",
                     title = "Lunch"
-                )
-            )
+                ),
 
-            groups.add(
                 GroupItemViewModel(
                     amount = "$1,000.58",
                     allMembersPaid = false,
                     id = 1L,
                     members = "4 members",
                     title = "Dinner"
-                )
-            )
+                ),
 
-            groups.add(
                 GroupItemViewModel(
                     amount = "$1,322",
                     allMembersPaid = true,

@@ -1,5 +1,6 @@
 package com.doctoror.splittor.presentation.addgroup
 
+import androidx.lifecycle.SavedStateHandle
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.presentation.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,7 +16,8 @@ import org.mockito.kotlin.whenever
 class AddGroupViewModelUpdaterTest {
 
     private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper = mock()
-    private val viewModel = AddGroupViewModel(mock())
+    private val savedStateHandle = SavedStateHandle()
+    private val viewModel = AddGroupViewModel(savedStateHandle)
 
     private val underTest = AddGroupViewModelUpdater(contactDetailsViewModelMapper)
 
@@ -27,7 +29,25 @@ class AddGroupViewModelUpdaterTest {
 
         underTest.addContact(viewModel, details)
 
-        assertTrue(viewModel.contacts.contains(detailsViewModel))
+        assertTrue(viewModel.contacts.value.contains(detailsViewModel))
+    }
+
+    @Test
+    fun updatesAmount() {
+        val amount = "13.49"
+
+        underTest.updateAmount(viewModel, amount)
+
+        assertEquals(amount, viewModel.amount.value)
+    }
+
+    @Test
+    fun updatesTitle() {
+        val title = "Title"
+
+        underTest.updateTitle(viewModel, title)
+
+        assertEquals(title, viewModel.title.value)
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)

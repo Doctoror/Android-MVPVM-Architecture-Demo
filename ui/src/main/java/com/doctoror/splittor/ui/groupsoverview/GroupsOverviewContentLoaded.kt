@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.doctoror.splittor.presentation.groupsoverview.GroupsOverviewViewModel
 import com.doctoror.splittor.ui.base.AppTheme
 
@@ -27,8 +28,10 @@ fun GroupsOverviewContentLoaded(
     onGroupLongClick: (Long) -> Unit,
     viewModel: GroupsOverviewViewModel
 ) {
+    val groups = viewModel.groups.collectAsStateWithLifecycle()
+
     LazyColumn {
-        items(viewModel.groups) {
+        items(groups.value) {
             Box(
                 modifier = Modifier
                     .defaultMinSize(minHeight = 72.dp)

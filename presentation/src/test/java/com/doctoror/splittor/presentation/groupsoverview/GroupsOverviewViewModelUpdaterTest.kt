@@ -1,6 +1,7 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.domain.groups.Group
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -14,19 +15,19 @@ class GroupsOverviewViewModelUpdaterTest {
     private val underTest = GroupsOverviewViewModelUpdater(groupItemViewModelMapper)
 
     @Test
-    fun setsEmptyViewWhenLoadedEmptyList() {
+    fun setsEmptyViewWhenLoadedEmptyList() = runTest {
         underTest.updateOnGroupsListLoaded(viewModel, emptyList())
         assertEquals(GroupsOverviewViewModel.ViewType.EMPTY, viewModel.viewType.value)
     }
 
     @Test
-    fun setsContentViewWhenLoadedNonEmptyList() {
+    fun setsContentViewWhenLoadedNonEmptyList() = runTest {
         underTest.updateOnGroupsListLoaded(viewModel, listOf(mock()))
         assertEquals(GroupsOverviewViewModel.ViewType.CONTENT, viewModel.viewType.value)
     }
 
     @Test
-    fun setsGroupsViewModels() {
+    fun setsGroupsViewModels() = runTest {
         val group1: Group = mock()
         val group2: Group = mock()
         val group1ViewModel: GroupItemViewModel = mock()
@@ -36,6 +37,6 @@ class GroupsOverviewViewModelUpdaterTest {
 
         underTest.updateOnGroupsListLoaded(viewModel, listOf(group1, group2))
 
-        assertEquals(listOf(group1ViewModel, group2ViewModel), viewModel.groups)
+        assertEquals(listOf(group1ViewModel, group2ViewModel), viewModel.groups.value)
     }
 }

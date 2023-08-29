@@ -40,7 +40,7 @@ class GroupsOverviewPresenterTest {
     }
 
     @Test
-    fun updatesViewModelWithGroups() {
+    fun updatesViewModelWithGroups() = runTest {
         val groups = listOf<Group>(mock())
         whenever(observeGroupsUseCase()).thenReturn(flowOf(groups))
 

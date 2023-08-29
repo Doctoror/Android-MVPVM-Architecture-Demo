@@ -33,6 +33,10 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_AMOUNT
+import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_CONTACTS
+import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_TITLE
 import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
 import com.doctoror.splittor.presentation.addgroup.ContactDetailsViewModel
 import com.doctoror.splittor.ui.R
@@ -106,6 +110,9 @@ private fun GroupInfoSection(
 ) {
     val focusManager = LocalFocusManager.current
 
+    val amount = viewModel.amount.collectAsStateWithLifecycle()
+    val title = viewModel.title.collectAsStateWithLifecycle()
+
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -136,7 +143,7 @@ private fun GroupInfoSection(
         ),
         label = { Text(text = stringResource(R.string.title)) },
         singleLine = true,
-        value = viewModel.title,
+        value = title.value,
         onValueChange = onTitleChange
     )
 
@@ -145,7 +152,7 @@ private fun GroupInfoSection(
             .fillMaxWidth()
             .padding(start = 5.dp, end = 5.dp),
         currencySymbol = currencySymbol,
-        initialText = viewModel.amount,
+        initialText = amount.value,
         label = { Text(text = stringResource(R.string.amount)) },
         locale = locale,
         onChange = onAmountChange
@@ -171,7 +178,9 @@ private fun ContactsSection(
     onAddContactClick: () -> Unit,
     viewModel: AddGroupViewModel
 ) {
-    viewModel.contacts.forEach {
+    val contacts = viewModel.contacts.collectAsStateWithLifecycle()
+
+    contacts.value.forEach {
         Box(
             Modifier
                 .fillMaxWidth()
@@ -219,20 +228,23 @@ fun AddGroupContentPreview() {
         onCreateClick = {},
         onNavigationClick = {},
         onTitleChange = {},
-        viewModel = AddGroupViewModel(SavedStateHandle()).apply {
-            amount = "1,099.29"
-            title = "Dinner"
-
-            contacts = listOf(
-                ContactDetailsViewModel(
-                    id = 1L,
-                    name = "Alice"
-                ),
-                ContactDetailsViewModel(
-                    id = 2L,
-                    name = "Bob"
+        viewModel = AddGroupViewModel(
+            SavedStateHandle(
+                mapOf(
+                    ADD_GROUP_VIEW_MODEL_KEY_AMOUNT to "1,099.29",
+                    ADD_GROUP_VIEW_MODEL_KEY_CONTACTS to listOf(
+                        ContactDetailsViewModel(
+                            id = 1L,
+                            name = "Alice"
+                        ),
+                        ContactDetailsViewModel(
+                            id = 2L,
+                            name = "Bob"
+                        )
+                    ),
+                    ADD_GROUP_VIEW_MODEL_KEY_TITLE to "Dinner"
                 )
             )
-        }
+        )
     )
 }

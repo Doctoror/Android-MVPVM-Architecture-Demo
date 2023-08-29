@@ -10,7 +10,7 @@ class GroupDetailsViewModelUpdater(
     private val groupMemberItemViewModelMapper: GroupMemberItemViewModelMapper
 ) {
 
-    fun update(viewModel: GroupDetailsViewModel, group: Group) {
+    suspend fun update(viewModel: GroupDetailsViewModel, group: Group) {
         viewModel.amount.value = formatAmountWithCurrencyUseCase(BigDecimal(group.amount))
         viewModel.title.value = group.title
 
@@ -19,8 +19,7 @@ class GroupDetailsViewModelUpdater(
                     BigDecimal(group.members.size).setScale(2, RoundingMode.HALF_UP)
         )
 
-        viewModel.members.clear()
-        viewModel.members.addAll(
+        viewModel.members.emit(
             group.members.map {
                 groupMemberItemViewModelMapper.map(amountPerMember, it)
             }

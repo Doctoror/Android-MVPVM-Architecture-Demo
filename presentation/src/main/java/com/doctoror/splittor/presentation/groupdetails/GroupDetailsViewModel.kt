@@ -1,13 +1,12 @@
 package com.doctoror.splittor.presentation.groupdetails
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class GroupDetailsViewModel {
 
-    val amount = mutableStateOf("")
+    val amount = MutableStateFlow("")
 
-    val members = mutableStateListOf<GroupMemberItemViewModel>()
+    val members = MutableStateFlow<List<GroupMemberItemViewModel>>(emptyList())
 
-    val title = mutableStateOf("")
+    val title = MutableStateFlow("")
 }

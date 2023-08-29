@@ -6,9 +6,8 @@ class GroupsOverviewViewModelUpdater(
     private val groupItemViewModelMapper: GroupItemViewModelMapper
 ) {
 
-    fun updateOnGroupsListLoaded(viewModel: GroupsOverviewViewModel, groups: List<Group>) {
-        viewModel.groups.clear()
-        viewModel.groups.addAll(groups.map(groupItemViewModelMapper::map))
+    suspend fun updateOnGroupsListLoaded(viewModel: GroupsOverviewViewModel, groups: List<Group>) {
+        viewModel.groups.emit(groups.map(groupItemViewModelMapper::map))
 
         viewModel.viewType.value = if (groups.isEmpty()) {
             GroupsOverviewViewModel.ViewType.EMPTY

@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.doctoror.splittor.presentation.groupdetails.GroupDetailsViewModel
 import com.doctoror.splittor.presentation.groupdetails.GroupMemberItemViewModel
 import com.doctoror.splittor.ui.R
@@ -41,6 +42,10 @@ fun GroupDetailsContent(
     onMemberClick: (Long, Boolean) -> Unit,
     viewModel: GroupDetailsViewModel
 ) {
+    val amount = viewModel.amount.collectAsStateWithLifecycle()
+    val members = viewModel.members.collectAsStateWithLifecycle()
+    val title = viewModel.title.collectAsStateWithLifecycle()
+
     AppTheme {
         Scaffold(
             topBar = {
@@ -53,7 +58,7 @@ fun GroupDetailsContent(
                             )
                         }
                     },
-                    title = { Text(viewModel.title.value) }
+                    title = { Text(title.value) }
                 )
             }
         ) {
@@ -86,13 +91,13 @@ fun GroupDetailsContent(
                                 .wrapContentWidth()
                                 .align(Alignment.CenterVertically),
                             style = AppTheme.typography.headlineMedium,
-                            text = viewModel.amount.value,
+                            text = amount.value,
                             textAlign = TextAlign.End
                         )
                     }
                 }
 
-                items(viewModel.members) {
+                items(members.value) {
                     Box(
                         modifier = Modifier.clickable { onMemberClick(it.id, it.paid) }
                     ) {
@@ -150,16 +155,14 @@ fun GroupDetailsContentPreview() {
             amount.value = "2,121.00"
             title.value = "Dinner"
 
-            members.add(
+            members.value = listOf(
                 GroupMemberItemViewModel(
                     amount = "$1,099.16",
                     id = 1L,
                     name = "Alice",
                     paid = true
-                )
-            )
+                ),
 
-            members.add(
                 GroupMemberItemViewModel(
                     amount = "$1,099.16",
                     id = 2L,

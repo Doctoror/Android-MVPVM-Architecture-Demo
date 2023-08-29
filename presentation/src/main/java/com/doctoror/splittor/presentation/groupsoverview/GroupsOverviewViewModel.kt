@@ -1,13 +1,12 @@
 package com.doctoror.splittor.presentation.groupsoverview
 
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.flow.MutableStateFlow
 
 class GroupsOverviewViewModel {
 
-    val groups = mutableStateListOf<GroupItemViewModel>()
+    val groups = MutableStateFlow<List<GroupItemViewModel>>(emptyList())
 
-    val viewType = mutableStateOf(ViewType.LOADING)
+    val viewType = MutableStateFlow(ViewType.LOADING)
 
     enum class ViewType {
 

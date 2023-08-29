@@ -3,6 +3,7 @@ package com.doctoror.splittor.presentation.groupdetails
 import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.GroupMember
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -21,7 +22,7 @@ class GroupDetailsViewModelUpdaterTest {
     )
 
     @Test
-    fun updatesAmount() {
+    fun updatesAmount() = runTest {
         val formattedAmount = "$44.13"
         val group = makeBasicGroup()
         whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
@@ -33,7 +34,7 @@ class GroupDetailsViewModelUpdaterTest {
     }
 
     @Test
-    fun updatesTitle() {
+    fun updatesTitle() = runTest {
         val group = makeBasicGroup()
 
         underTest.update(viewModel, group)
@@ -42,7 +43,7 @@ class GroupDetailsViewModelUpdaterTest {
     }
 
     @Test
-    fun updatesMembersWithEqualAmounts() {
+    fun updatesMembersWithEqualAmounts() = runTest {
         val group = makeBasicGroup()
         val mappedMember1: GroupMemberItemViewModel = mock()
         val mappedMember2: GroupMemberItemViewModel = mock()
@@ -60,7 +61,7 @@ class GroupDetailsViewModelUpdaterTest {
 
         underTest.update(viewModel, group)
 
-        assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members)
+        assertEquals(listOf(mappedMember1, mappedMember2), viewModel.members.value)
     }
 
     private fun makeBasicGroup() = Group(
