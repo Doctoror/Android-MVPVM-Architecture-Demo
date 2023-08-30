@@ -9,5 +9,5 @@ data class ContactDetailsViewModel(
     val name: String
 ) : Comparable<ContactDetailsViewModel>, Parcelable {
 
-    override fun compareTo(other: ContactDetailsViewModel) = id.compareTo(other.id)
+    override fun compareTo(other: ContactDetailsViewModel) = name.compareTo(other.name)
 }
