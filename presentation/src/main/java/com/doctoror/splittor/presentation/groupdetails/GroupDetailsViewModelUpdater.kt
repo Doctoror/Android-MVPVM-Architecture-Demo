@@ -15,14 +15,20 @@ class GroupDetailsViewModelUpdater(
         viewModel.title.value = group.title
 
         val amountPerMember = formatAmountWithCurrencyUseCase(
-            BigDecimal(group.amount).setScale(2, RoundingMode.HALF_UP) /
-                    BigDecimal(group.members.size).setScale(2, RoundingMode.HALF_UP)
+            if (group.members.isEmpty()) {
+                BigDecimal.ZERO
+            } else {
+                BigDecimal(group.amount).setScale(2, RoundingMode.HALF_UP) /
+                        BigDecimal(group.members.size).setScale(2, RoundingMode.HALF_UP)
+            }
         )
 
         viewModel.members.emit(
-            group.members.map {
-                groupMemberItemViewModelMapper.map(amountPerMember, it)
-            }
+            group.members
+                .asSequence()
+                .map { groupMemberItemViewModelMapper.map(amountPerMember, it) }
+                .sorted()
+                .toList()
         )
     }
 }

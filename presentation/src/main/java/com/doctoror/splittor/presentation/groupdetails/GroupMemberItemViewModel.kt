@@ -5,4 +5,7 @@ data class GroupMemberItemViewModel(
     val id: Long,
     val name: String,
     val paid: Boolean
-)
+) : Comparable<GroupMemberItemViewModel> {
+
+    override fun compareTo(other: GroupMemberItemViewModel) = name.compareTo(other.name)
+}

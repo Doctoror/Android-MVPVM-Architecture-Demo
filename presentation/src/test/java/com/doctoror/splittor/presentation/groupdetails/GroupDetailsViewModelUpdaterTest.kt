@@ -5,7 +5,9 @@ import com.doctoror.splittor.domain.groups.GroupMember
 import com.doctoror.splittor.domain.numberformat.FormatAmountWithCurrencyUseCase
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
+import org.mockito.kotlin.any
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
 import java.math.BigDecimal
@@ -24,7 +26,7 @@ class GroupDetailsViewModelUpdaterTest {
     @Test
     fun updatesAmount() = runTest {
         val formattedAmount = "$44.13"
-        val group = makeBasicGroup()
+        val group = makeBasicGroup().copy(members = emptyList())
         whenever(formatAmountWithCurrencyUseCase(BigDecimal(group.amount)))
             .thenReturn(formattedAmount)
 
@@ -35,7 +37,7 @@ class GroupDetailsViewModelUpdaterTest {
 
     @Test
     fun updatesTitle() = runTest {
-        val group = makeBasicGroup()
+        val group = makeBasicGroup().copy(members = emptyList())
 
         underTest.update(viewModel, group)
 
