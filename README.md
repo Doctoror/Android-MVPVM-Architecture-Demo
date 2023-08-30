@@ -84,13 +84,8 @@ It also khows how to build the DI graph and the DI framework is not leaked to an
 
 ## Drawbacks, Criticism
 
-- engineers have to jump between gradle modules when developing same feature
-- having literal modules per each layer means the application is still a monolith, and if you'd want to extract features to own modules, you'll also have to create all the layer modules for each feature.
-
-### Possible module structure to avoid having a monolith
-
+#### Having Gradle modules per each layer means the application is still a monolith, and if you'd want to extract features to their own modules, you'll also have to create all the layer modules for each feature.
 Splitting by features and then layers is possible with the following module structure (see [Nested Modules in Gradle](https://www.developerphil.com/nested-modules-in-gradle/))
-
 - app
 - feature-1
   - data
@@ -117,3 +112,14 @@ Or, if you have a centralized database
   - domain (use cases for feature-2)
   - presentation
   - ui
+
+#### Kotlin Flows is a framework that is "leaked" across modules
+Arguably, Flow can be treated as part of the language.
+
+But if you really, really wanted to get rid of leaking the *Flow*s to *domain* you'd have to replace *StateFlow* with a custom *Observable* implementation with a state, possibly extending *java.util.Observable* and use that type in the *domain* module.
+
+Then, adapters can be created in *data* and *presentation* layers that convert from normal *Obesrvable* to *Flows* and vice versa.
+
+But then, if you think about it, the *domain* layer is a rather smaller part of the app, so you've just created a lot of adapters for yourself just to unlink the *domain* module from the *Flows* framework. However, the *domain* layer will still have to use *suspend* functions and coroutines would still be leaked. And if you'd really want to get rid of the coroutines leak in the domain module, you will lose the ability to use *Flow*s adapters in *Room* at all. This also means that you won't be able to benefit from *viewModelScope* in the *Presenter* and you'd have to manually deal with the lifecycle.
+
+And thus, getting rid of coroutines framework leak does not seem to be beneficial at all. But then, does this still count as "Clean Aritecture" if we depend on coroutines so much?
