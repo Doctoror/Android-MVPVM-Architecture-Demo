@@ -7,8 +7,9 @@ import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparat
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.BasePresenter
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.Optional
 
 class AddGroupPresenter(
     private val getContactDetailsUseCase: GetContactDetailsUseCase,
@@ -19,8 +20,8 @@ class AddGroupPresenter(
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) : BasePresenter<AddGroupViewModel>(viewModel) {
 
-    private val groupInsertedEventsFlow = MutableSharedFlow<Long>()
-    val groupInsertedEvents: Flow<Long> = groupInsertedEventsFlow
+    private val groupInsertedEventsFlow = MutableStateFlow<Optional<Long>>(Optional.empty())
+    val groupInsertedEvents: Flow<Optional<Long>> = groupInsertedEventsFlow
 
     override fun onCreate() {
     }
@@ -56,28 +57,32 @@ class AddGroupPresenter(
         viewModelScope.launch {
             viewModelUpdater.setErrorMessageId(
                 viewModel,
-                when (validationResult) {
-                    ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING ->
-                        R.string.amount_not_set
+                Optional.ofNullable(
+                    when (validationResult) {
+                        ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING ->
+                            R.string.amount_not_set
 
-                    ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING ->
-                        R.string.no_contacts_added
+                        ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING ->
+                            R.string.no_contacts_added
 
-                    ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING ->
-                        R.string.title_not_set
+                        ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING ->
+                            R.string.title_not_set
 
-                    else -> 0
-                }
+                        else -> null
+                    }
+                )
             )
         }
 
         if (validationResult == ValidateAddGroupInputFieldsUseCase.ValidationResult.VALID) {
             viewModelScope.launch {
                 groupInsertedEventsFlow.emit(
-                    insertGroupUseCase(
-                        stripCurrencyAndGroupingSeparatorsUseCase(viewModel.amount.value),
-                        viewModel.contacts.value.map { it.name },
-                        viewModel.title.value
+                    Optional.of(
+                        insertGroupUseCase(
+                            stripCurrencyAndGroupingSeparatorsUseCase(viewModel.amount.value),
+                            viewModel.contacts.value.map { it.name },
+                            viewModel.title.value
+                        )
                     )
                 )
             }

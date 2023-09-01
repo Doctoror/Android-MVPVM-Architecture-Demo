@@ -10,6 +10,7 @@ import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -104,7 +105,7 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.amount_not_set)
+        verify(viewModelUpdater).setErrorMessageId(viewModel, Optional.of(R.string.amount_not_set))
     }
 
     @Test
@@ -114,7 +115,10 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.no_contacts_added)
+        verify(viewModelUpdater).setErrorMessageId(
+            viewModel,
+            Optional.of(R.string.no_contacts_added)
+        )
     }
 
     @Test
@@ -124,7 +128,7 @@ class AddGroupPresenterTest {
 
         underTest.createGroup()
 
-        verify(viewModelUpdater).setErrorMessageId(viewModel, R.string.title_not_set)
+        verify(viewModelUpdater).setErrorMessageId(viewModel, Optional.of(R.string.title_not_set))
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -150,7 +154,10 @@ class AddGroupPresenterTest {
                 .thenReturn(expectedInsertionResult)
 
             val collectJob = launch {
-                underTest.groupInsertedEvents.collect { actualInsertedId = it }
+                underTest
+                    .groupInsertedEvents
+                    .filter { it.isPresent }
+                    .collect { actualInsertedId = it.get() }
             }
 
             underTest.createGroup()

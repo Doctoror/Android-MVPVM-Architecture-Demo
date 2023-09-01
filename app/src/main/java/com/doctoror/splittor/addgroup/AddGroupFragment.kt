@@ -17,8 +17,10 @@ import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
 import com.doctoror.splittor.ui.addgroup.AddGroupContent
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import java.util.Locale
+import java.util.Optional
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -49,11 +51,10 @@ class AddGroupFragment : Fragment() {
                 .viewModel
                 .errorMessage
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .filter { it.isPresent }
                 .collect {
-                    if (it != 0) {
-                        presenter.unwrapped.viewModel.errorMessage.emit(0)
-                        Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-                    }
+                    presenter.unwrapped.viewModel.errorMessage.emit(Optional.empty())
+                    Toast.makeText(requireContext(), it.get(), Toast.LENGTH_SHORT).show()
                 }
         }
 
@@ -62,9 +63,13 @@ class AddGroupFragment : Fragment() {
                 .unwrapped
                 .groupInsertedEvents
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .filter { it.isPresent }
                 .collect {
                     findNavController()
-                        .navigate(AddGroupFragmentDirections.actionAddGroupToGroupDetails(groupId = it))
+                        .navigate(
+                            AddGroupFragmentDirections
+                                .actionAddGroupToGroupDetails(groupId = it.get())
+                        )
                 }
         }
 

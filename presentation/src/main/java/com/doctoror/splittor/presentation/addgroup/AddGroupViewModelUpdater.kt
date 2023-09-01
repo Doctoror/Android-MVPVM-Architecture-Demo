@@ -2,6 +2,7 @@ package com.doctoror.splittor.presentation.addgroup
 
 import androidx.annotation.StringRes
 import com.doctoror.splittor.domain.contacts.ContactDetails
+import java.util.Optional
 
 class AddGroupViewModelUpdater(
     private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper
@@ -27,7 +28,7 @@ class AddGroupViewModelUpdater(
         viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_TITLE] = title
     }
 
-    suspend fun setErrorMessageId(viewModel: AddGroupViewModel, @StringRes message: Int) {
+    suspend fun setErrorMessageId(viewModel: AddGroupViewModel, @StringRes message: Optional<Int>) {
         viewModel.errorMessage.emit(message)
     }
 }

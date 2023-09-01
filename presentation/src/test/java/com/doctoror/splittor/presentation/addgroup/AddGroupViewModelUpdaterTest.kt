@@ -4,6 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.presentation.R
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
@@ -12,6 +13,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.whenever
+import java.util.Optional
 
 class AddGroupViewModelUpdaterTest {
 
@@ -55,16 +57,19 @@ class AddGroupViewModelUpdaterTest {
     fun setsErrorMessageId() = runTest {
         val messageId = R.string.amount_not_set
 
-        underTest.setErrorMessageId(viewModel, messageId)
+        underTest.setErrorMessageId(viewModel, Optional.of(messageId))
 
         var collectedMessageId = -1
         runTest(UnconfinedTestDispatcher()) {
 
             val collectJob = launch {
-                viewModel.errorMessage.collect { collectedMessageId = it }
+                viewModel
+                    .errorMessage
+                    .filter { it.isPresent }
+                    .collect { collectedMessageId = it.get() }
             }
 
-            underTest.setErrorMessageId(viewModel, messageId)
+            underTest.setErrorMessageId(viewModel, Optional.of(messageId))
 
             collectJob.cancel()
         }
