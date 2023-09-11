@@ -20,7 +20,7 @@ Please refer to the diagram below that compares it with original Clean Architect
 
 The naming and concepts of *Data*, *Domain*, *UI* and *Presentation* layers are taken from [Guide to app architecture](https://developer.android.com/topic/architecture) and pretty much correspond to what they do in the proposed architecture in the linked article.
 
-Having each layer in it's own Gradle module allows for framework separation and reduces a chance of accidental leaks of responsibilities between layer. For example, you cannot access the database or Compose/Views from `*domain* or *Presentation* layer.
+Having each layer in it's own Gradle module allows for framework separation and reduces a chance of accidental leaks of responsibilities between layers. For example, you cannot access the database or Compose/Views from `*domain* or *Presentation* layer.
 
 This separation makes updating and replacing frameworks easy.
 
@@ -72,7 +72,15 @@ Presenter receives UI and lifecycle events and decides what to do with data by c
 
 [GroupsOverviewPresenter](presentation/src/main/java/com/doctoror/splittor/presentation/groupsoverview/GroupsOverviewPresenter.kt) loads groups domain models by interacting with [ObserveGroupsUseCase](domain/src/main/java/com/doctoror/splittor/domain/groups/ObserveGroupsUseCase.kt), transforms domain models to list item view models by [GroupItemViewModelMapper](presentation/src/main/java/com/doctoror/splittor/presentation/groupsoverview/GroupItemViewModelMapper.kt) and updates the screen view model by [GroupsOverviewViewModelUpdater](presentation/src/main/java/com/doctoror/splittor/presentation/groupsoverview/GroupsOverviewViewModelUpdater.kt)
 
-ViewModelUpdater is needed because you don't want your presenter to know how to update the view model, as if you try testing it you would have to set up loading and updating all the fields for each scanario. By extracting the knowledge necessary to update view model you just need to test if a ViewModelUpdater is called.
+*ViewModelUpdater* is needed because you don't want your presenter to know how to update the view model, as if you try testing it you would have to set up loading and updating all the fields for each scanario. By extracting the knowledge necessary to update view model you just need to test if a ViewModelUpdater is called.
+
+### UI layer
+
+Depends only on *presentation* layer. Provides Views or Compose content for *presentation* *ViewModels*.
+
+This ensures that the *presentation* layer is always agnostic about the View implementation.
+
+You can easily swap-out *ui* implementations from your *app* module. For example, you can create a *ui* module for same view but with a *Data Binding* framework instead of *Compose* and swap a module dependency based on your build type.
 
 ### Application layer
 
