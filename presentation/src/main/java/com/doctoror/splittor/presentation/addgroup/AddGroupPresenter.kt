@@ -23,9 +23,6 @@ class AddGroupPresenter(
     private val groupInsertedEventsFlow = MutableStateFlow<Optional<Long>>(Optional.empty())
     val groupInsertedEvents: Flow<Optional<Long>> = groupInsertedEventsFlow
 
-    override fun onCreate() {
-    }
-
     fun handleAmountChange(amount: String) {
         viewModelScope.launch {
             viewModelUpdater.updateAmount(viewModel, amount)

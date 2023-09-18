@@ -46,7 +46,7 @@ class GroupDetailsPresenterTest {
         val group: Group = mock()
         whenever(observeGroupUseCase(groupId)).thenReturn(flowOf(group))
 
-        underTest.onCreate()
+        underTest.dispatchOnCreateIfNotCreated()
 
         verify(viewModelUpdater).update(viewModel, group)
     }

@@ -15,6 +15,8 @@ import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.doctoror.splittor.domain.numberformat.ProvideCurrencySymbolUseCase
+import com.doctoror.splittor.presentation.addgroup.AddGroupPresenter
+import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
 import com.doctoror.splittor.ui.addgroup.AddGroupContent
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.filter
@@ -31,7 +33,7 @@ class AddGroupFragment : Fragment() {
     private val activityResultLauncherPickContact = registerForActivityResult(
         activityResultContractPickContact
     ) { uri ->
-        uri?.let { presenter.unwrapped.handleContactPick(it.toString()) }
+        uri?.let { presenter.handleContactPick(it.toString()) }
     }
 
     @Inject
@@ -40,27 +42,28 @@ class AddGroupFragment : Fragment() {
     @Inject
     lateinit var provideCurrencySymbolUseCase: ProvideCurrencySymbolUseCase
 
-    private val presenter: AddGroupPresenterWrapper by viewModels()
+    private val presenterW: AddGroupPresenterWrapper by viewModels()
+
+    private val presenter: AddGroupPresenter by lazy { presenterW.unwrapped }
+
+    private val viewModel: AddGroupViewModel by lazy { presenter.viewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            presenter
-                .unwrapped
-                .viewModel
+            viewModel
                 .errorMessage
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .filter { it.isPresent }
                 .collect {
-                    presenter.unwrapped.viewModel.errorMessage.emit(Optional.empty())
+                    viewModel.errorMessage.emit(Optional.empty())
                     Toast.makeText(requireContext(), it.get(), Toast.LENGTH_SHORT).show()
                 }
         }
 
         lifecycleScope.launch {
             presenter
-                .unwrapped
                 .groupInsertedEvents
                 .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .filter { it.isPresent }
@@ -73,7 +76,7 @@ class AddGroupFragment : Fragment() {
                 }
         }
 
-        lifecycle.addObserver(presenter)
+        presenter.dispatchOnCreateIfNotCreated()
     }
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -86,18 +89,13 @@ class AddGroupFragment : Fragment() {
             AddGroupContent(
                 currencySymbol = provideCurrencySymbolUseCase(),
                 locale = locale,
-                onAmountChange = presenter.unwrapped::handleAmountChange,
+                onAmountChange = presenter::handleAmountChange,
                 onAddContactClick = { activityResultLauncherPickContact.launch(null) },
-                onCreateClick = { presenter.unwrapped.createGroup() },
+                onCreateClick = { presenter.createGroup() },
                 onNavigationClick = { findNavController().popBackStack() },
-                onTitleChange = presenter.unwrapped::handleTitleChange,
-                viewModel = presenter.unwrapped.viewModel
+                onTitleChange = presenter::handleTitleChange,
+                viewModel = viewModel
             )
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        lifecycle.removeObserver(presenter)
     }
 }

@@ -14,11 +14,15 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GroupsOverviewFragment : Fragment() {
 
-    private val presenter: GroupsOverviewPresenterWrapper by viewModels()
+    private val presenterW: GroupsOverviewPresenterWrapper by viewModels()
+
+    private val presenter by lazy { presenterW.unwrapped }
+
+    private val viewModel by lazy { presenter.viewModel }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(presenter)
+        presenter.dispatchOnCreateIfNotCreated()
     }
 
     override fun onCreateView(
@@ -34,18 +38,13 @@ class GroupsOverviewFragment : Fragment() {
                         GroupsOverviewFragmentDirections.actionGroupsOverviewToGroupDetails(it)
                     )
                 },
-                onGroupLongClick = { presenter.unwrapped.onGroupLongClick(it) },
-                viewModel = presenter.unwrapped.viewModel
+                onGroupLongClick = { presenter.onGroupLongClick(it) },
+                viewModel = viewModel
             )
         }
     }
 
     private fun navigateToAddGroup() {
         findNavController().navigate(GroupsOverviewFragmentDirections.actionGroupsToAddGroup())
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        lifecycle.removeObserver(presenter)
     }
 }

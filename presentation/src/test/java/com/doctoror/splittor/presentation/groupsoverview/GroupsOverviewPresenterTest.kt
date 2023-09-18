@@ -44,7 +44,7 @@ class GroupsOverviewPresenterTest {
         val groups = listOf<Group>(mock())
         whenever(observeGroupsUseCase()).thenReturn(flowOf(groups))
 
-        underTest.onCreate()
+        underTest.dispatchOnCreateIfNotCreated()
 
         verify(viewModelUpdater).updateOnGroupsListLoaded(viewModel, groups)
     }
