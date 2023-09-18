@@ -7,12 +7,12 @@ import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
+import com.doctoror.splittor.presentation.base.executeBlockAndCollectFromFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -131,7 +131,6 @@ class AddGroupPresenterTest {
         verify(viewModelUpdater).setErrorMessageId(viewModel, Optional.of(R.string.title_not_set))
     }
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
     fun insertsGroupWhenFieldsAreValid() {
         val amount = "amount"
@@ -147,23 +146,21 @@ class AddGroupPresenterTest {
         val amountStripped = "amountStripped"
         whenever(stripCurrencyAndGroupingSeparatorsUseCase(amount)).thenReturn(amountStripped)
 
-        var actualInsertedId = -1L
         val expectedInsertionResult = 1L
-        runTest(UnconfinedTestDispatcher()) {
+        runTest {
             whenever(insertGroupUseCase(amountStripped, contacts.map { it.name }, title))
                 .thenReturn(expectedInsertionResult)
-
-            val collectJob = launch {
-                underTest
-                    .groupInsertedEvents
-                    .filter { it.isPresent }
-                    .collect { actualInsertedId = it.get() }
-            }
-
-            underTest.createGroup()
-            collectJob.cancel()
         }
 
-        assertEquals(expectedInsertionResult, actualInsertedId)
+        val actualInsertedIds = executeBlockAndCollectFromFlow(
+            underTest
+                .groupInsertedEvents
+                .filter { it.isPresent }
+                .map { it.get() }
+        ) {
+            underTest.createGroup()
+        }
+
+        assertEquals(expectedInsertionResult, actualInsertedIds.first())
     }
 }
