@@ -30,6 +30,8 @@ room = "2.5.2"
 
 savedstate = "1.2.1"
 
+turbine = "1.0.0"
+
 [libraries]
 accompanist-systemuicontroller = { group = "com.google.accompanist", name = "accompanist-systemuicontroller", version.ref = "accompanist" }
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
@@ -64,3 +66,4 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 
 test-core = { group = "androidx.test", name = "core", version.ref = "androidTestCore" }
 test-runner = { group = "androidx.test", name = "runner", version.ref = "androidTestRunner" }
+turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine" }

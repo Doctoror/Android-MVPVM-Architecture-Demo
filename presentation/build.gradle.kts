@@ -25,10 +25,10 @@ dependencies {
 
     implementation(libs.androidx.annotation)
     implementation(libs.kotlinx.coroutines.core)
-    testImplementation("app.cash.turbine:turbine:1.0.0")
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.reflect)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.mockito.kotlin)
+    testImplementation(libs.turbine)
 }
