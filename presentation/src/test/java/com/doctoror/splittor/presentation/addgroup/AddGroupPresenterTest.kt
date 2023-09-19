@@ -1,5 +1,6 @@
 package com.doctoror.splittor.presentation.addgroup
 
+import app.cash.turbine.test
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
@@ -7,12 +8,12 @@ import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
-import com.doctoror.splittor.presentation.base.executeBlockAndCollectFromFlow
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -132,7 +133,7 @@ class AddGroupPresenterTest {
     }
 
     @Test
-    fun insertsGroupWhenFieldsAreValid() {
+    fun insertsGroupWhenFieldsAreValid() = runTest {
         val amount = "amount"
         val contacts = arrayListOf<ContactDetailsViewModel>()
         val title = "title"
@@ -147,20 +148,17 @@ class AddGroupPresenterTest {
         whenever(stripCurrencyAndGroupingSeparatorsUseCase(amount)).thenReturn(amountStripped)
 
         val expectedInsertionResult = 1L
-        runTest {
-            whenever(insertGroupUseCase(amountStripped, contacts.map { it.name }, title))
-                .thenReturn(expectedInsertionResult)
-        }
+        whenever(insertGroupUseCase(amountStripped, contacts.map { it.name }, title))
+            .thenReturn(expectedInsertionResult)
 
-        val actualInsertedIds = executeBlockAndCollectFromFlow(
+        launch {
             underTest
                 .groupInsertedEvents
                 .filter { it.isPresent }
                 .map { it.get() }
-        ) {
-            underTest.createGroup()
+                .test { assertEquals(expectedInsertionResult, awaitItem()) }
         }
 
-        assertEquals(expectedInsertionResult, actualInsertedIds.first())
+        underTest.createGroup()
     }
 }

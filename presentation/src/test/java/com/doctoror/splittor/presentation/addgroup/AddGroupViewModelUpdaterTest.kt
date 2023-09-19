@@ -1,9 +1,11 @@
 package com.doctoror.splittor.presentation.addgroup
 
+import app.cash.turbine.test
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.executeBlockAndCollectFromFlow
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -49,18 +51,17 @@ class AddGroupViewModelUpdaterTest {
     }
 
     @Test
-    fun setsErrorMessageId() {
+    fun setsErrorMessageId() = runTest {
         val messageId = R.string.amount_not_set
-        val collected = executeBlockAndCollectFromFlow(
+
+        launch {
             viewModel
                 .errorMessage
                 .filter { it.isPresent }
-        ) {
-            runTest {
-                underTest.setErrorMessageId(viewModel, Optional.of(messageId))
-            }
+                .map { it.get() }
+                .test { assertEquals(messageId, awaitItem()) }
         }
 
-        assertEquals(messageId, collected.first().get())
+        underTest.setErrorMessageId(viewModel, Optional.of(messageId))
     }
 }
