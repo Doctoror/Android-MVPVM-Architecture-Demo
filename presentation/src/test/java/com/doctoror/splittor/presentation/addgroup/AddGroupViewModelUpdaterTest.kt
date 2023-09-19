@@ -1,6 +1,5 @@
 package com.doctoror.splittor.presentation.addgroup
 
-import androidx.lifecycle.SavedStateHandle
 import com.doctoror.splittor.domain.contacts.ContactDetails
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.executeBlockAndCollectFromFlow
@@ -16,8 +15,7 @@ import java.util.Optional
 class AddGroupViewModelUpdaterTest {
 
     private val contactDetailsViewModelMapper: ContactDetailsViewModelMapper = mock()
-    private val savedStateHandle = SavedStateHandle()
-    private val viewModel = AddGroupViewModel(savedStateHandle)
+    private val viewModel = AddGroupViewModel()
 
     private val underTest = AddGroupViewModelUpdater(contactDetailsViewModelMapper)
 

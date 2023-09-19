@@ -11,7 +11,6 @@ import com.doctoror.splittor.presentation.groupdetails.GroupDetailsViewModel
 import com.doctoror.splittor.presentation.groupdetails.GroupDetailsViewModelUpdater
 import com.doctoror.splittor.presentation.groupdetails.GroupMemberItemViewModelMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 @HiltViewModel

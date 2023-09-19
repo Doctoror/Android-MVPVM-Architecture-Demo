@@ -20,6 +20,8 @@ android {
 
         versionCode = 1
         versionName = "1.0"
+
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildFeatures {
@@ -60,4 +62,7 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
+
+    androidTestImplementation(libs.test.core)
+    androidTestImplementation(libs.test.runner)
 }

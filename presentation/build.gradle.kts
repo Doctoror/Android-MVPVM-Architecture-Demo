@@ -23,8 +23,8 @@ android {
 dependencies {
     implementation(project(":domain"))
 
+    implementation(libs.androidx.annotation)
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.lifecycle.viewmodel.savedstate)
 
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.reflect)

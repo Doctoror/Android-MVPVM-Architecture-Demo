@@ -16,16 +16,15 @@ class AddGroupViewModelUpdater(
         }
         sortedContacts!!.add(contactDetailsViewModelMapper.map(contact))
 
-        val contactsList = sortedContacts!!.toList()
-        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_CONTACTS] = contactsList
+        viewModel.contacts.value = ArrayList(sortedContacts!!)
     }
 
     fun updateAmount(viewModel: AddGroupViewModel, amount: String) {
-        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_AMOUNT] = amount
+        viewModel.amount.value = amount
     }
 
     fun updateTitle(viewModel: AddGroupViewModel, title: String) {
-        viewModel.savedStateHandle[ADD_GROUP_VIEW_MODEL_KEY_TITLE] = title
+        viewModel.title.value = title
     }
 
     suspend fun setErrorMessageId(viewModel: AddGroupViewModel, @StringRes message: Optional<Int>) {

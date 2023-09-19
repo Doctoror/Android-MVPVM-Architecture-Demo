@@ -1,6 +1,5 @@
 package com.doctoror.splittor.addgroup
 
-import androidx.lifecycle.SavedStateHandle
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class AddGroupPresenterWrapper @Inject constructor(
     getContactDetailsUseCase: GetContactDetailsUseCase,
     groupsRepository: GroupsRepository,
-    savedStateHandle: SavedStateHandle,
     stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
 ) : PresenterWrapper<AddGroupPresenter>(
     AddGroupPresenter(
@@ -28,7 +26,7 @@ class AddGroupPresenterWrapper @Inject constructor(
         validateAddGroupInputFieldsUseCase = ValidateAddGroupInputFieldsUseCase(
             stripCurrencyAndGroupingSeparatorsUseCase
         ),
-        viewModel = AddGroupViewModel(savedStateHandle),
+        viewModel = AddGroupViewModel(),
         viewModelUpdater = AddGroupViewModelUpdater(
             ContactDetailsViewModelMapper()
         )

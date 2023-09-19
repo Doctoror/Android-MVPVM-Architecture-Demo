@@ -36,6 +36,8 @@ class AddGroupFragment : Fragment() {
         uri?.let { presenter.handleContactPick(it.toString()) }
     }
 
+    private val instanceStateHandler = AddGroupInstanceStateHandler()
+
     @Inject
     lateinit var locale: Locale
 
@@ -50,6 +52,9 @@ class AddGroupFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        savedInstanceState?.run {
+            instanceStateHandler.onRestoreInstanceState(viewModel, this)
+        }
 
         lifecycleScope.launch {
             viewModel
@@ -77,6 +82,11 @@ class AddGroupFragment : Fragment() {
         }
 
         presenter.dispatchOnCreateIfNotCreated()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        instanceStateHandler.onSaveInstanceState(viewModel, outState)
     }
 
     @OptIn(ExperimentalMaterial3Api::class)

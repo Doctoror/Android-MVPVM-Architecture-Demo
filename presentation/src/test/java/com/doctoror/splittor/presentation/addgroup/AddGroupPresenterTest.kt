@@ -54,7 +54,7 @@ class AddGroupPresenterTest {
         underTest.viewModelScopeProvider = { scope }
 
         whenever(viewModel.amount).thenReturn(MutableStateFlow(""))
-        whenever(viewModel.contacts).thenReturn(MutableStateFlow(emptyList()))
+        whenever(viewModel.contacts).thenReturn(MutableStateFlow(arrayListOf()))
         whenever(viewModel.title).thenReturn(MutableStateFlow(""))
     }
 
@@ -134,7 +134,7 @@ class AddGroupPresenterTest {
     @Test
     fun insertsGroupWhenFieldsAreValid() {
         val amount = "amount"
-        val contacts = emptyList<ContactDetailsViewModel>()
+        val contacts = arrayListOf<ContactDetailsViewModel>()
         val title = "title"
         whenever(viewModel.amount).thenReturn(MutableStateFlow(amount))
         whenever(viewModel.contacts).thenReturn(MutableStateFlow(contacts))

@@ -32,11 +32,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_AMOUNT
-import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_CONTACTS
-import com.doctoror.splittor.presentation.addgroup.ADD_GROUP_VIEW_MODEL_KEY_TITLE
 import com.doctoror.splittor.presentation.addgroup.AddGroupViewModel
 import com.doctoror.splittor.presentation.addgroup.ContactDetailsViewModel
 import com.doctoror.splittor.ui.R
@@ -256,23 +252,19 @@ fun AddGroupContentPreview() {
         onCreateClick = {},
         onNavigationClick = {},
         onTitleChange = {},
-        viewModel = AddGroupViewModel(
-            SavedStateHandle(
-                mapOf(
-                    ADD_GROUP_VIEW_MODEL_KEY_AMOUNT to "1,099.29",
-                    ADD_GROUP_VIEW_MODEL_KEY_CONTACTS to listOf(
-                        ContactDetailsViewModel(
-                            id = 1L,
-                            name = "Alice"
-                        ),
-                        ContactDetailsViewModel(
-                            id = 2L,
-                            name = "Bob"
-                        )
-                    ),
-                    ADD_GROUP_VIEW_MODEL_KEY_TITLE to "Dinner"
+        viewModel = AddGroupViewModel().apply {
+            amount.value = "1,099.29"
+            contacts.value = arrayListOf(
+                ContactDetailsViewModel(
+                    id = 1L,
+                    name = "Alice"
+                ),
+                ContactDetailsViewModel(
+                    id = 2L,
+                    name = "Bob"
                 )
             )
-        )
+            title.value = "Dinner"
+        }
     )
 }
