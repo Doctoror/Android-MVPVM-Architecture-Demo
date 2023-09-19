@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -43,14 +44,13 @@ fun GroupsOverviewContent(
         )
     }
 
-    fun shouldShowFab() = viewModel.viewType.value != GroupsOverviewViewModel.ViewType.LOADING
-
     val viewType = viewModel.viewType.collectAsStateWithLifecycle()
+    val shouldShowFab = viewType.value != GroupsOverviewViewModel.ViewType.LOADING
 
     AppTheme {
         Scaffold(
             floatingActionButton = {
-                if (shouldShowFab()) {
+                if (shouldShowFab) {
                     FloatingActionButton(onClick = onAddClick) {
                         Image(
                             imageVector = Icons.Filled.Add,
