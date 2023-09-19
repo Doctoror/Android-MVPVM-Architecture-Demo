@@ -24,7 +24,7 @@ lifecycle = "2.6.2"
 
 mockito = "5.1.0"
 
-navigation = "2.7.1"
+navigation = "2.7.2"
 
 room = "2.5.2"
 
