@@ -8,7 +8,7 @@ androidTestCore = "1.5.0"
 androidTestRunner = "1.5.2"
 annotation = "1.7.0"
 
-composeBom = "2023.08.00"
+composeBom = "2023.09.00"
 composeCompiler = "1.5.1"
 constraintlayout = "2.1.4"
 coroutines = "1.7.1"
