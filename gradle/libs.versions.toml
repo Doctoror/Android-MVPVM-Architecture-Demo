@@ -20,7 +20,7 @@ junit = "4.13.2"
 kotlin = "1.9.10"
 ksp = "1.9.0-1.0.13"
 
-lifecycle = "2.6.1"
+lifecycle = "2.6.2"
 
 mockito = "5.1.0"
 
