@@ -108,11 +108,6 @@ private fun GroupInfoSection(
     onTitleChange: (String) -> Unit,
     viewModel: AddGroupViewModel,
 ) {
-    val focusManager = LocalFocusManager.current
-
-    val amount = viewModel.amount.collectAsStateWithLifecycle()
-    val title = viewModel.title.collectAsStateWithLifecycle()
-
     Text(
         modifier = Modifier
             .fillMaxWidth()
@@ -125,6 +120,41 @@ private fun GroupInfoSection(
         style = AppTheme.typography.labelLarge,
         text = stringResource(R.string.group_info).uppercase()
     )
+
+    TitleTextField(
+        onTitleChange = onTitleChange,
+        viewModel = viewModel
+    )
+
+    AmountTextField(
+        currencySymbol = currencySymbol,
+        onAmountChange = onAmountChange,
+        locale = locale,
+        viewModel = viewModel
+    )
+
+    Text(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                start = 16.dp,
+                top = 24.dp,
+                end = 16.dp
+            ),
+        color = AppTheme.colorScheme.primary,
+        style = AppTheme.typography.labelLarge,
+        text = stringResource(R.string.contacts).uppercase()
+    )
+}
+
+@ExperimentalMaterial3Api
+@Composable
+private fun TitleTextField(
+    onTitleChange: (String) -> Unit,
+    viewModel: AddGroupViewModel,
+) {
+    val focusManager = LocalFocusManager.current
+    val title = viewModel.title.collectAsStateWithLifecycle()
 
     OutlinedTextField(
         modifier = Modifier
@@ -146,6 +176,17 @@ private fun GroupInfoSection(
         value = title.value,
         onValueChange = onTitleChange
     )
+}
+
+@ExperimentalMaterial3Api
+@Composable
+private fun AmountTextField(
+    currencySymbol: String,
+    locale: Locale,
+    onAmountChange: (String) -> Unit,
+    viewModel: AddGroupViewModel,
+) {
+    val amount = viewModel.amount.collectAsStateWithLifecycle()
 
     CurrencyTextField(
         modifier = Modifier
@@ -156,19 +197,6 @@ private fun GroupInfoSection(
         label = { Text(text = stringResource(R.string.amount)) },
         locale = locale,
         onChange = onAmountChange
-    )
-
-    Text(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(
-                start = 16.dp,
-                top = 24.dp,
-                end = 16.dp
-            ),
-        color = AppTheme.colorScheme.primary,
-        style = AppTheme.typography.labelLarge,
-        text = stringResource(R.string.contacts).uppercase()
     )
 }
 
