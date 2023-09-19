@@ -5,7 +5,7 @@ import com.doctoror.splittor.domain.groups.InsertGroupUseCase
 import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.R
-import com.doctoror.splittor.presentation.base.BasePresenter
+import com.doctoror.splittor.presentation.base.LifecyclePresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,7 +20,7 @@ class AddGroupPresenter(
     val viewModel: AddGroupViewModel,
     private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: AddGroupViewModelUpdater
-) : BasePresenter() {
+) : LifecyclePresenter() {
 
     private val groupInsertedEventsFlow = MutableStateFlow<Optional<Long>>(Optional.empty())
     val groupInsertedEvents: Flow<Optional<Long>> = groupInsertedEventsFlow

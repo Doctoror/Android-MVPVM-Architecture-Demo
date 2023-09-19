@@ -3,7 +3,7 @@ package com.doctoror.splittor.presentation.base
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
-class BasePresenterTest {
+class LifecyclePresenterTest {
 
     @Test
     fun dispatchesOnCreateOnce() {
@@ -15,7 +15,7 @@ class BasePresenterTest {
         assertEquals(1, underTest.onCreateCount)
     }
 
-    private class TestPresenter : BasePresenter() {
+    private class TestPresenter : LifecyclePresenter() {
 
         var onCreateCount = 0
 

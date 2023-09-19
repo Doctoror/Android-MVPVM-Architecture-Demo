@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.groupsoverview
 
 import com.doctoror.splittor.domain.groups.DeleteGroupUseCase
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
-import com.doctoror.splittor.presentation.base.BasePresenter
+import com.doctoror.splittor.presentation.base.LifecyclePresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -12,7 +12,7 @@ class GroupsOverviewPresenter(
     val viewModel: GroupsOverviewViewModel,
     private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: GroupsOverviewViewModelUpdater
-) : BasePresenter() {
+) : LifecyclePresenter() {
 
     override fun onCreate() {
         viewModelScope.launch {

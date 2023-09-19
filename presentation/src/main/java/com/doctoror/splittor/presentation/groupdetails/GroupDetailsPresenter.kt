@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.groupdetails
 
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
-import com.doctoror.splittor.presentation.base.BasePresenter
+import com.doctoror.splittor.presentation.base.LifecyclePresenter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -13,7 +13,7 @@ class GroupDetailsPresenter(
     val viewModel: GroupDetailsViewModel,
     private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: GroupDetailsViewModelUpdater
-) : BasePresenter() {
+) : LifecyclePresenter() {
 
     override fun onCreate() {
         viewModelScope.launch {

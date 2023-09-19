@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.base
 
 import androidx.annotation.MainThread
 
-abstract class BasePresenter {
+abstract class LifecyclePresenter {
 
     private var created = false
 
