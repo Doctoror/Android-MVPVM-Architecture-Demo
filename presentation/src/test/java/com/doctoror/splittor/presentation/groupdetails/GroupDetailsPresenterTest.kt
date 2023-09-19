@@ -5,16 +5,17 @@ import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GroupDetailsPresenterTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -25,6 +26,7 @@ class GroupDetailsPresenterTest {
     private val observeGroupUseCase: ObserveGroupUseCase = mock()
     private val updateMemberPaidStatusUseCase: UpdateMemberPaidStatusUseCase = mock()
     private val viewModel: GroupDetailsViewModel = mock()
+    private val viewModelScope = TestScope()
     private val viewModelUpdater: GroupDetailsViewModelUpdater = mock()
 
     private val underTest = GroupDetailsPresenter(
@@ -32,32 +34,29 @@ class GroupDetailsPresenterTest {
         observeGroupUseCase,
         updateMemberPaidStatusUseCase,
         viewModel,
+        viewModelScope,
         viewModelUpdater
     )
 
-    @Before
-    fun setup() {
-        val scope = MainScope()
-        underTest.viewModelScopeProvider = { scope }
-    }
-
     @Test
-    fun observesGroupAndUpdatesViewModelOnCreate() = runTest {
+    fun observesGroupAndUpdatesViewModelOnCreate() = viewModelScope.runTest {
         val group: Group = mock()
         whenever(observeGroupUseCase(groupId)).thenReturn(flowOf(group))
 
         underTest.dispatchOnCreateIfNotCreated()
 
+        advanceUntilIdle()
         verify(viewModelUpdater).update(viewModel, group)
     }
 
     @Test
-    fun updatesMemberPaidStatus() = runTest {
+    fun updatesMemberPaidStatus() = viewModelScope.runTest {
         val memberId = 84L
         val paid = true
 
         underTest.updateMemberPaidStatus(memberId, paid)
 
+        advanceUntilIdle()
         verify(updateMemberPaidStatusUseCase)(memberId, paid)
     }
 }

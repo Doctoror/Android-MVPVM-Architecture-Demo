@@ -1,6 +1,7 @@
 package com.doctoror.splittor.groupdetails
 
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import com.doctoror.splittor.domain.groups.ObserveGroupUseCase
 import com.doctoror.splittor.domain.groups.UpdateMemberPaidStatusUseCase
@@ -15,18 +16,20 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupDetailsPresenterWrapper @Inject constructor(
-    formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
-    groupsRepository: GroupsRepository,
-    savedStateHandle: SavedStateHandle
-) : PresenterWrapper<GroupDetailsPresenter>(
-    GroupDetailsPresenter(
+    private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
+    private val groupsRepository: GroupsRepository,
+    private val savedStateHandle: SavedStateHandle
+) : PresenterWrapper<GroupDetailsPresenter>() {
+
+    override fun makeWrapped() = GroupDetailsPresenter(
         groupId = savedStateHandle["groupId"]!!,
         observeGroupUseCase = ObserveGroupUseCase(groupsRepository),
         updateMemberPaidStatusUseCase = UpdateMemberPaidStatusUseCase(groupsRepository),
         viewModel = GroupDetailsViewModel(),
+        viewModelScope = viewModelScope,
         viewModelUpdater = GroupDetailsViewModelUpdater(
             formatAmountWithCurrencyUseCase = formatAmountWithCurrencyUseCase,
             groupMemberItemViewModelMapper = GroupMemberItemViewModelMapper()
         )
     )
-)
+}

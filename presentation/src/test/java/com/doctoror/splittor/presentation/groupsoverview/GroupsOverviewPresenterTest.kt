@@ -5,16 +5,17 @@ import com.doctoror.splittor.domain.groups.Group
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class GroupsOverviewPresenterTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -24,37 +25,35 @@ class GroupsOverviewPresenterTest {
     private val deleteGroupUseCase: DeleteGroupUseCase = mock()
     private val observeGroupsUseCase: ObserveGroupsUseCase = mock()
     private val viewModel: GroupsOverviewViewModel = mock()
+    private val viewModelScope = TestScope()
     private val viewModelUpdater: GroupsOverviewViewModelUpdater = mock()
 
     private val underTest = GroupsOverviewPresenter(
         deleteGroupUseCase,
         observeGroupsUseCase,
         viewModel,
+        viewModelScope,
         viewModelUpdater
     )
 
-    @Before
-    fun setup() {
-        val scope = MainScope()
-        underTest.viewModelScopeProvider = { scope }
-    }
-
     @Test
-    fun updatesViewModelWithGroups() = runTest {
+    fun updatesViewModelWithGroups() = viewModelScope.runTest {
         val groups = listOf<Group>(mock())
         whenever(observeGroupsUseCase()).thenReturn(flowOf(groups))
 
         underTest.dispatchOnCreateIfNotCreated()
 
+        advanceUntilIdle()
         verify(viewModelUpdater).updateOnGroupsListLoaded(viewModel, groups)
     }
 
     @Test
-    fun deletesGroupOnLongClick() = runTest {
+    fun deletesGroupOnLongClick() = viewModelScope.runTest {
         val id = 1L
 
         underTest.onGroupLongClick(id)
 
+        advanceUntilIdle()
         verify(deleteGroupUseCase).invoke(id)
     }
 }

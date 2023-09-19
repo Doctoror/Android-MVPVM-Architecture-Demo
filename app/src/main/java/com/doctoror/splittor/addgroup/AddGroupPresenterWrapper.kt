@@ -1,5 +1,6 @@
 package com.doctoror.splittor.addgroup
 
+import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.contacts.GetContactDetailsUseCase
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import com.doctoror.splittor.domain.groups.InsertGroupUseCase
@@ -15,11 +16,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddGroupPresenterWrapper @Inject constructor(
-    getContactDetailsUseCase: GetContactDetailsUseCase,
-    groupsRepository: GroupsRepository,
-    stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
-) : PresenterWrapper<AddGroupPresenter>(
-    AddGroupPresenter(
+    private val getContactDetailsUseCase: GetContactDetailsUseCase,
+    private val groupsRepository: GroupsRepository,
+    private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
+) : PresenterWrapper<AddGroupPresenter>() {
+
+    override fun makeWrapped() =     AddGroupPresenter(
         getContactDetailsUseCase = getContactDetailsUseCase,
         insertGroupUseCase = InsertGroupUseCase(groupsRepository),
         stripCurrencyAndGroupingSeparatorsUseCase = stripCurrencyAndGroupingSeparatorsUseCase,
@@ -27,8 +29,9 @@ class AddGroupPresenterWrapper @Inject constructor(
             stripCurrencyAndGroupingSeparatorsUseCase
         ),
         viewModel = AddGroupViewModel(),
+        viewModelScope = viewModelScope,
         viewModelUpdater = AddGroupViewModelUpdater(
             ContactDetailsViewModelMapper()
         )
     )
-)
+}

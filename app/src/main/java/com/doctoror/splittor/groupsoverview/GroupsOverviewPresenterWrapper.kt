@@ -1,6 +1,7 @@
 package com.doctoror.splittor.groupsoverview
 
 import android.content.res.Resources
+import androidx.lifecycle.viewModelScope
 import com.doctoror.splittor.domain.groups.DeleteGroupUseCase
 import com.doctoror.splittor.domain.groups.GroupsRepository
 import com.doctoror.splittor.domain.groups.ObserveGroupsUseCase
@@ -15,14 +16,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroupsOverviewPresenterWrapper @Inject constructor(
-    formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
-    groupsRepository: GroupsRepository,
-    resources: Resources
-) : PresenterWrapper<GroupsOverviewPresenter>(
-    GroupsOverviewPresenter(
+    private val formatAmountWithCurrencyUseCase: FormatAmountWithCurrencyUseCase,
+    private val groupsRepository: GroupsRepository,
+    private val resources: Resources
+) : PresenterWrapper<GroupsOverviewPresenter>() {
+
+    override fun makeWrapped() = GroupsOverviewPresenter(
         deleteGroupUseCase = DeleteGroupUseCase(groupsRepository),
         observeGroupsUseCase = ObserveGroupsUseCase(groupsRepository),
         viewModel = GroupsOverviewViewModel(),
+        viewModelScope = viewModelScope,
         viewModelUpdater = GroupsOverviewViewModelUpdater(
             groupItemViewModelMapper = GroupItemViewModelMapper(
                 formatAmountWithCurrencyUseCase = formatAmountWithCurrencyUseCase,
@@ -30,4 +33,4 @@ class GroupsOverviewPresenterWrapper @Inject constructor(
             )
         )
     )
-)
+}

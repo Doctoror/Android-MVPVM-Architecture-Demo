@@ -9,11 +9,12 @@ import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparat
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.MainDispatcherRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -26,6 +27,7 @@ import org.mockito.kotlin.verifyNoInteractions
 import org.mockito.kotlin.whenever
 import java.util.Optional
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class AddGroupPresenterTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -38,6 +40,7 @@ class AddGroupPresenterTest {
         mock()
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase = mock()
     private val viewModel: AddGroupViewModel = mock()
+    private val viewModelScope = TestScope()
     private val viewModelUpdater: AddGroupViewModelUpdater = mock()
 
     private val underTest = AddGroupPresenter(
@@ -46,76 +49,80 @@ class AddGroupPresenterTest {
         stripCurrencyAndGroupingSeparatorsUseCase,
         validateAddGroupInputFieldsUseCase,
         viewModel,
+        viewModelScope,
         viewModelUpdater
     )
 
     @Before
     fun setup() {
-        val scope = MainScope()
-        underTest.viewModelScopeProvider = { scope }
-
         whenever(viewModel.amount).thenReturn(MutableStateFlow(""))
         whenever(viewModel.contacts).thenReturn(MutableStateFlow(arrayListOf()))
         whenever(viewModel.title).thenReturn(MutableStateFlow(""))
     }
 
     @Test
-    fun handlesAmountChange() {
+    fun handlesAmountChange() = viewModelScope.runTest {
         val amount = "amount"
 
         underTest.handleAmountChange(amount)
 
+        advanceUntilIdle()
         verify(viewModelUpdater).updateAmount(viewModel, amount)
     }
 
     @Test
-    fun handlesTitleChange() {
+    fun handlesTitleChange() = viewModelScope.runTest {
         val title = "title"
 
         underTest.handleTitleChange(title)
 
+        advanceUntilIdle()
         verify(viewModelUpdater).updateTitle(viewModel, title)
     }
 
     @Test
-    fun handlesContactPick() = runTest {
+    fun handlesContactPick() = viewModelScope.runTest {
         val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/84"
         val contactDetails: ContactDetails = mock()
         whenever(getContactDetailsUseCase(uri)).thenReturn(Optional.of(contactDetails))
 
         underTest.handleContactPick(uri)
 
+        advanceUntilIdle()
         verify(viewModelUpdater).addContact(viewModel, contactDetails)
     }
 
     @Test
-    fun handleContactPickDoesNothingIfFetchedContactDetailsAreMissing() = runTest {
+    fun handleContactPickDoesNothingIfFetchedContactDetailsAreMissing() = viewModelScope.runTest {
         val uri = "content://com.android.contacts/contacts/lookup/0r2-2C462C/143"
         whenever(getContactDetailsUseCase(uri))
             .thenReturn(Optional.empty<ContactDetails>())
 
         underTest.handleContactPick(uri)
 
+        advanceUntilIdle()
         verifyNoInteractions(viewModelUpdater)
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenAmountMissing() = runTest {
+    fun createGroupSetsErrorMessageWhenAmountMissing() = viewModelScope.runTest {
         whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
             .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.AMOUNT_MISSING)
 
         underTest.createGroup()
 
+        advanceUntilIdle()
         verify(viewModelUpdater).setErrorMessageId(viewModel, Optional.of(R.string.amount_not_set))
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenContactsAreMissing() = runTest {
+    fun createGroupSetsErrorMessageWhenContactsAreMissing() = viewModelScope.runTest {
         whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
             .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.CONTACTS_MISSING)
 
         underTest.createGroup()
 
+        advanceUntilIdle()
         verify(viewModelUpdater).setErrorMessageId(
             viewModel,
             Optional.of(R.string.no_contacts_added)
@@ -123,17 +130,18 @@ class AddGroupPresenterTest {
     }
 
     @Test
-    fun createGroupSetsErrorMessageWhenTitleIsMissing() = runTest {
+    fun createGroupSetsErrorMessageWhenTitleIsMissing() = viewModelScope.runTest {
         whenever(validateAddGroupInputFieldsUseCase(anyOrNull(), anyOrNull(), anyOrNull()))
             .thenReturn(ValidateAddGroupInputFieldsUseCase.ValidationResult.TITLE_MISSING)
 
         underTest.createGroup()
 
+        advanceUntilIdle()
         verify(viewModelUpdater).setErrorMessageId(viewModel, Optional.of(R.string.title_not_set))
     }
 
     @Test
-    fun insertsGroupWhenFieldsAreValid() = runTest {
+    fun insertsGroupWhenFieldsAreValid() = viewModelScope.runTest {
         val amount = "amount"
         val contacts = arrayListOf<ContactDetailsViewModel>()
         val title = "title"
@@ -160,5 +168,6 @@ class AddGroupPresenterTest {
         }
 
         underTest.createGroup()
+        advanceUntilIdle()
     }
 }

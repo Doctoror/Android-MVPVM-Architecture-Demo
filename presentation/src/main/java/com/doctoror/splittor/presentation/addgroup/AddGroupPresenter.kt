@@ -6,6 +6,7 @@ import com.doctoror.splittor.domain.groups.ValidateAddGroupInputFieldsUseCase
 import com.doctoror.splittor.domain.numberformat.StripCurrencyAndGroupingSeparatorsUseCase
 import com.doctoror.splittor.presentation.R
 import com.doctoror.splittor.presentation.base.BasePresenter
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
@@ -17,6 +18,7 @@ class AddGroupPresenter(
     private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase,
     viewModel: AddGroupViewModel,
+    private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: AddGroupViewModelUpdater
 ) : BasePresenter<AddGroupViewModel>(viewModel) {
 
