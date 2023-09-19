@@ -17,10 +17,10 @@ class AddGroupPresenter(
     private val insertGroupUseCase: InsertGroupUseCase,
     private val stripCurrencyAndGroupingSeparatorsUseCase: StripCurrencyAndGroupingSeparatorsUseCase,
     private val validateAddGroupInputFieldsUseCase: ValidateAddGroupInputFieldsUseCase,
-    viewModel: AddGroupViewModel,
+    val viewModel: AddGroupViewModel,
     private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: AddGroupViewModelUpdater
-) : BasePresenter<AddGroupViewModel>(viewModel) {
+) : BasePresenter() {
 
     private val groupInsertedEventsFlow = MutableStateFlow<Optional<Long>>(Optional.empty())
     val groupInsertedEvents: Flow<Optional<Long>> = groupInsertedEventsFlow

@@ -6,7 +6,7 @@ import com.doctoror.splittor.presentation.base.BasePresenter
 /**
  * Wraps Presenter into an [androidx.lifecycle.ViewModel] for DI
  */
-abstract class PresenterWrapper<T : BasePresenter<*>> : ViewModel() {
+abstract class PresenterWrapper<T : BasePresenter> : ViewModel() {
 
     val unwrapped by lazy { makeWrapped() }
 

@@ -10,10 +10,10 @@ class GroupDetailsPresenter(
     private val groupId: Long,
     private val observeGroupUseCase: ObserveGroupUseCase,
     private val updateMemberPaidStatusUseCase: UpdateMemberPaidStatusUseCase,
-    viewModel: GroupDetailsViewModel,
+    val viewModel: GroupDetailsViewModel,
     private val viewModelScope: CoroutineScope,
     private val viewModelUpdater: GroupDetailsViewModelUpdater
-) : BasePresenter<GroupDetailsViewModel>(viewModel) {
+) : BasePresenter() {
 
     override fun onCreate() {
         viewModelScope.launch {

@@ -15,7 +15,7 @@ class BasePresenterTest {
         assertEquals(1, underTest.onCreateCount)
     }
 
-    private class TestPresenter : BasePresenter<Any>(Any()) {
+    private class TestPresenter : BasePresenter() {
 
         var onCreateCount = 0
 

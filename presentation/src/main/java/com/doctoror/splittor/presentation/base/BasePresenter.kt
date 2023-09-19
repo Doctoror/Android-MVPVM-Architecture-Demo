@@ -2,7 +2,7 @@ package com.doctoror.splittor.presentation.base
 
 import androidx.annotation.MainThread
 
-abstract class BasePresenter<VM : Any>(val viewModel: VM) {
+abstract class BasePresenter {
 
     private var created = false
 
